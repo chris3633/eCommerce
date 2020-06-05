@@ -13,8 +13,6 @@ namespace Manager
         {
             try
             {//questo e un commento
-                //questo e un commento 1
-                //questo e un commento 2
                 ServiceHost myservice = new ServiceHost(typeof(ManagerService)); //quale server da far partire
                 myservice.Open();
                 Console.WriteLine("Manager avviato");
