@@ -13,6 +13,10 @@ namespace Manager
         {
             try
             {//questo e un commento
+<<<<<<< HEAD
+=======
+                //questo e un commento 1
+>>>>>>> parent of 705b525... Commento 2
                 ServiceHost myservice = new ServiceHost(typeof(ManagerService)); //quale server da far partire
                 myservice.Open();
                 Console.WriteLine("Manager avviato");
