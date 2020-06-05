@@ -15,7 +15,7 @@ namespace Server
             {
                 ServiceHost myservice = new ServiceHost(typeof(ServerService)); //quale server da far partire
                 myservice.Open();
-                Console.WriteLine("Server avviatoooooooo");
+                Console.WriteLine("Server avviato");
                 Console.ReadLine();
                 myservice.Close();
                 Console.WriteLine("Server disattivato");
