@@ -20,7 +20,10 @@ namespace Server
                 myservice.Close();
                 Console.WriteLine("Server disattivato");
             }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString()); 
+            }
         }
     }
 }

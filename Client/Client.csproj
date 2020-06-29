@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceReference1\Service1Client.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
