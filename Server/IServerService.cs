@@ -13,5 +13,8 @@ namespace Server
     {
         [OperationContract]
         void DoWork();
+
+        //[OperationContract]
+        //int Raddoppia(int n);
     }
 }

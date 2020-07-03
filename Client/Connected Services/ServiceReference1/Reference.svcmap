@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="10e82815-c208-4d1f-b1fe-42f2f0d4df7c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8ce310c7-7049-475e-9d50-c9a23d4d6dff" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,9 +22,9 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="a17bbc6d-5be9-467d-9237-2cf801f5aeab" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="08e901ec-1eb1-4c34-a4b3-e3116c079a40" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?disco" />
-    <MetadataFile FileName="ManagerService.wsdl" MetadataType="Wsdl" ID="fef3e41d-0e96-4e88-bf78-d7bdc9bfa69c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="ccbce685-5517-49fd-8b87-a89b5b4aa19b" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd0" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="93f69aaf-609f-4e5b-9d8d-04c142de0fd4" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?disco" />
+    <MetadataFile FileName="ManagerService.wsdl" MetadataType="Wsdl" ID="be4c5d08-0742-4dac-8bd0-e5cc6e6aff4c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

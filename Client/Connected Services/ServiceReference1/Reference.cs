@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client.Manager {
+namespace Client.ServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Manager.IManagerService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IManagerService")]
     public interface IManagerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/DoWork", ReplyAction="http://tempuri.org/IManagerService/DoWorkResponse")]
@@ -23,12 +23,12 @@ namespace Client.Manager {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IManagerServiceChannel : Client.Manager.IManagerService, System.ServiceModel.IClientChannel {
+    public interface IManagerServiceChannel : Client.ServiceReference1.IManagerService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ManagerServiceClient : System.ServiceModel.ClientBase<Client.Manager.IManagerService>, Client.Manager.IManagerService {
+    public partial class ManagerServiceClient : System.ServiceModel.ClientBase<Client.ServiceReference1.IManagerService>, Client.ServiceReference1.IManagerService {
         
         public ManagerServiceClient() {
         }

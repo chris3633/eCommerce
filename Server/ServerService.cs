@@ -12,6 +12,12 @@ namespace Server
     {
         public void DoWork()
         {
+            Console.WriteLine("Metodo dowork chiamato");
         }
+
+        /*public int Raddoppia(int n)
+        {
+            return n * 2;
+        }*/
     }
 }

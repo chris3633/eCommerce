@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,6 +13,17 @@ namespace Manager
     {
         public void DoWork()
         {
+            var servizio = new Server.ServerServiceClient();
+            servizio.DoWork();
+            Console.WriteLine("Metodo dowork del manager chiamato");
+
         }
+
+        /*public int Raddoppia(int n) riceve intero dal client
+        {
+            var servizio = new Server.ServerServiceClient(); crea servizio
+            
+            return servizio.Raddoppia(n); servizio passa al server valore, server lo raddoppia, il valore viene ritornato al manager che lo ritorna al client
+        }*/
     }
 }

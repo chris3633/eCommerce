@@ -19,10 +19,12 @@ namespace Server
                 Console.ReadLine();
                 myservice.Close();
                 Console.WriteLine("Server disattivato");
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString()); 
+                Console.WriteLine(ex.ToString());
+                Console.ReadLine();
             }
         }
     }

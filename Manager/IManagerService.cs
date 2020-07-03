@@ -13,5 +13,9 @@ namespace Manager
     {
         [OperationContract]
         void DoWork();
+
+        //[OperationContract]
+
+        //int Raddoppia(int n);
     }
 }
