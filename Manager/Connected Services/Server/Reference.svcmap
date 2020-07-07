@@ -22,9 +22,11 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Server/ServerService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="8b04d050-a906-4006-b07e-da345acbf042" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd1" />
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="1c7b3b30-2784-407e-bdcc-36195216a365" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd0" />
     <MetadataFile FileName="ServerService.wsdl" MetadataType="Wsdl" ID="32807b28-9c13-4449-8baa-d883fbb3bd54" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?wsdl" />
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="9fa53791-0c72-479a-abcd-386e74bfd847" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?disco" />
+    <MetadataFile FileName="item11.xsd" MetadataType="Schema" ID="568d77e1-5970-4373-a9ed-03026ad34e76" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

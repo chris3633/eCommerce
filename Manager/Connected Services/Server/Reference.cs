@@ -9,7 +9,150 @@
 //------------------------------------------------------------------------------
 
 namespace Manager.Server {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UtenteServer", Namespace="http://schemas.datacontract.org/2004/07/Server")]
+    [System.SerializableAttribute()]
+    public partial class UtenteServer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cittaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codice_fiscaleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cognomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string emailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indirizzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string passwordField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string citta {
+            get {
+                return this.cittaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cittaField, value) != true)) {
+                    this.cittaField = value;
+                    this.RaisePropertyChanged("citta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codice_fiscale {
+            get {
+                return this.codice_fiscaleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codice_fiscaleField, value) != true)) {
+                    this.codice_fiscaleField = value;
+                    this.RaisePropertyChanged("codice_fiscale");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cognome {
+            get {
+                return this.cognomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cognomeField, value) != true)) {
+                    this.cognomeField = value;
+                    this.RaisePropertyChanged("cognome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.emailField, value) != true)) {
+                    this.emailField = value;
+                    this.RaisePropertyChanged("email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string indirizzo {
+            get {
+                return this.indirizzoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.indirizzoField, value) != true)) {
+                    this.indirizzoField = value;
+                    this.RaisePropertyChanged("indirizzo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nome {
+            get {
+                return this.nomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
+                    this.nomeField = value;
+                    this.RaisePropertyChanged("nome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
+                    this.passwordField = value;
+                    this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IServerService")]
@@ -20,6 +163,12 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/DoWork", ReplyAction="http://tempuri.org/IServerService/DoWorkResponse")]
         System.Threading.Tasks.Task DoWorkAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Registra", ReplyAction="http://tempuri.org/IServerService/RegistraResponse")]
+        bool Registra(Manager.Server.UtenteServer u2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Registra", ReplyAction="http://tempuri.org/IServerService/RegistraResponse")]
+        System.Threading.Tasks.Task<bool> RegistraAsync(Manager.Server.UtenteServer u2);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +204,14 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task DoWorkAsync() {
             return base.Channel.DoWorkAsync();
+        }
+        
+        public bool Registra(Manager.Server.UtenteServer u2) {
+            return base.Channel.Registra(u2);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RegistraAsync(Manager.Server.UtenteServer u2) {
+            return base.Channel.RegistraAsync(u2);
         }
     }
 }

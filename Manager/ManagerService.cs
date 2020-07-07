@@ -25,5 +25,12 @@ namespace Manager
             
             return servizio.Raddoppia(n); servizio passa al server valore, server lo raddoppia, il valore viene ritornato al manager che lo ritorna al client
         }*/
+
+        public bool Registra(UtenteManager u1)
+        {
+            var servizio = new Server.ServerServiceClient();
+            UtenteServer u2 = new UtenteServer(u1.codice_fiscale,u1.nome,u1.cognome,u1.email,u1.password,u1.indirizzo,u1.citta);
+            return servizio.Registra(u2);
+        }
     }
 }

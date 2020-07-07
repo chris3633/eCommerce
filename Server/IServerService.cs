@@ -16,5 +16,19 @@ namespace Server
 
         //[OperationContract]
         //int Raddoppia(int n);
+
+        [OperationContract]
+        bool Registra(UtenteServer u2);
+    }
+    public class UtenteServer//utente-server
+    {
+        public string codice_fiscale { get; set; }
+        public string nome { get; set; }
+        public string cognome { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string indirizzo { get; set; }
+        public string citta { get; set; }
+
     }
 }

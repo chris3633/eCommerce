@@ -61,6 +61,12 @@
     <None Include="Connected Services\Server\item.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Server\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\Server\ServerService.wsdl" />
   </ItemGroup>
   <ItemGroup>

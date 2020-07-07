@@ -3,6 +3,8 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServerService_DoWork_InputMessage">
@@ -11,16 +13,35 @@
   <wsdl:message name="IServerService_DoWork_OutputMessage">
     <wsdl:part name="parameters" element="tns:DoWorkResponse" />
   </wsdl:message>
+  <wsdl:message name="IServerService_Registra_InputMessage">
+    <wsdl:part name="parameters" element="tns:Registra" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Registra_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/DoWork" message="tns:IServerService_DoWork_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServerService/DoWorkResponse" message="tns:IServerService_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Registra">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Registra" message="tns:IServerService_Registra_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/RegistraResponse" message="tns:IServerService_Registra_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServerService" type="tns:IServerService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DoWork">
       <soap:operation soapAction="http://tempuri.org/IServerService/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Registra">
+      <soap:operation soapAction="http://tempuri.org/IServerService/Registra" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

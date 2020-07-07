@@ -17,5 +17,41 @@ namespace Manager
         //[OperationContract]
 
         //int Raddoppia(int n);
+
+        [OperationContract]
+        bool Registra(UtenteManager u1);
+    }
+    public class UtenteManager//utente-manager
+    {
+        public string codice_fiscale { get; set; }
+        public string nome { get; set; }
+        public string cognome { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string indirizzo { get; set; }
+        public string citta { get; set; }
+
+
+    }
+    public class UtenteServer 
+    {
+        public string codice_fiscale { get; set; }
+        public string nome { get; set; }
+        public string cognome { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string indirizzo { get; set; }
+        public string citta { get; set; }
+
+        public UtenteServer(string cf, string n, string c, string e, string p, string i, string ct)//costruttore
+        {
+            codice_fiscale = cf;
+            nome = n;
+            cognome = c;
+            email = e;
+            password = p;
+            indirizzo = i;
+            citta = ct;
+        }
     }
 }
