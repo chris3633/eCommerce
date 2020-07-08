@@ -26,7 +26,7 @@ namespace Manager.Server {
         private string cittaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string codice_fiscaleField;
+        private string codiceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string cognomeField;
@@ -42,6 +42,9 @@ namespace Manager.Server {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string passwordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int tipologiaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -67,14 +70,14 @@ namespace Manager.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string codice_fiscale {
+        public string codice {
             get {
-                return this.codice_fiscaleField;
+                return this.codiceField;
             }
             set {
-                if ((object.ReferenceEquals(this.codice_fiscaleField, value) != true)) {
-                    this.codice_fiscaleField = value;
-                    this.RaisePropertyChanged("codice_fiscale");
+                if ((object.ReferenceEquals(this.codiceField, value) != true)) {
+                    this.codiceField = value;
+                    this.RaisePropertyChanged("codice");
                 }
             }
         }
@@ -140,6 +143,19 @@ namespace Manager.Server {
                 if ((object.ReferenceEquals(this.passwordField, value) != true)) {
                     this.passwordField = value;
                     this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int tipologia {
+            get {
+                return this.tipologiaField;
+            }
+            set {
+                if ((this.tipologiaField.Equals(value) != true)) {
+                    this.tipologiaField = value;
+                    this.RaisePropertyChanged("tipologia");
                 }
             }
         }

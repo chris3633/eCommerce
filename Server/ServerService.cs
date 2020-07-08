@@ -30,17 +30,18 @@ namespace Server
             {
                 conn.Open();
 
-                string CF = u2.codice_fiscale;
+                string Codice = u2.codice;
                 string nome = u2.nome;
                 string cognome = u2.cognome;
                 string email = u2.email;
                 string password = u2.password;
                 string indirizzo = u2.indirizzo;
                 string citta = u2.citta;
+                int tipologia = u2.tipologia;
 
                 SqlCommand insert = new SqlCommand();
                 insert.CommandType = CommandType.Text;
-                insert.CommandText = "Insert into Utente (CodiceFiscale,Nome,Cognome,Email,Password,Credito,Indirizzo,Citta) VALUES ('" + CF + "','" + nome + "', '" + cognome + "', '" + email + "', '" + password + ", '" + indirizzo + "', '" + citta + "')";
+                insert.CommandText = "Insert into Utente (CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Venditore) VALUES ('" + Codice + "','" + nome + "', '" + cognome + "', '" + email + "', '" + password + "', '" + indirizzo + "', '" + citta + "', '" + tipologia + "')";
 
                 insert.Connection = conn;
                 insert.ExecuteNonQuery();
@@ -63,4 +64,5 @@ namespace Server
             return completato;
         }
     }
+    
 }

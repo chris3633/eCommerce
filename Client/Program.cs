@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.ServiceReference1;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,11 +30,11 @@ namespace Client
                 Console.WriteLine("----------------------------------------");
                 do
                 {
-                    Console.WriteLine("Scegli una attivita:");
+                    Console.WriteLine("Scegli una attività:");
                     Console.WriteLine("1-Ricerca un prodotto");
                     Console.WriteLine("2-Effettua il login alla tua area riservata");
                     Console.WriteLine("3-Registrati sulla piattaforma");
-                    Console.WriteLine("4-Esci");
+                    Console.WriteLine("4-Esci\n");
                     attivita = int.Parse(Console.ReadLine());
                     switch (attivita)
                     {
@@ -44,10 +45,14 @@ namespace Client
                         case 3:
                             bool esito=Registrazione();
                             if (esito) {
+                                Console.WriteLine("----------------------------------------");
                                 Console.WriteLine("Registrazione effettuata con successo!");
+                                Console.WriteLine("----------------------------------------");
                             }
-                            else { 
-                                Console.WriteLine("Errore: l'utente non è stato registrato"); 
+                            else {
+                                Console.WriteLine("----------------------------------------");
+                                Console.WriteLine("Impossibile completare la registrazione, si è verificato un problema!");
+                                Console.WriteLine("----------------------------------------");
                             }
                             break;
                         case 4:
@@ -77,7 +82,7 @@ namespace Client
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
                 bool completato = false;
                 bool errore = false;
-                string CF;
+                string Codice;
                 string nome;
                 string cognome;
                 string email;
@@ -85,14 +90,30 @@ namespace Client
                 string conf_password;
                 string indirizzo;
                 string citta;
+                int tipologia = 0;
                 do
                 {
                     if (errore == true) { Console.WriteLine("Si è verificato un errore, riprova!"); }
                     errore = false;
-                    Console.WriteLine("REGISTRAZIONE UTENTE");
-                    Console.WriteLine("Codice Fiscale:");
-                    CF = Console.ReadLine();
-                    if (CF.Length != 16) { errore = true; }
+                    
+                    Console.WriteLine("\n[REGISTRAZIONE UTENTE]");
+                    do
+                    {
+                        Console.WriteLine("Scegliere la tipologia: 0-Cliente, 1-Venditore\n");
+                        tipologia = int.Parse(Console.ReadLine());
+                    }while (tipologia != 0 && tipologia != 1);
+                    if (tipologia == 0) 
+                    {
+                        Console.WriteLine("Codice Fiscale:");//16 caratteri
+                        Codice = Console.ReadLine();
+                        if (Codice.Length != 16) { errore = true; }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Partita Iva:");//11 caratteri
+                        Codice = Console.ReadLine();
+                        if (Codice.Length != 11) { errore = true; }
+                    }
                     Console.WriteLine("Nome:");
                     nome = Console.ReadLine();
                     Console.WriteLine("Cognome:");
@@ -106,27 +127,28 @@ namespace Client
                     if (password != conf_password) { errore = true; }
                     Console.WriteLine("Indirizzo:");
                     indirizzo = Console.ReadLine();
-                    Console.WriteLine("Citta:");
+                    Console.WriteLine("Città:");
                     citta = Console.ReadLine();
                     
-                } while (errore);
+                } while (errore==true);
 
-                UtenteClient u = new UtenteClient(CF, nome, cognome, email, password, indirizzo, citta);
+                UtenteManager u1 = new UtenteManager();//creo utente lato manager
+                u1.codice = Codice;//assegno dati client a utente manager
+                u1.nome = nome;
+                u1.cognome = cognome;
+                u1.email = email;
+                u1.password = password;
+                //u1.credito = u.credito;
+                u1.indirizzo = indirizzo;
+                u1.citta = citta;
+                u1.tipologia = tipologia;
 
-                UtenteManager u1 = new UtenteManager();//persona lato server
-                u1.codice_fiscale = u.codice_fiscale;
-                u1.nome = u.nome;//assegno dati client a persona server
-                u1.cognome = u.cognome;
-                u1.email = u.email;
-                u1.password = u.password;
-                u1.credito = u.credito;
-                u1.indirizzo = u.indirizzo;
-                u1.citta = u.citta;
-                //completato=wcfclient.Registra(u)
+                completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
+
                 return completato;
             }
         }
-        public class UtenteClient
+        /*public class UtenteClient
         {
             public string codice_fiscale { get; set; }
             public string nome { get; set; }
@@ -147,7 +169,7 @@ namespace Client
                 indirizzo = i;
                 citta = ct;
             }
-        }
+        }*/
 }
     
 }

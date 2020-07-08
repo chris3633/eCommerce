@@ -3,12 +3,13 @@
   <xs:complexType name="UtenteServer">
     <xs:sequence>
       <xs:element minOccurs="0" name="citta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="codice_fiscale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codice" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="cognome" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indirizzo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipologia" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UtenteServer" nillable="true" type="tns:UtenteServer" />

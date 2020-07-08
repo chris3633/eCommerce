@@ -9,7 +9,166 @@
 //------------------------------------------------------------------------------
 
 namespace Client.ServiceReference1 {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UtenteManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
+    [System.SerializableAttribute()]
+    public partial class UtenteManager : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cittaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codiceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cognomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string emailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indirizzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string passwordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int tipologiaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string citta {
+            get {
+                return this.cittaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cittaField, value) != true)) {
+                    this.cittaField = value;
+                    this.RaisePropertyChanged("citta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codice {
+            get {
+                return this.codiceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codiceField, value) != true)) {
+                    this.codiceField = value;
+                    this.RaisePropertyChanged("codice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cognome {
+            get {
+                return this.cognomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cognomeField, value) != true)) {
+                    this.cognomeField = value;
+                    this.RaisePropertyChanged("cognome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.emailField, value) != true)) {
+                    this.emailField = value;
+                    this.RaisePropertyChanged("email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string indirizzo {
+            get {
+                return this.indirizzoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.indirizzoField, value) != true)) {
+                    this.indirizzoField = value;
+                    this.RaisePropertyChanged("indirizzo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nome {
+            get {
+                return this.nomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
+                    this.nomeField = value;
+                    this.RaisePropertyChanged("nome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
+                    this.passwordField = value;
+                    this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int tipologia {
+            get {
+                return this.tipologiaField;
+            }
+            set {
+                if ((this.tipologiaField.Equals(value) != true)) {
+                    this.tipologiaField = value;
+                    this.RaisePropertyChanged("tipologia");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IManagerService")]
@@ -20,6 +179,12 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/DoWork", ReplyAction="http://tempuri.org/IManagerService/DoWorkResponse")]
         System.Threading.Tasks.Task DoWorkAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Registra", ReplyAction="http://tempuri.org/IManagerService/RegistraResponse")]
+        bool Registra(Client.ServiceReference1.UtenteManager u1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Registra", ReplyAction="http://tempuri.org/IManagerService/RegistraResponse")]
+        System.Threading.Tasks.Task<bool> RegistraAsync(Client.ServiceReference1.UtenteManager u1);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +220,14 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task DoWorkAsync() {
             return base.Channel.DoWorkAsync();
+        }
+        
+        public bool Registra(Client.ServiceReference1.UtenteManager u1) {
+            return base.Channel.Registra(u1);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RegistraAsync(Client.ServiceReference1.UtenteManager u1) {
+            return base.Channel.RegistraAsync(u1);
         }
     }
 }

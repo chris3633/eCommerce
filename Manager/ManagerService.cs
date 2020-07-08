@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+
 namespace Manager
 {
     // NOTA: è possibile utilizzare il comando "Rinomina" del menu "Refactoring" per modificare il nome di classe "ManagerService" nel codice e nel file di configurazione contemporaneamente.
@@ -29,7 +30,15 @@ namespace Manager
         public bool Registra(UtenteManager u1)
         {
             var servizio = new Server.ServerServiceClient();
-            UtenteServer u2 = new UtenteServer(u1.codice_fiscale,u1.nome,u1.cognome,u1.email,u1.password,u1.indirizzo,u1.citta);
+            UtenteServer u2 = new UtenteServer();//creazione utente server da passare al server
+            u2.codice = u1.codice;//assegno i dati all'utente del server
+            u2.nome=u1.nome;
+            u2.cognome=u1.cognome;
+            u2.email=u1.email;
+            u2.password=u1.password;
+            u2.indirizzo=u1.indirizzo;
+            u2.citta=u1.citta;
+            u2.tipologia = u1.tipologia;
             return servizio.Registra(u2);
         }
     }

@@ -58,6 +58,12 @@
     <None Include="Connected Services\ServiceReference1\item.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ServiceReference1\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference1\item11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ServiceReference1\ManagerService.wsdl" />
   </ItemGroup>
   <ItemGroup>
