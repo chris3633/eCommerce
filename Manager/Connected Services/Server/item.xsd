@@ -25,4 +25,34 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Controlla_credenziali">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="e" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="p" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Controlla_credenzialiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Controlla_credenzialiResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Accedi">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="e" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="p" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AccediResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Server" minOccurs="0" name="AccediResult" nillable="true" type="q2:UtenteServer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

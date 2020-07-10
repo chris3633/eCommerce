@@ -19,6 +19,12 @@ namespace Server
 
         [OperationContract]
         bool Registra(UtenteServer u2);
+
+        [OperationContract]
+        bool Controlla_credenziali(string e,string p);
+
+        [OperationContract]
+        UtenteServer Accedi(string e, string p);
     }
 
     

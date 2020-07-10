@@ -19,6 +19,18 @@
   <wsdl:message name="IServerService_Registra_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistraResponse" />
   </wsdl:message>
+  <wsdl:message name="IServerService_Controlla_credenziali_InputMessage">
+    <wsdl:part name="parameters" element="tns:Controlla_credenziali" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Controlla_credenziali_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Controlla_credenzialiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Accedi_InputMessage">
+    <wsdl:part name="parameters" element="tns:Accedi" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Accedi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AccediResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/DoWork" message="tns:IServerService_DoWork_InputMessage" />
@@ -27,6 +39,14 @@
     <wsdl:operation name="Registra">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Registra" message="tns:IServerService_Registra_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServerService/RegistraResponse" message="tns:IServerService_Registra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Controlla_credenziali">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Controlla_credenziali" message="tns:IServerService_Controlla_credenziali_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/Controlla_credenzialiResponse" message="tns:IServerService_Controlla_credenziali_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Accedi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Accedi" message="tns:IServerService_Accedi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/AccediResponse" message="tns:IServerService_Accedi_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServerService" type="tns:IServerService">
@@ -42,6 +62,24 @@
     </wsdl:operation>
     <wsdl:operation name="Registra">
       <soap:operation soapAction="http://tempuri.org/IServerService/Registra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Controlla_credenziali">
+      <soap:operation soapAction="http://tempuri.org/IServerService/Controlla_credenziali" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Accedi">
+      <soap:operation soapAction="http://tempuri.org/IServerService/Accedi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

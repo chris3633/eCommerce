@@ -20,6 +20,12 @@ namespace Manager
 
         [OperationContract]
         bool Registra(UtenteManager u1);
+
+        [OperationContract]
+        bool Controlla_credenziali(string e, string p);
+
+        [OperationContract]
+        UtenteManager Accedi(string e, string p);
     }
     public class UtenteManager//utente-manager
     {

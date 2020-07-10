@@ -19,6 +19,18 @@
   <wsdl:message name="IManagerService_Registra_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistraResponse" />
   </wsdl:message>
+  <wsdl:message name="IManagerService_Controlla_credenziali_InputMessage">
+    <wsdl:part name="parameters" element="tns:Controlla_credenziali" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Controlla_credenziali_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Controlla_credenzialiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Accedi_InputMessage">
+    <wsdl:part name="parameters" element="tns:Accedi" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Accedi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AccediResponse" />
+  </wsdl:message>
   <wsdl:portType name="IManagerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/DoWork" message="tns:IManagerService_DoWork_InputMessage" />
@@ -27,6 +39,14 @@
     <wsdl:operation name="Registra">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Registra" message="tns:IManagerService_Registra_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/RegistraResponse" message="tns:IManagerService_Registra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Controlla_credenziali">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Controlla_credenziali" message="tns:IManagerService_Controlla_credenziali_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Controlla_credenzialiResponse" message="tns:IManagerService_Controlla_credenziali_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Accedi">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Accedi" message="tns:IManagerService_Accedi_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/AccediResponse" message="tns:IManagerService_Accedi_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IManagerService" type="tns:IManagerService">
@@ -42,6 +62,24 @@
     </wsdl:operation>
     <wsdl:operation name="Registra">
       <soap:operation soapAction="http://tempuri.org/IManagerService/Registra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Controlla_credenziali">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Controlla_credenziali" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Accedi">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Accedi" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

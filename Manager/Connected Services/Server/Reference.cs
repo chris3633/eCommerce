@@ -185,6 +185,18 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Registra", ReplyAction="http://tempuri.org/IServerService/RegistraResponse")]
         System.Threading.Tasks.Task<bool> RegistraAsync(Manager.Server.UtenteServer u2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Controlla_credenziali", ReplyAction="http://tempuri.org/IServerService/Controlla_credenzialiResponse")]
+        bool Controlla_credenziali(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Controlla_credenziali", ReplyAction="http://tempuri.org/IServerService/Controlla_credenzialiResponse")]
+        System.Threading.Tasks.Task<bool> Controlla_credenzialiAsync(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Accedi", ReplyAction="http://tempuri.org/IServerService/AccediResponse")]
+        Manager.Server.UtenteServer Accedi(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Accedi", ReplyAction="http://tempuri.org/IServerService/AccediResponse")]
+        System.Threading.Tasks.Task<Manager.Server.UtenteServer> AccediAsync(string e, string p);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -228,6 +240,22 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task<bool> RegistraAsync(Manager.Server.UtenteServer u2) {
             return base.Channel.RegistraAsync(u2);
+        }
+        
+        public bool Controlla_credenziali(string e, string p) {
+            return base.Channel.Controlla_credenziali(e, p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Controlla_credenzialiAsync(string e, string p) {
+            return base.Channel.Controlla_credenzialiAsync(e, p);
+        }
+        
+        public Manager.Server.UtenteServer Accedi(string e, string p) {
+            return base.Channel.Accedi(e, p);
+        }
+        
+        public System.Threading.Tasks.Task<Manager.Server.UtenteServer> AccediAsync(string e, string p) {
+            return base.Channel.AccediAsync(e, p);
         }
     }
 }

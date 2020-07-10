@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Client
                 do
                 {
                     Console.WriteLine("Scegli una attività:");
-                    Console.WriteLine("1-Ricerca un prodotto");
+                    Console.WriteLine("1-Visualizza catalogo prodotti");
                     Console.WriteLine("2-Effettua il login alla tua area riservata");
                     Console.WriteLine("3-Registrati sulla piattaforma");
                     Console.WriteLine("4-Esci\n");
@@ -41,6 +42,7 @@ namespace Client
                         case 1:
                             break;
                         case 2:
+                            Login();
                             break;
                         case 3:
                             bool esito=Registrazione();
@@ -146,6 +148,32 @@ namespace Client
                 completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
 
                 return completato;
+            }
+            UtenteManager Login()
+            {
+                string email, password;
+                bool errore = false;
+                UtenteManager u = new UtenteManager();
+                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                do
+                {
+                    Console.WriteLine("ACCESSO ALL'AREA RISERVATA");
+                    Console.WriteLine("Indirizzo e-mail:");
+                    email = Console.ReadLine();
+                    Console.WriteLine("Password:");
+                    password = Console.ReadLine();
+                    errore =wcfclient.Controlla_credenziali(email,password);
+                    if (errore == false)
+                    {
+                        u = wcfclient.Accedi(email, password);
+                    }
+                    else { 
+                        Console.WriteLine("Credenziali errate!"); 
+                    }
+                } while (errore == true);
+
+                Console.WriteLine("Benvenuto " + u.nome + " " + u.cognome);
+                return u;
             }
         }
         /*public class UtenteClient

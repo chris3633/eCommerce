@@ -185,6 +185,18 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Registra", ReplyAction="http://tempuri.org/IManagerService/RegistraResponse")]
         System.Threading.Tasks.Task<bool> RegistraAsync(Client.ServiceReference1.UtenteManager u1);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Controlla_credenziali", ReplyAction="http://tempuri.org/IManagerService/Controlla_credenzialiResponse")]
+        bool Controlla_credenziali(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Controlla_credenziali", ReplyAction="http://tempuri.org/IManagerService/Controlla_credenzialiResponse")]
+        System.Threading.Tasks.Task<bool> Controlla_credenzialiAsync(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Accedi", ReplyAction="http://tempuri.org/IManagerService/AccediResponse")]
+        Client.ServiceReference1.UtenteManager Accedi(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Accedi", ReplyAction="http://tempuri.org/IManagerService/AccediResponse")]
+        System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> AccediAsync(string e, string p);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -228,6 +240,22 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> RegistraAsync(Client.ServiceReference1.UtenteManager u1) {
             return base.Channel.RegistraAsync(u1);
+        }
+        
+        public bool Controlla_credenziali(string e, string p) {
+            return base.Channel.Controlla_credenziali(e, p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Controlla_credenzialiAsync(string e, string p) {
+            return base.Channel.Controlla_credenzialiAsync(e, p);
+        }
+        
+        public Client.ServiceReference1.UtenteManager Accedi(string e, string p) {
+            return base.Channel.Accedi(e, p);
+        }
+        
+        public System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> AccediAsync(string e, string p) {
+            return base.Channel.AccediAsync(e, p);
         }
     }
 }

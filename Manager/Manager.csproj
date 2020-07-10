@@ -67,6 +67,9 @@
     <None Include="Connected Services\Server\item11.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Server\Manager.Server.UtenteServer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Server\ServerService.wsdl" />
   </ItemGroup>
   <ItemGroup>
