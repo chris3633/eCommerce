@@ -25,6 +25,9 @@ namespace Server
 
         [OperationContract]
         UtenteServer Accedi(string e, string p);
+
+        [OperationContract]
+        void VisualizzaProdotti();
     }
 
     

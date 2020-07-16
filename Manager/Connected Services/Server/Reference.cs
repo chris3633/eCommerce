@@ -197,6 +197,12 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Accedi", ReplyAction="http://tempuri.org/IServerService/AccediResponse")]
         System.Threading.Tasks.Task<Manager.Server.UtenteServer> AccediAsync(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IServerService/VisualizzaProdottiResponse")]
+        void VisualizzaProdotti();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IServerService/VisualizzaProdottiResponse")]
+        System.Threading.Tasks.Task VisualizzaProdottiAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -256,6 +262,14 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task<Manager.Server.UtenteServer> AccediAsync(string e, string p) {
             return base.Channel.AccediAsync(e, p);
+        }
+        
+        public void VisualizzaProdotti() {
+            base.Channel.VisualizzaProdotti();
+        }
+        
+        public System.Threading.Tasks.Task VisualizzaProdottiAsync() {
+            return base.Channel.VisualizzaProdottiAsync();
         }
     }
 }

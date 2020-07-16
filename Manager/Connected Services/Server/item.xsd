@@ -55,4 +55,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="VisualizzaProdotti">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VisualizzaProdottiResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
