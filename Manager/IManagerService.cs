@@ -49,6 +49,7 @@ namespace Manager
             citta = ct;
         }*/
     }
+    
     /*public class UtenteServer 
     {
         public string codice_fiscale { get; set; }

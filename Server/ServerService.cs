@@ -82,12 +82,18 @@ namespace Server
                     righe += 1;//conta i risultati
                 }
                 reader.Close();
-                if (righe >= 1) { errore = false; }
+                
+                if (righe == 1) { 
+                    errore = false; 
+                }
+                else { 
+                    errore = true; 
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                errore = true;
+                
             }
             finally
             {
@@ -95,7 +101,6 @@ namespace Server
                 {
                     conn.Close();
                 }
-
             }
             return errore;
         }
@@ -108,7 +113,7 @@ namespace Server
                 conn.Open();
                 SqlDataReader reader = null;
 
-                SqlCommand command = new SqlCommand("Select Email,Password from Utente where Email='" + e + "' and Password= '" + p + "'", conn);
+                SqlCommand command = new SqlCommand("Select CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Venditore from Utente where Email='" + e + "' and Password= '" + p + "'", conn);
                 
                 reader = command.ExecuteReader();
 
@@ -129,7 +134,6 @@ namespace Server
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                
             }
             finally
             {

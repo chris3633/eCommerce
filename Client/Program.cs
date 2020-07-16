@@ -36,13 +36,24 @@ namespace Client
                     Console.WriteLine("2-Effettua il login alla tua area riservata");
                     Console.WriteLine("3-Registrati sulla piattaforma");
                     Console.WriteLine("4-Esci\n");
-                    attivita = int.Parse(Console.ReadLine());
+                    try { 
+                        attivita = int.Parse(Console.ReadLine()); 
+                    } 
+                    catch(Exception ex)  {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
                     switch (attivita)
                     {
                         case 1:
+                            //Visualizza_prodotti();
                             break;
                         case 2:
-                            Login();
+                            UtenteManager u = new UtenteManager();
+                            u=Login();
+                            
+                            Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+
                             break;
                         case 3:
                             bool esito=Registrazione();
@@ -58,8 +69,11 @@ namespace Client
                             }
                             break;
                         case 4:
+                            Console.WriteLine("Grazie e arrivederci!");
+                            Console.ReadLine();
                             break;
                         default:
+                            Console.WriteLine("Valore non consentito!\n");
                             break;
                     }
 
@@ -81,100 +95,120 @@ namespace Client
 
             bool Registrazione()
             {
-                var wcfclient = new ServiceReference1.ManagerServiceClient();
                 bool completato = false;
-                bool errore = false;
-                string Codice;
-                string nome;
-                string cognome;
-                string email;
-                string password;
-                string conf_password;
-                string indirizzo;
-                string citta;
-                int tipologia = 0;
-                do
+                
+                try
                 {
-                    if (errore == true) { Console.WriteLine("Si è verificato un errore, riprova!"); }
-                    errore = false;
+                    bool errore = false;
+                    string Codice;
+                    string nome;
+                    string cognome;
+                    string email;
+                    string password;
+                    string conf_password;
+                    string indirizzo;
+                    string citta;
+                    int tipologia = 0;
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
                     
-                    Console.WriteLine("\n[REGISTRAZIONE UTENTE]");
                     do
                     {
-                        Console.WriteLine("Scegliere la tipologia: 0-Cliente, 1-Venditore\n");
-                        tipologia = int.Parse(Console.ReadLine());
-                    }while (tipologia != 0 && tipologia != 1);
-                    if (tipologia == 0) 
-                    {
-                        Console.WriteLine("Codice Fiscale:");//16 caratteri
-                        Codice = Console.ReadLine();
-                        if (Codice.Length != 16) { errore = true; }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Partita Iva:");//11 caratteri
-                        Codice = Console.ReadLine();
-                        if (Codice.Length != 11) { errore = true; }
-                    }
-                    Console.WriteLine("Nome:");
-                    nome = Console.ReadLine();
-                    Console.WriteLine("Cognome:");
-                    cognome = Console.ReadLine();
-                    Console.WriteLine("Indirizzo E-mail:");
-                    email = Console.ReadLine();
-                    Console.WriteLine("Password:");
-                    password = Console.ReadLine();
-                    Console.WriteLine("Conferma password:");
-                    conf_password = Console.ReadLine();
-                    if (password != conf_password) { errore = true; }
-                    Console.WriteLine("Indirizzo:");
-                    indirizzo = Console.ReadLine();
-                    Console.WriteLine("Città:");
-                    citta = Console.ReadLine();
-                    
-                } while (errore==true);
+                        if (errore == true) { Console.WriteLine("Si è verificato un errore, riprova!"); }
+                        errore = false;
 
-                UtenteManager u1 = new UtenteManager();//creo utente lato manager
-                u1.codice = Codice;//assegno dati client a utente manager
-                u1.nome = nome;
-                u1.cognome = cognome;
-                u1.email = email;
-                u1.password = password;
-                //u1.credito = u.credito;
-                u1.indirizzo = indirizzo;
-                u1.citta = citta;
-                u1.tipologia = tipologia;
+                        Console.WriteLine("\n[REGISTRAZIONE UTENTE]");
+                        do
+                        {
+                            Console.WriteLine("Scegliere la tipologia: 0-Cliente, 1-Venditore\n");
+                            tipologia = int.Parse(Console.ReadLine());
+                        } while (tipologia != 0 && tipologia != 1);
+                        if (tipologia == 0)
+                        {
+                            Console.WriteLine("Codice Fiscale:");//16 caratteri
+                            Codice = Console.ReadLine();
+                            if (Codice.Length != 16) { errore = true; }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Partita Iva:");//11 caratteri
+                            Codice = Console.ReadLine();
+                            if (Codice.Length != 11) { errore = true; }
+                        }
+                        Console.WriteLine("Nome:");
+                        nome = Console.ReadLine();
+                        Console.WriteLine("Cognome:");
+                        cognome = Console.ReadLine();
+                        Console.WriteLine("Indirizzo E-mail:");
+                        email = Console.ReadLine();
+                        Console.WriteLine("Password:");
+                        password = Console.ReadLine();
+                        Console.WriteLine("Conferma password:");
+                        conf_password = Console.ReadLine();
+                        if (password != conf_password) { errore = true; }
+                        Console.WriteLine("Indirizzo:");
+                        indirizzo = Console.ReadLine();
+                        Console.WriteLine("Città:");
+                        citta = Console.ReadLine();
 
-                completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
+                    } while (errore == true);
 
+                    UtenteManager u1 = new UtenteManager();//creo utente lato manager
+                    u1.codice = Codice;//assegno dati client a utente manager
+                    u1.nome = nome;
+                    u1.cognome = cognome;
+                    u1.email = email;
+                    u1.password = password;
+                    //u1.credito = u.credito;
+                    u1.indirizzo = indirizzo;
+                    u1.citta = citta;
+                    u1.tipologia = tipologia;
+
+                    completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
+
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    completato = false;
+                }
                 return completato;
             }
             UtenteManager Login()
             {
-                string email, password;
-                bool errore = false;
                 UtenteManager u = new UtenteManager();
-                var wcfclient = new ServiceReference1.ManagerServiceClient();
-                do
+                try
                 {
-                    Console.WriteLine("ACCESSO ALL'AREA RISERVATA");
-                    Console.WriteLine("Indirizzo e-mail:");
-                    email = Console.ReadLine();
-                    Console.WriteLine("Password:");
-                    password = Console.ReadLine();
-                    errore =wcfclient.Controlla_credenziali(email,password);
-                    if (errore == false)
+                    string email, password;
+                    bool errore = false;
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
+                    do
                     {
-                        u = wcfclient.Accedi(email, password);
-                    }
-                    else { 
-                        Console.WriteLine("Credenziali errate!"); 
-                    }
-                } while (errore == true);
-
-                Console.WriteLine("Benvenuto " + u.nome + " " + u.cognome);
+                        Console.WriteLine("ACCESSO ALL'AREA RISERVATA");
+                        Console.WriteLine("Indirizzo e-mail:");
+                        email = Console.ReadLine();
+                        Console.WriteLine("Password:");
+                        password = Console.ReadLine();
+                        errore = wcfclient.Controlla_credenziali(email, password);
+                        if (errore == false)
+                        {
+                            u = wcfclient.Accedi(email, password);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Credenziali errate!");
+                        }
+                    } while (errore == true);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 return u;
             }
+            //void Visualizza_prodtti(){
+            //Console.WriteLine("Scegli la categoria: ");
+            //Console.WriteLine("1-Smartphone, 2-PC, 3-Elettrodomestici...");
+            //}
         }
         /*public class UtenteClient
         {
