@@ -36,6 +36,7 @@ namespace Manager
         public string password { get; set; }
         public string indirizzo { get; set; }
         public string citta { get; set; }
+        public decimal credito { get; set; }
         public int tipologia { get; set; }
 
         /*public UtenteManager(string cf, string n, string c, string e, string p, string i, string ct)//costruttore

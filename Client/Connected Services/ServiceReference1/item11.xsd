@@ -5,6 +5,7 @@
       <xs:element minOccurs="0" name="citta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="codice" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="cognome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="credito" type="xs:decimal" />
       <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indirizzo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />

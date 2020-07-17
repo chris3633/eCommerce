@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Server
     // NOTA: è possibile utilizzare il comando "Rinomina" del menu "Refactoring" per modificare il nome di classe "ServerService" nel codice e nel file di configurazione contemporaneamente.
     public class ServerService : IServerService
     {
-        
+
         public void DoWork()
         {
             Console.WriteLine("Metodo dowork chiamato");
@@ -26,11 +27,8 @@ namespace Server
         public bool Registra(UtenteServer u2)
         {
             bool completato = false;
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
             try
             {
-                conn.Open();
-
                 string Codice = u2.codice;
                 string nome = u2.nome;
                 string cognome = u2.cognome;
@@ -40,13 +38,17 @@ namespace Server
                 string citta = u2.citta;
                 int tipologia = u2.tipologia;
 
-                SqlCommand insert = new SqlCommand();
-                insert.CommandType = CommandType.Text;
-                insert.CommandText = "Insert into Utente (CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Venditore) VALUES ('" + Codice + "','" + nome + "', '" + cognome + "', '" + email + "', '" + password + "', '" + indirizzo + "', '" + citta + "', '" + tipologia + "')";
-
-                insert.Connection = conn;
-                insert.ExecuteNonQuery();
-                completato = true;
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand insert = conn.CreateCommand())
+                    {
+                        insert.CommandText = "Insert into Utente (CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Venditore) VALUES ('" + Codice + "','" + nome + "', '" + cognome + "', '" + email + "', '" + password + "', '" + indirizzo + "', '" + citta + "', '" + tipologia + "')";
+                        insert.ExecuteNonQuery();
+                        completato = true;
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -54,125 +56,122 @@ namespace Server
                 Console.WriteLine(ex.Message);
                 completato = false;
             }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-
-            }
             return completato;
         }
-        public bool Controlla_credenziali(string e,string p)
+        public bool Controlla_credenziali(string e, string p)
         {
             bool errore = false;
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
             try
             {
-                conn.Open();
-                SqlDataReader reader = null;
-
-                SqlCommand command = new SqlCommand("Select Email,Password from Utente where Email='" + e + "' and Password= '"+ p +"'", conn);
-
-                reader = command.ExecuteReader();
-                int righe = 0;
-                while (reader.Read())
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
                 {
-                    righe += 1;//conta i risultati
-                }
-                reader.Close();
-                
-                if (righe == 1) { 
-                    errore = false; 
-                }
-                else { 
-                    errore = true; 
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select Email,Password from Utente where Email='" + e + "' and Password= '" + p + "'";
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            int righe = 0;
+                            while (reader.Read())
+                            {
+                                righe += 1;//conta i risultati
+                            }
+                            if (righe == 1)
+                            {
+                                errore = false;
+                            }
+                            else
+                            {
+                                errore = true;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
             }
             return errore;
         }
         public UtenteServer Accedi(string e, string p)
         {
             UtenteServer u = new UtenteServer();
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
             try
             {
-                conn.Open();
-                SqlDataReader reader = null;
-
-                SqlCommand command = new SqlCommand("Select CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Venditore from Utente where Email='" + e + "' and Password= '" + p + "'", conn);
-                
-                reader = command.ExecuteReader();
-
-                while (reader.Read())
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
                 {
-                    u.codice = reader["CodiceUtente"].ToString();
-                    u.nome = reader["Nome"].ToString();
-                    u.cognome = reader["Cognome"].ToString();
-                    u.email = reader["Email"].ToString();
-                    u.password = reader["Password"].ToString();
-                    u.indirizzo=reader["Indirizzo"].ToString();
-                    u.citta = reader["Citta"].ToString();
-                    u.tipologia = Convert.ToInt32(reader["Venditore"]);
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Credito,Venditore from Utente where Email='" + e + "' and Password= '" + p + "'";
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                u.codice = reader.GetString(0);
+                                u.nome = reader.GetString(1);
+                                u.cognome = reader.GetString(2);
+                                u.email = reader.GetString(3);
+                                u.password = reader.GetString(4);
+                                u.indirizzo = reader.GetString(5);
+                                u.citta = reader.GetString(6);
+                                u.credito = reader.GetDecimal(7);
+                                u.tipologia = reader.GetInt32(8);
+                            }
+                        }
+                    }
                 }
-                reader.Close();
-                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
             }
             return u;
         }
         public void VisualizzaProdotti()
         {
-            SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
+            //SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
             try
             {
-                conn.Open();
-                SqlDataReader reader = null;
-
-                SqlCommand command = new SqlCommand("Select * from Prodotto", conn);
-
-                reader = command.ExecuteReader();
-                while (reader.Read())
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
                 {
-                    Console.WriteLine("");
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select CodiceProdotto,Categoria,Marca,Nome,Prezzo,Quantita,Descrizione,CodiceVenditore from Prodotto";
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            List<ProdottoServer> prodotti = new List<ProdottoServer>();
+
+                            int i = 0;
+                            while (reader.Read())
+                            {
+                                prodotti.Add(new ProdottoServer());
+                                prodotti[i].cod_prodotto = reader.GetInt32(0);
+                                prodotti[i].categoria = reader.GetString(1);
+                                prodotti[i].marca = reader.GetString(2);
+                                prodotti[i].nome = reader.GetString(3);
+                                prodotti[i].prezzo = reader.GetDecimal(4);
+                                prodotti[i].quantita = reader.GetInt16(5);
+                                prodotti[i].descrizione = reader.GetString(6);
+                                prodotti[i].cod_venditore = reader.GetString(7);
+                                i++;
+
+                            }
+                        }
+                    }
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
         }
     }
-    
 }

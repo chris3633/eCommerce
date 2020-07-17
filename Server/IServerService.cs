@@ -40,6 +40,7 @@ namespace Server
         public string password { get; set; }
         public string indirizzo { get; set; }
         public string citta { get; set; }
+        public decimal credito { get; set; }
         public int tipologia { get; set; }
 
 
@@ -53,6 +54,18 @@ namespace Server
             indirizzo = i;
             citta = ct;
         }*/
+
+    }
+    public class ProdottoServer
+    {
+        public int cod_prodotto { get; set; }
+        public string categoria { get; set; }
+        public string marca { get; set; }
+        public string nome { get; set; }
+        public decimal prezzo { get; set; }
+        public int quantita { get; set; }
+        public string descrizione { get; set; }
+        public string cod_venditore { get; set; }
 
     }
 }

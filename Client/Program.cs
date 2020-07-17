@@ -36,13 +36,15 @@ namespace Client
                     Console.WriteLine("2-Effettua il login alla tua area riservata");
                     Console.WriteLine("3-Registrati sulla piattaforma");
                     Console.WriteLine("4-Esci\n");
-                    try { 
-                        attivita = int.Parse(Console.ReadLine()); 
-                    } 
-                    catch(Exception ex)  {
+                    try
+                    {
+                        attivita = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
                         Console.WriteLine(ex.Message);
                     }
-                    
+
                     switch (attivita)
                     {
                         case 1:
@@ -50,19 +52,21 @@ namespace Client
                             break;
                         case 2:
                             UtenteManager u = new UtenteManager();
-                            u=Login();
-                            
+                            u = Login();
+
                             Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
 
                             break;
                         case 3:
-                            bool esito=Registrazione();
-                            if (esito) {
+                            bool esito = Registrazione();
+                            if (esito)
+                            {
                                 Console.WriteLine("----------------------------------------");
                                 Console.WriteLine("Registrazione effettuata con successo!");
                                 Console.WriteLine("----------------------------------------");
                             }
-                            else {
+                            else
+                            {
                                 Console.WriteLine("----------------------------------------");
                                 Console.WriteLine("Impossibile completare la registrazione, si è verificato un problema!");
                                 Console.WriteLine("----------------------------------------");
@@ -96,7 +100,7 @@ namespace Client
             bool Registrazione()
             {
                 bool completato = false;
-                
+
                 try
                 {
                     bool errore = false;
@@ -110,7 +114,7 @@ namespace Client
                     string citta;
                     int tipologia = 0;
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
-                    
+
                     do
                     {
                         if (errore == true) { Console.WriteLine("Si è verificato un errore, riprova!"); }
@@ -166,7 +170,7 @@ namespace Client
                     completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     completato = false;
@@ -199,39 +203,18 @@ namespace Client
                         }
                     } while (errore == true);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
                 return u;
             }
-            //void Visualizza_prodtti(){
+            //List<ProdottiManager> Visualizza_prodtti(){
             //Console.WriteLine("Scegli la categoria: ");
             //Console.WriteLine("1-Smartphone, 2-PC, 3-Elettrodomestici...");
             //}
         }
-        /*public class UtenteClient
-        {
-            public string codice_fiscale { get; set; }
-            public string nome { get; set; }
-            public string cognome { get; set; }
-            public string email { get; set; }
-            public string password { get; set; }
-            public int credito { get; set; }
-            public string indirizzo { get; set; }
-            public string citta { get; set; }
 
-            public UtenteClient(string cf, string n, string c, string e, string p, string i, string ct)//costruttore
-            {
-                codice_fiscale = cf;
-                nome = n;
-                cognome = c;
-                email = e;
-                password = p;
-                indirizzo = i;
-                citta = ct;
-            }
-        }*/
-}
-    
+    }
+
 }

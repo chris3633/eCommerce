@@ -60,6 +60,7 @@ namespace Manager
             u1.password = u2.password;
             u1.indirizzo = u2.indirizzo;
             u1.citta = u2.citta;
+            u1.credito = u2.credito;
             u1.tipologia = u2.tipologia;
             return u1;
         }

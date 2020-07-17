@@ -32,6 +32,9 @@ namespace Manager.Server {
         private string cognomeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal creditoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string emailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -91,6 +94,19 @@ namespace Manager.Server {
                 if ((object.ReferenceEquals(this.cognomeField, value) != true)) {
                     this.cognomeField = value;
                     this.RaisePropertyChanged("cognome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal credito {
+            get {
+                return this.creditoField;
+            }
+            set {
+                if ((this.creditoField.Equals(value) != true)) {
+                    this.creditoField = value;
+                    this.RaisePropertyChanged("credito");
                 }
             }
         }
