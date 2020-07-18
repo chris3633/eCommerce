@@ -132,9 +132,10 @@ namespace Server
             }
             return u;
         }
-        public void VisualizzaProdotti()
+        public List<ProdottoServer> VisualizzaProdotti()
         {
             //SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
+            List<ProdottoServer> prodotti = new List<ProdottoServer>();
             try
             {
                 string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
@@ -143,26 +144,23 @@ namespace Server
                     conn.Open();
                     using (SqlCommand command = conn.CreateCommand())
                     {
-                        command.CommandText = "Select CodiceProdotto,Categoria,Marca,Nome,Prezzo,Quantita,Descrizione,CodiceVenditore from Prodotto";
+                        command.CommandText = "Select CodiceProdotto, Categoria, Marca, Nome, Prezzo, Quantita, Descrizione, CodiceVenditore from Prodotto";
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            List<ProdottoServer> prodotti = new List<ProdottoServer>();
-
-                            int i = 0;
                             while (reader.Read())
                             {
-                                prodotti.Add(new ProdottoServer());
-                                prodotti[i].cod_prodotto = reader.GetInt32(0);
-                                prodotti[i].categoria = reader.GetString(1);
-                                prodotti[i].marca = reader.GetString(2);
-                                prodotti[i].nome = reader.GetString(3);
-                                prodotti[i].prezzo = reader.GetDecimal(4);
-                                prodotti[i].quantita = reader.GetInt16(5);
-                                prodotti[i].descrizione = reader.GetString(6);
-                                prodotti[i].cod_venditore = reader.GetString(7);
-                                i++;
-
+                                prodotti.Add(new ProdottoServer
+                                {
+                                    cod_prodotto = reader.GetInt32(0),
+                                    categoria = reader.GetString(1),
+                                    marca = reader.GetString(2),
+                                    nome = reader.GetString(3),
+                                    prezzo = reader.GetDecimal(4),
+                                    quantita = reader.GetInt16(5),
+                                    descrizione = reader.GetString(6),
+                                    cod_venditore = reader.GetString(7)
+                                });
                             }
                         }
                     }
@@ -172,6 +170,7 @@ namespace Server
             {
                 Console.WriteLine(ex.Message);
             }
+            return prodotti;
         }
     }
 }

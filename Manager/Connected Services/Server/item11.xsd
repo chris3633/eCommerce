@@ -14,4 +14,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UtenteServer" nillable="true" type="tns:UtenteServer" />
+  <xs:complexType name="ArrayOfProdottoServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProdottoServer" nillable="true" type="tns:ProdottoServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProdottoServer" nillable="true" type="tns:ArrayOfProdottoServer" />
+  <xs:complexType name="ProdottoServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_prodotto" type="xs:int" />
+      <xs:element minOccurs="0" name="cod_venditore" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descrizione" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="marca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="prezzo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="quantita" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProdottoServer" nillable="true" type="tns:ProdottoServer" />
 </xs:schema>

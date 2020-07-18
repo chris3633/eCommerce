@@ -186,6 +186,163 @@ namespace Client.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProdottoManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
+    [System.SerializableAttribute()]
+    public partial class ProdottoManager : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string categoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int cod_prodottoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cod_venditoreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descrizioneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string marcaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal prezzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int quantitaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string categoria {
+            get {
+                return this.categoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.categoriaField, value) != true)) {
+                    this.categoriaField = value;
+                    this.RaisePropertyChanged("categoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int cod_prodotto {
+            get {
+                return this.cod_prodottoField;
+            }
+            set {
+                if ((this.cod_prodottoField.Equals(value) != true)) {
+                    this.cod_prodottoField = value;
+                    this.RaisePropertyChanged("cod_prodotto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cod_venditore {
+            get {
+                return this.cod_venditoreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cod_venditoreField, value) != true)) {
+                    this.cod_venditoreField = value;
+                    this.RaisePropertyChanged("cod_venditore");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string descrizione {
+            get {
+                return this.descrizioneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descrizioneField, value) != true)) {
+                    this.descrizioneField = value;
+                    this.RaisePropertyChanged("descrizione");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string marca {
+            get {
+                return this.marcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.marcaField, value) != true)) {
+                    this.marcaField = value;
+                    this.RaisePropertyChanged("marca");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nome {
+            get {
+                return this.nomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
+                    this.nomeField = value;
+                    this.RaisePropertyChanged("nome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal prezzo {
+            get {
+                return this.prezzoField;
+            }
+            set {
+                if ((this.prezzoField.Equals(value) != true)) {
+                    this.prezzoField = value;
+                    this.RaisePropertyChanged("prezzo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int quantita {
+            get {
+                return this.quantitaField;
+            }
+            set {
+                if ((this.quantitaField.Equals(value) != true)) {
+                    this.quantitaField = value;
+                    this.RaisePropertyChanged("quantita");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IManagerService")]
     public interface IManagerService {
@@ -213,6 +370,12 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Accedi", ReplyAction="http://tempuri.org/IManagerService/AccediResponse")]
         System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> AccediAsync(string e, string p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IManagerService/VisualizzaProdottiResponse")]
+        Client.ServiceReference1.ProdottoManager[] VisualizzaProdotti();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IManagerService/VisualizzaProdottiResponse")]
+        System.Threading.Tasks.Task<Client.ServiceReference1.ProdottoManager[]> VisualizzaProdottiAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -272,6 +435,14 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> AccediAsync(string e, string p) {
             return base.Channel.AccediAsync(e, p);
+        }
+        
+        public Client.ServiceReference1.ProdottoManager[] VisualizzaProdotti() {
+            return base.Channel.VisualizzaProdotti();
+        }
+        
+        public System.Threading.Tasks.Task<Client.ServiceReference1.ProdottoManager[]> VisualizzaProdottiAsync() {
+            return base.Channel.VisualizzaProdottiAsync();
         }
     }
 }

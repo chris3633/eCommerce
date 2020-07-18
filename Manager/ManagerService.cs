@@ -64,5 +64,26 @@ namespace Manager
             u1.tipologia = u2.tipologia;
             return u1;
         }
+        public List<ProdottoManager> VisualizzaProdotti()
+        {
+            var servizio = new Server.ServerServiceClient();
+            ProdottoManager p = new ProdottoManager();
+            List<ProdottoManager> prodotti = new List<ProdottoManager>();
+            int j = 0;
+            foreach (var i in servizio.VisualizzaProdotti()) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
+            {
+                p.cod_prodotto = i.cod_prodotto;
+                p.categoria = i.categoria;
+                p.marca = i.marca;
+                p.nome = i.nome;
+                p.prezzo = i.prezzo;
+                p.quantita = i.quantita;
+                p.descrizione = i.descrizione;
+                p.cod_venditore = i.cod_venditore;
+                prodotti[j] =p;
+                j++;
+            }
+            return prodotti;
+        }
     }
 }

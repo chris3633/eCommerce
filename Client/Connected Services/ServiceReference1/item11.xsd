@@ -14,4 +14,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UtenteManager" nillable="true" type="tns:UtenteManager" />
+  <xs:complexType name="ArrayOfProdottoManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProdottoManager" nillable="true" type="tns:ProdottoManager" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProdottoManager" nillable="true" type="tns:ArrayOfProdottoManager" />
+  <xs:complexType name="ProdottoManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cod_prodotto" type="xs:int" />
+      <xs:element minOccurs="0" name="cod_venditore" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descrizione" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="marca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="prezzo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="quantita" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProdottoManager" nillable="true" type="tns:ProdottoManager" />
 </xs:schema>

@@ -48,7 +48,8 @@ namespace Client
                     switch (attivita)
                     {
                         case 1:
-                            //Visualizza_prodotti();
+                            
+                            Visualizza_prodotti();
                             break;
                         case 2:
                             UtenteManager u = new UtenteManager();
@@ -209,10 +210,30 @@ namespace Client
                 }
                 return u;
             }
-            //List<ProdottiManager> Visualizza_prodtti(){
-            //Console.WriteLine("Scegli la categoria: ");
-            //Console.WriteLine("1-Smartphone, 2-PC, 3-Elettrodomestici...");
-            //}
+            void Visualizza_prodotti()
+            {
+                try
+                {
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
+                    int cat;
+                    foreach(var i in wcfclient.VisualizzaProdotti())
+                    {
+                        Console.WriteLine(i.nome);
+                    }
+                    do
+                    {
+                        Console.WriteLine("----Impostazione filtri di ricerca----");
+                        Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
+                        cat = int.Parse(Console.ReadLine());
+
+                    } while (cat != 0 && cat != 1 && cat != 2 && cat != 3);
+
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
         }
 
     }

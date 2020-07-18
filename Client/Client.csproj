@@ -55,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\ServiceReference1\Client.ServiceReference1.ProdottoManager.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServiceReference1\Client.ServiceReference1.UtenteManager.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

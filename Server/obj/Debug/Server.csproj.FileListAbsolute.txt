@@ -10,6 +10,5 @@ C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Server.pdb
 C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.exe
 C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.pdb
-C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.csprojAssemblyReference.cache
 C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Database_eCommerce.mdf
 C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Database_eCommerce_log.ldf
