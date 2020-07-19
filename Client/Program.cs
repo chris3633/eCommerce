@@ -216,9 +216,12 @@ namespace Client
                 {
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
                     int cat;
-                    foreach(var i in wcfclient.VisualizzaProdotti())
+                    ProdottoManager[] lista = wcfclient.VisualizzaProdotti();
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}\n", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantita", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    foreach (var i in lista.ToList())
                     {
-                        Console.WriteLine(i.nome);
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
+                        
                     }
                     do
                     {

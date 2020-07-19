@@ -67,21 +67,24 @@ namespace Manager
         public List<ProdottoManager> VisualizzaProdotti()
         {
             var servizio = new Server.ServerServiceClient();
-            ProdottoManager p = new ProdottoManager();
+            //ProdottoManager p = new ProdottoManager();
             List<ProdottoManager> prodotti = new List<ProdottoManager>();
-            int j = 0;
-            foreach (var i in servizio.VisualizzaProdotti()) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
+            
+            ProdottoServer[] lista = servizio.VisualizzaProdotti();
+            var prod = lista.ToList();
+            foreach (var i in prod) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
             {
-                p.cod_prodotto = i.cod_prodotto;
-                p.categoria = i.categoria;
-                p.marca = i.marca;
-                p.nome = i.nome;
-                p.prezzo = i.prezzo;
-                p.quantita = i.quantita;
-                p.descrizione = i.descrizione;
-                p.cod_venditore = i.cod_venditore;
-                prodotti[j] =p;
-                j++;
+                prodotti.Add(new ProdottoManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
+                {
+                    cod_prodotto = i.cod_prodotto,
+                    categoria = i.categoria,
+                    marca = i.marca,
+                    nome = i.nome,
+                    prezzo = i.prezzo,
+                    quantita = i.quantita,
+                    descrizione = i.descrizione,
+                    cod_venditore = i.cod_venditore
+                });
             }
             return prodotti;
         }

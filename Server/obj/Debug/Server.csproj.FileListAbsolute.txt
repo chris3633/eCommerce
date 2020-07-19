@@ -12,3 +12,4 @@ C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.exe
 C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.pdb
 C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Database_eCommerce.mdf
 C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Database_eCommerce_log.ldf
+C:\Users\Samuele\Desktop\eCommerce\Server\obj\Debug\Server.csprojAssemblyReference.cache
