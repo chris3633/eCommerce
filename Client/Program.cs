@@ -48,7 +48,7 @@ namespace Client
                     switch (attivita)
                     {
                         case 1:
-                            
+
                             Visualizza_prodotti();
                             break;
                         case 2:
@@ -215,26 +215,55 @@ namespace Client
                 try
                 {
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
-                    int cat;
-                    ProdottoManager[] lista = wcfclient.VisualizzaProdotti();
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}\n", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantita", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    foreach (var i in lista.ToList())
-                    {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
-                        
-                    }
+                    int cat = 0;
+                    string categoria="";
+                    decimal prezzoMax=0;
+                    bool errore = false;
+                    ProdottoManager[] lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+
                     do
                     {
-                        Console.WriteLine("----Impostazione filtri di ricerca----");
-                        Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
-                        cat = int.Parse(Console.ReadLine());
+                        try
+                        {
+                            Console.WriteLine("----Impostazione filtri di ricerca----");
+                            Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
+                            cat = int.Parse(Console.ReadLine());
+                            if (cat < 0 || cat > 3)
+                            {
+                                errore = true;
+                                Console.WriteLine("Valore categoria errato!");
+                            }
+                            Console.WriteLine("Prezzo massimo: ");
+                            prezzoMax = decimal.Parse(Console.ReadLine());
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            errore = true;
+                        }
+                    } while (errore==true);
+                    if (cat == 1) { 
+                        categoria = "Smartphone"; 
+                    }else if (cat == 2) { 
+                        categoria = "PC"; 
+                    }else if (cat == 3) { 
+                        categoria = "Elettrodomestici"; 
+                    }
+                    var lista_filtrata=from prod in lista
+                                       where prod.categoria.Trim()==categoria && prod.prezzo<=prezzoMax
+                                       select prod;
 
-                    } while (cat != 0 && cat != 1 && cat != 2 && cat != 3);
+
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}\n", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantita", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    foreach (var i in lista_filtrata.ToList())
+                    {
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
+                    }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
