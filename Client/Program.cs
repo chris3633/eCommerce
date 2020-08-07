@@ -226,13 +226,16 @@ namespace Client
                         try
                         {
                             Console.WriteLine("----Impostazione filtri di ricerca----");
-                            Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
-                            cat = int.Parse(Console.ReadLine());
-                            if (cat < 0 || cat > 3)
-                            {
-                                errore = true;
-                                Console.WriteLine("Valore categoria errato!");
-                            }
+                            do {
+                                Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
+                                cat = int.Parse(Console.ReadLine());
+                                if (cat < 0 || cat > 3)
+                                {
+                                    errore = true;
+                                    Console.WriteLine("Valore categoria errato!");
+                                }
+                            } while (errore == true);
+                            
                             Console.WriteLine("Prezzo massimo: ");
                             prezzoMax = decimal.Parse(Console.ReadLine());
                         }
@@ -252,6 +255,8 @@ namespace Client
                     var lista_filtrata=from prod in lista
                                        where prod.categoria.Trim()==categoria && prod.prezzo<=prezzoMax
                                        select prod;
+                    var query = lista.Select(prod => prod)
+                        .Where(prod => prod.categoria.Trim() == categoria && prod.prezzo <= prezzoMax);
 
 
                     Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}\n", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantita", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
