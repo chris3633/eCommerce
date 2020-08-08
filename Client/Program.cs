@@ -31,7 +31,7 @@ namespace Client
                 Console.WriteLine("----------------------------------------");
                 do
                 {
-                    Console.WriteLine("Scegli una attività:");
+                    Console.WriteLine("\nScegli una attività:");
                     Console.WriteLine("1-Visualizza catalogo prodotti");
                     Console.WriteLine("2-Effettua il login alla tua area riservata");
                     Console.WriteLine("3-Registrati sulla piattaforma");
@@ -218,6 +218,7 @@ namespace Client
                     int cat = 0;
                     string categoria="";
                     decimal prezzoMax=0;
+                    bool pmax=false;
                     bool errore = false;
                     ProdottoManager[] lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
 
@@ -226,15 +227,21 @@ namespace Client
                         try
                         {
                             Console.WriteLine("----Impostazione filtri di ricerca----");
-                            Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
-                            cat = int.Parse(Console.ReadLine());
-                            if (cat < 0 || cat > 3)
+                            do
                             {
-                                errore = true;
-                                Console.WriteLine("Valore categoria errato!");
-                            }
+                                errore = false;
+                                Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
+                                cat = int.Parse(Console.ReadLine());
+                                if (cat < 0 || cat > 3)
+                                {
+                                    errore = true;
+                                    Console.WriteLine("Valore categoria errato!");
+                                }
+                            } while (errore == true) ;
+                            
                             Console.WriteLine("Prezzo massimo: ");
-                            prezzoMax = decimal.Parse(Console.ReadLine());
+                            pmax = decimal.TryParse(Console.ReadLine(), out prezzoMax);//prova a convertire il valore in decimal: esito true/false in pmax e valore restituito in prezzoMax
+                            
                         }
                         catch (Exception ex)
                         {
@@ -242,22 +249,45 @@ namespace Client
                             errore = true;
                         }
                     } while (errore==true);
+
                     if (cat == 1) { 
                         categoria = "Smartphone"; 
                     }else if (cat == 2) { 
                         categoria = "PC"; 
-                    }else if (cat == 3) { 
+                    }else //cat==3
+                    { 
                         categoria = "Elettrodomestici"; 
                     }
-                    var lista_filtrata=from prod in lista
+                    //non piace al prof
+                    /*var lista_filtrata=from prod in lista
                                        where prod.categoria.Trim()==categoria && prod.prezzo<=prezzoMax
-                                       select prod;
+                                       select prod;*/
+                    //piace al prof
+                    /*var lista_filtrata = lista.Select(prod => prod)
+                        .Where(prod => prod.categoria.Trim() == categoria && prod.prezzo <= prezzoMax);*/
+                    var lista_filtrata = lista.Select(prod => prod);
+                    if (cat == 1 || cat == 2 || cat == 3)
+                    {
+                        lista_filtrata = lista_filtrata.Select(prod => prod)//lista filtrata per categoria
+                        .Where(prod => prod.categoria.Trim() == categoria);
+                    }
+                    if (pmax == true)
+                    {
+                        lista_filtrata = lista_filtrata.Select(prod => prod)//lista filtrata per prezzo massimo
+                        .Where(prod => prod.prezzo <= prezzoMax);
+                    }
+                    else
+                    {
+                        lista_filtrata = lista_filtrata.Select(prod => prod);
+                    }
 
-
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}\n", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantita", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("___________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("-----------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
+                        Console.WriteLine("-----------------------------------------------------------------------------------");
                     }
 
                 }
