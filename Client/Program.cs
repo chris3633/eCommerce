@@ -52,10 +52,16 @@ namespace Client
                             Visualizza_prodotti();
                             break;
                         case 2://accesso all'area riservata
-                            UtenteManager u = new UtenteManager();
+                            UtenteManager u = new UtenteManager(); //crazione oggetto di tipo utente
                             u = Login();
+                            if(u.codice.Length == 11)
+                              Area_riservata_venditore(u);
+                            else if (u.codice.Length == 16)
+                                Area_riservata_cliente(u);
+                            else
+                                Area_riservata_admin(u);
 
-                            Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+
                             //fare acquisti
                             //visualizzare elenco degli acquisti
                             //aggiungere credito al portafoglio
@@ -209,8 +215,8 @@ namespace Client
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                }
-                return u;
+                }         
+                return u;               
             }
             void Visualizza_prodotti()
             {
@@ -297,6 +303,51 @@ namespace Client
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+            void Area_riservata_cliente(UtenteManager u)
+            {
+                Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+                int attivita=0;
+                do {
+                    Console.WriteLine("\nScegli una attività:");
+                    Console.WriteLine("1-Visualizza catalogo prodotti");
+                    Console.WriteLine("2-Visualizza dati account");
+                    Console.WriteLine("3-Aggiungi credito");
+                    Console.WriteLine("4-Visualizza storico ordini");
+                    Console.WriteLine("5-Esci\n");
+                    try
+                    {
+                        attivita = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    switch (attivita)
+                    {
+                        case 1://navigazione e ricerca dei prodotti presenti nel negozio
+                            Visualizza_prodotti();
+                            break;
+                        case 2:
+                            
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            
+                            break;
+                        case 5:
+                            Console.WriteLine("Logout effettuato correttamente");
+                            Console.ReadLine();
+                            break;
+                        default:
+                            Console.WriteLine("Valore non consentito!\n");
+                            break;
+                    }
+
+                } while (attivita != 5);
             }
         }
 
