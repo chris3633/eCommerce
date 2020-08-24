@@ -29,7 +29,7 @@ namespace Manager
 
         public bool Registra(UtenteManager u1)
         {
-            var servizio = new Server.ServerServiceClient();
+            var servizio = new Server.ServerServiceClient(); //servizio per comunicare con il server
             UtenteServer u2 = new UtenteServer();//creazione utente server da passare al server
             u2.codice = u1.codice;//assegno i dati all'utente del server
             u2.nome=u1.nome;
