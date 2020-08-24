@@ -47,18 +47,20 @@ namespace Client
 
                     switch (attivita)
                     {
-                        case 1:
+                        case 1://navigazione e ricerca dei prodotti presenti nel negozio
 
                             Visualizza_prodotti();
                             break;
-                        case 2:
+                        case 2://accesso all'area riservata
                             UtenteManager u = new UtenteManager();
                             u = Login();
 
                             Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
-
+                            //fare acquisti
+                            //visualizzare elenco degli acquisti
+                            //aggiungere credito al portafoglio
                             break;
-                        case 3:
+                        case 3://Registrazione utente (cliente/venditore)
                             bool esito = Registrazione();
                             if (esito)
                             {

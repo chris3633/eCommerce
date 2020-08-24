@@ -1,2 +1,3 @@
 #escludo file App.config del server perché contiene la stringa di connessione al db
 C:\Users\Samuele\Desktop\eCommerce\Server\App.config
+C:\Users\Samuele\Desktop\eCommerce\Server\bin\Debug\Server.exe.config
