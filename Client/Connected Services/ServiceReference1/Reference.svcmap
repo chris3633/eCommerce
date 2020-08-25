@@ -9,7 +9,9 @@
     <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
-    <CollectionMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
@@ -22,11 +24,12 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="663b0c2f-1258-4e36-8c07-38195ca2c97e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd1" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="ccbce685-5517-49fd-8b87-a89b5b4aa19b" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="93f69aaf-609f-4e5b-9d8d-04c142de0fd4" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?disco" />
-    <MetadataFile FileName="ManagerService.wsdl" MetadataType="Wsdl" ID="be4c5d08-0742-4dac-8bd0-e5cc6e6aff4c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?wsdl" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="b1ba0890-f10c-4c18-b1d6-6e75e11a0d5d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd3" />
     <MetadataFile FileName="item11.xsd" MetadataType="Schema" ID="3926f153-295d-42f8-8793-d0bed2dd5a2d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd2" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="ccbce685-5517-49fd-8b87-a89b5b4aa19b" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd0" />
+    <MetadataFile FileName="ManagerService.wsdl" MetadataType="Wsdl" ID="be4c5d08-0742-4dac-8bd0-e5cc6e6aff4c" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?wsdl" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="663b0c2f-1258-4e36-8c07-38195ca2c97e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="93f69aaf-609f-4e5b-9d8d-04c142de0fd4" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/Manager/ManagerService/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

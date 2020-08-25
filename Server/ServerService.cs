@@ -173,11 +173,16 @@ namespace Server
             }
             return prodotti;
         }
-        bool Stato_Ordine()
+        public bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente)
         {
             bool completato = false;
+            foreach (var i in carrello)
+            {
+                Console.WriteLine(i.Item1.Cod_prodotto);
+                Console.WriteLine(i.Item2);
+                Console.WriteLine(cod_utente);
 
-
+            }
             return completato;
         }
     }

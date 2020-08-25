@@ -30,6 +30,9 @@ namespace Manager
         [OperationContract]
         List<ProdottoManager> VisualizzaProdotti();
 
+        [OperationContract]
+        bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente);
+
     }
     public class Persona
     {

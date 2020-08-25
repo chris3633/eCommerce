@@ -28,6 +28,9 @@ namespace Server
 
         [OperationContract]
         List<ProdottoServer> VisualizzaProdotti();
+
+        [OperationContract]
+        bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
     }
 
     public class Persona

@@ -380,10 +380,16 @@ namespace Client.ServiceReference1 {
         System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> AccediAsync(string e, string p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IManagerService/VisualizzaProdottiResponse")]
-        Client.ServiceReference1.ProdottoManager[] VisualizzaProdotti();
+        System.Collections.Generic.List<Client.ServiceReference1.ProdottoManager> VisualizzaProdotti();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/VisualizzaProdotti", ReplyAction="http://tempuri.org/IManagerService/VisualizzaProdottiResponse")]
-        System.Threading.Tasks.Task<Client.ServiceReference1.ProdottoManager[]> VisualizzaProdottiAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.ProdottoManager>> VisualizzaProdottiAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Stato_ordine", ReplyAction="http://tempuri.org/IManagerService/Stato_ordineResponse")]
+        bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Stato_ordine", ReplyAction="http://tempuri.org/IManagerService/Stato_ordineResponse")]
+        System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -445,12 +451,20 @@ namespace Client.ServiceReference1 {
             return base.Channel.AccediAsync(e, p);
         }
         
-        public Client.ServiceReference1.ProdottoManager[] VisualizzaProdotti() {
+        public System.Collections.Generic.List<Client.ServiceReference1.ProdottoManager> VisualizzaProdotti() {
             return base.Channel.VisualizzaProdotti();
         }
         
-        public System.Threading.Tasks.Task<Client.ServiceReference1.ProdottoManager[]> VisualizzaProdottiAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.ProdottoManager>> VisualizzaProdottiAsync() {
             return base.Channel.VisualizzaProdottiAsync();
+        }
+        
+        public bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente) {
+            return base.Channel.Stato_ordine(carrello, cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente) {
+            return base.Channel.Stato_ordineAsync(carrello, cod_utente);
         }
     }
 }

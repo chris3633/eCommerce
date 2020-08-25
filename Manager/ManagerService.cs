@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 
@@ -69,8 +70,8 @@ namespace Manager
             var servizio = new Server.ServerServiceClient();
             //ProdottoManager p = new ProdottoManager();
             List<ProdottoManager> prodotti = new List<ProdottoManager>();
-            
-            ProdottoServer[] lista = servizio.VisualizzaProdotti();
+
+            List<ProdottoServer> lista = servizio.VisualizzaProdotti();
             var prod = lista.ToList();
             foreach (var i in prod) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
             {
@@ -87,6 +88,19 @@ namespace Manager
                 });
             }
             return prodotti;
+        }
+
+        public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente) 
+        {
+            List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
+            foreach(var i in carrello)
+            {
+                var p1 = (ProdottoServer)Convert.ChangeType(i.Item1,typeof(ProdottoServer));
+                carrello_convertito.Add((p1,i.Item2));
+            }
+         
+            var servizio = new Server.ServerServiceClient();
+            return servizio.Stato_ordine(carrello_convertito,cod_utente);
         }
     }
 }
