@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/Server/ServerService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServerService_DoWork_InputMessage">
@@ -37,6 +38,12 @@
   <wsdl:message name="IServerService_VisualizzaProdotti_OutputMessage">
     <wsdl:part name="parameters" element="tns:VisualizzaProdottiResponse" />
   </wsdl:message>
+  <wsdl:message name="IServerService_Stato_ordine_InputMessage">
+    <wsdl:part name="parameters" element="tns:Stato_ordine" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Stato_ordine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Stato_ordineResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/DoWork" message="tns:IServerService_DoWork_InputMessage" />
@@ -57,6 +64,10 @@
     <wsdl:operation name="VisualizzaProdotti">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/VisualizzaProdotti" message="tns:IServerService_VisualizzaProdotti_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServerService/VisualizzaProdottiResponse" message="tns:IServerService_VisualizzaProdotti_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Stato_ordine">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Stato_ordine" message="tns:IServerService_Stato_ordine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/Stato_ordineResponse" message="tns:IServerService_Stato_ordine_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServerService" type="tns:IServerService">
@@ -99,6 +110,15 @@
     </wsdl:operation>
     <wsdl:operation name="VisualizzaProdotti">
       <soap:operation soapAction="http://tempuri.org/IServerService/VisualizzaProdotti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Stato_ordine">
+      <soap:operation soapAction="http://tempuri.org/IServerService/Stato_ordine" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

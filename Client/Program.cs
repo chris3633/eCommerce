@@ -230,7 +230,7 @@ namespace Client
                     decimal prezzoMax = 0;
                     bool pmax = false;
                     bool errore = false;
-                    ProdottoManager[] lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
 
                     do
                     {
@@ -316,12 +316,13 @@ namespace Client
                 try
                 {
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
+                    bool completato;
                     int cat = 0;
                     string categoria = "";
                     decimal prezzoMax = 0;
                     bool pmax = false;
                     bool errore = false;
-                    ProdottoManager[] lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
 
                     do
                     {
@@ -417,21 +418,31 @@ namespace Client
                         risposta = Convert.ToChar(Console.ReadLine());
                     } while (risposta!='N' && risposta!='n');
 
+                    foreach(var i in carrello)
+                    {
+                        Console.WriteLine(i.Item1.Cod_prodotto);
+                        Console.WriteLine(i.Item2);
+
+                    }
+
                     do { 
-                        Console.WriteLine("Procedere con l'ordine? Y/N"); 
-                    } while (risposta != 'N' || risposta!='Y');
-                    
+                        Console.WriteLine("Procedere con l'ordine? Y/N");
+                        risposta = Convert.ToChar(Console.ReadLine());
+                    } while (risposta != 'N' &&  risposta!='Y');
+
                     if (risposta == 'Y')
                     {
-                        if(u.Credito >= totale_carrello) 
-                        { 
-                           
+                        if (u.Credito >= totale_carrello)
+                        {
+
                             Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
+                            completato = wcfclient.Stato_ordine(carrello,u.Codice);
 
                         }
                         else { Console.WriteLine("Credito non sufficiente!"); }
-                       
+
                     }
+                            
                     
 
                 }
