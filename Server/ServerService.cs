@@ -29,14 +29,14 @@ namespace Server
             bool completato = false;
             try
             {
-                string Codice = u2.codice;
-                string nome = u2.nome;
-                string cognome = u2.cognome;
-                string email = u2.email;
-                string password = u2.password;
-                string indirizzo = u2.indirizzo;
-                string citta = u2.citta;
-                int tipologia = u2.tipologia;
+                string Codice = u2.Codice;
+                string nome = u2.Nome;
+                string cognome = u2.Cognome;
+                string email = u2.Email;
+                string password = u2.Password;
+                string indirizzo = u2.Indirizzo;
+                string citta = u2.Citta;
+                int tipologia = u2.Tipologia;
 
                 string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(stringa))
@@ -112,15 +112,16 @@ namespace Server
                         {
                             while (reader.Read())
                             {
-                                u.codice = reader.GetString(0);
-                                u.nome = reader.GetString(1);
-                                u.cognome = reader.GetString(2);
-                                u.email = reader.GetString(3);
-                                u.password = reader.GetString(4);
-                                u.indirizzo = reader.GetString(5);
-                                u.citta = reader.GetString(6);
-                                u.credito = reader.GetDecimal(7);
-                                u.tipologia = reader.GetInt32(8);
+                                
+                                u.Codice = reader.GetString(0);
+                                u.Nome = reader.GetString(1);
+                                u.Cognome = reader.GetString(2);
+                                u.Email = reader.GetString(3);
+                                u.Password = reader.GetString(4);
+                                u.Indirizzo = reader.GetString(5);
+                                u.Citta = reader.GetString(6);
+                                u.Credito = reader.GetDecimal(7);
+                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));//reader.GetInt32(8); sollevava eccezione di invalid cast
                             }
                         }
                     }
@@ -152,14 +153,14 @@ namespace Server
                             {
                                 prodotti.Add(new ProdottoServer
                                 {
-                                    cod_prodotto = reader.GetInt32(0),
-                                    categoria = reader.GetString(1),
-                                    marca = reader.GetString(2),
-                                    nome = reader.GetString(3),
-                                    prezzo = reader.GetDecimal(4),
-                                    quantita = reader.GetInt16(5),
-                                    descrizione = reader.GetString(6),
-                                    cod_venditore = reader.GetString(7)
+                                    Cod_prodotto = reader.GetInt32(0),
+                                    Categoria = reader.GetString(1),
+                                    Marca = reader.GetString(2),
+                                    Nome = reader.GetString(3),
+                                    Prezzo = reader.GetDecimal(4),
+                                    Quantita = reader.GetInt16(5),
+                                    Descrizione = reader.GetString(6),
+                                    Cod_venditore = reader.GetString(7)
                                 });
                             }
                         }

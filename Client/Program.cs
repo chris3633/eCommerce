@@ -54,9 +54,9 @@ namespace Client
                         case 2://accesso all'area riservata
                             UtenteManager u = new UtenteManager(); //crazione oggetto di tipo utente
                             u = Login();
-                            if(u.codice.Length == 11)
+                            if(u.Codice.Length == 11)
                               Area_riservata_venditore(u);
-                            else if (u.codice.Length == 16)
+                            else if (u.Codice.Length == 16)
                                 Area_riservata_cliente(u);
                             else
                                 Area_riservata_admin(u);
@@ -166,15 +166,15 @@ namespace Client
                     } while (errore == true);
 
                     UtenteManager u1 = new UtenteManager();//creo utente lato manager
-                    u1.codice = Codice;//assegno dati client a utente manager
-                    u1.nome = nome;
-                    u1.cognome = cognome;
-                    u1.email = email;
-                    u1.password = password;
-                    //u1.credito = u.credito;
-                    u1.indirizzo = indirizzo;
-                    u1.citta = citta;
-                    u1.tipologia = tipologia;
+                    u1.Codice = Codice;//assegno dati client a utente manager
+                    u1.Nome = nome;
+                    u1.Cognome = cognome;
+                    u1.Email = email;
+                    u1.Password = password;
+                    //u1.Credito = credito;
+                    u1.Indirizzo = indirizzo;
+                    u1.Citta = citta;
+                    u1.Tipologia = tipologia;
 
                     completato = wcfclient.Registra(u1);//chiamo il servizio di registrazione del manager
 
@@ -277,12 +277,12 @@ namespace Client
                     if (cat == 1 || cat == 2 || cat == 3)
                     {
                         lista_filtrata = lista_filtrata.Select(prod => prod)//lista filtrata per categoria
-                        .Where(prod => prod.categoria.Trim() == categoria);
+                        .Where(prod => prod.Categoria.Trim() == categoria);
                     }
                     if (pmax == true)
                     {
                         lista_filtrata = lista_filtrata.Select(prod => prod)//lista filtrata per prezzo massimo
-                        .Where(prod => prod.prezzo <= prezzoMax);
+                        .Where(prod => prod.Prezzo <= prezzoMax);
                     }
                     else
                     {
@@ -294,7 +294,7 @@ namespace Client
                     Console.WriteLine("-----------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.cod_prodotto, i.categoria.Trim(), i.marca.Trim(), i.nome.Trim(), i.prezzo, i.quantita, i.descrizione.Trim());
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
                         Console.WriteLine("-----------------------------------------------------------------------------------");
                     }
 
@@ -306,7 +306,7 @@ namespace Client
             }
             void Area_riservata_cliente(UtenteManager u)
             {
-                Console.WriteLine("Benvenuto " + u.nome.Trim() + " " + u.cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+                Console.WriteLine("Benvenuto " + u.Nome.Trim() + " " + u.Cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
                 int attivita=0;
                 do {
                     Console.WriteLine("\nScegli una attività:");
@@ -348,6 +348,14 @@ namespace Client
                     }
 
                 } while (attivita != 5);
+            }
+            void Area_riservata_venditore(UtenteManager u)
+            {
+                
+            }
+            void Area_riservata_admin(UtenteManager u)
+            {
+
             }
         }
 

@@ -31,14 +31,14 @@ namespace Manager
         {
             var servizio = new Server.ServerServiceClient(); //servizio per comunicare con il server
             UtenteServer u2 = new UtenteServer();//creazione utente server da passare al server
-            u2.codice = u1.codice;//assegno i dati all'utente del server
-            u2.nome=u1.nome;
-            u2.cognome=u1.cognome;
-            u2.email=u1.email;
-            u2.password=u1.password;
-            u2.indirizzo=u1.indirizzo;
-            u2.citta=u1.citta;
-            u2.tipologia = u1.tipologia;
+            u2.Codice = u1.Codice;//assegno i dati all'utente del server
+            u2.Nome=u1.Nome;
+            u2.Cognome=u1.Cognome;
+            u2.Email=u1.Email;
+            u2.Password=u1.Password;
+            u2.Indirizzo=u1.Indirizzo;
+            u2.Citta=u1.Citta;
+            u2.Tipologia = u1.Tipologia;
             return servizio.Registra(u2);
         }
 
@@ -53,15 +53,15 @@ namespace Manager
             UtenteManager u1 = new UtenteManager();
             UtenteServer u2 = new UtenteServer();
             u2=servizio.Accedi(e, p);
-            u1.codice = u2.codice;
-            u1.nome = u2.nome;
-            u1.cognome = u2.cognome;
-            u1.email = u2.email;
-            u1.password = u2.password;
-            u1.indirizzo = u2.indirizzo;
-            u1.citta = u2.citta;
-            u1.credito = u2.credito;
-            u1.tipologia = u2.tipologia;
+            u1.Codice = u2.Codice;
+            u1.Nome = u2.Nome;
+            u1.Cognome = u2.Cognome;
+            u1.Email = u2.Email;
+            u1.Password = u2.Password;
+            u1.Indirizzo = u2.Indirizzo;
+            u1.Citta = u2.Citta;
+            u1.Credito = u2.Credito;
+            u1.Tipologia = u2.Tipologia;
             return u1;
         }
         public List<ProdottoManager> VisualizzaProdotti()
@@ -76,14 +76,14 @@ namespace Manager
             {
                 prodotti.Add(new ProdottoManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
                 {
-                    cod_prodotto = i.cod_prodotto,
-                    categoria = i.categoria,
-                    marca = i.marca,
-                    nome = i.nome,
-                    prezzo = i.prezzo,
-                    quantita = i.quantita,
-                    descrizione = i.descrizione,
-                    cod_venditore = i.cod_venditore
+                    Cod_prodotto = i.Cod_prodotto,
+                    Categoria = i.Categoria,
+                    Marca = i.Marca,
+                    Nome = i.Nome,
+                    Prezzo = i.Prezzo,
+                    Quantita = i.Quantita,
+                    Descrizione = i.Descrizione,
+                    Cod_venditore = i.Cod_venditore
                 });
             }
             return prodotti;

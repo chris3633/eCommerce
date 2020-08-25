@@ -15,39 +15,28 @@ namespace Client.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UtenteManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Persona", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
     [System.SerializableAttribute()]
-    public partial class UtenteManager : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ServiceReference1.UtenteManager))]
+    public partial class Persona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string cittaField;
+        private string CittaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string codiceField;
+        private string CodiceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string cognomeField;
+        private string CognomeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal creditoField;
+        private string IndirizzoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string emailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string indirizzoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nomeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string passwordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int tipologiaField;
+        private string NomeField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -60,118 +49,66 @@ namespace Client.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string citta {
+        public string Citta {
             get {
-                return this.cittaField;
+                return this.CittaField;
             }
             set {
-                if ((object.ReferenceEquals(this.cittaField, value) != true)) {
-                    this.cittaField = value;
-                    this.RaisePropertyChanged("citta");
+                if ((object.ReferenceEquals(this.CittaField, value) != true)) {
+                    this.CittaField = value;
+                    this.RaisePropertyChanged("Citta");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string codice {
+        public string Codice {
             get {
-                return this.codiceField;
+                return this.CodiceField;
             }
             set {
-                if ((object.ReferenceEquals(this.codiceField, value) != true)) {
-                    this.codiceField = value;
-                    this.RaisePropertyChanged("codice");
+                if ((object.ReferenceEquals(this.CodiceField, value) != true)) {
+                    this.CodiceField = value;
+                    this.RaisePropertyChanged("Codice");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string cognome {
+        public string Cognome {
             get {
-                return this.cognomeField;
+                return this.CognomeField;
             }
             set {
-                if ((object.ReferenceEquals(this.cognomeField, value) != true)) {
-                    this.cognomeField = value;
-                    this.RaisePropertyChanged("cognome");
+                if ((object.ReferenceEquals(this.CognomeField, value) != true)) {
+                    this.CognomeField = value;
+                    this.RaisePropertyChanged("Cognome");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal credito {
+        public string Indirizzo {
             get {
-                return this.creditoField;
+                return this.IndirizzoField;
             }
             set {
-                if ((this.creditoField.Equals(value) != true)) {
-                    this.creditoField = value;
-                    this.RaisePropertyChanged("credito");
+                if ((object.ReferenceEquals(this.IndirizzoField, value) != true)) {
+                    this.IndirizzoField = value;
+                    this.RaisePropertyChanged("Indirizzo");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string email {
+        public string Nome {
             get {
-                return this.emailField;
+                return this.NomeField;
             }
             set {
-                if ((object.ReferenceEquals(this.emailField, value) != true)) {
-                    this.emailField = value;
-                    this.RaisePropertyChanged("email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string indirizzo {
-            get {
-                return this.indirizzoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.indirizzoField, value) != true)) {
-                    this.indirizzoField = value;
-                    this.RaisePropertyChanged("indirizzo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string nome {
-            get {
-                return this.nomeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
-                    this.nomeField = value;
-                    this.RaisePropertyChanged("nome");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string password {
-            get {
-                return this.passwordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
-                    this.passwordField = value;
-                    this.RaisePropertyChanged("password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int tipologia {
-            get {
-                return this.tipologiaField;
-            }
-            set {
-                if ((this.tipologiaField.Equals(value) != true)) {
-                    this.tipologiaField = value;
-                    this.RaisePropertyChanged("tipologia");
+                if ((object.ReferenceEquals(this.NomeField, value) != true)) {
+                    this.NomeField = value;
+                    this.RaisePropertyChanged("Nome");
                 }
             }
         }
@@ -188,6 +125,77 @@ namespace Client.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UtenteManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
+    [System.SerializableAttribute()]
+    public partial class UtenteManager : Client.ServiceReference1.Persona {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CreditoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipologiaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Credito {
+            get {
+                return this.CreditoField;
+            }
+            set {
+                if ((this.CreditoField.Equals(value) != true)) {
+                    this.CreditoField = value;
+                    this.RaisePropertyChanged("Credito");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Tipologia {
+            get {
+                return this.TipologiaField;
+            }
+            set {
+                if ((this.TipologiaField.Equals(value) != true)) {
+                    this.TipologiaField = value;
+                    this.RaisePropertyChanged("Tipologia");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ProdottoManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
     [System.SerializableAttribute()]
     public partial class ProdottoManager : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -196,28 +204,28 @@ namespace Client.ServiceReference1 {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string categoriaField;
+        private string CategoriaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int cod_prodottoField;
+        private int Cod_prodottoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string cod_venditoreField;
+        private string Cod_venditoreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descrizioneField;
+        private string DescrizioneField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string marcaField;
+        private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nomeField;
+        private string NomeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal prezzoField;
+        private decimal PrezzoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int quantitaField;
+        private int QuantitaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -230,105 +238,105 @@ namespace Client.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string categoria {
+        public string Categoria {
             get {
-                return this.categoriaField;
+                return this.CategoriaField;
             }
             set {
-                if ((object.ReferenceEquals(this.categoriaField, value) != true)) {
-                    this.categoriaField = value;
-                    this.RaisePropertyChanged("categoria");
+                if ((object.ReferenceEquals(this.CategoriaField, value) != true)) {
+                    this.CategoriaField = value;
+                    this.RaisePropertyChanged("Categoria");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int cod_prodotto {
+        public int Cod_prodotto {
             get {
-                return this.cod_prodottoField;
+                return this.Cod_prodottoField;
             }
             set {
-                if ((this.cod_prodottoField.Equals(value) != true)) {
-                    this.cod_prodottoField = value;
-                    this.RaisePropertyChanged("cod_prodotto");
+                if ((this.Cod_prodottoField.Equals(value) != true)) {
+                    this.Cod_prodottoField = value;
+                    this.RaisePropertyChanged("Cod_prodotto");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string cod_venditore {
+        public string Cod_venditore {
             get {
-                return this.cod_venditoreField;
+                return this.Cod_venditoreField;
             }
             set {
-                if ((object.ReferenceEquals(this.cod_venditoreField, value) != true)) {
-                    this.cod_venditoreField = value;
-                    this.RaisePropertyChanged("cod_venditore");
+                if ((object.ReferenceEquals(this.Cod_venditoreField, value) != true)) {
+                    this.Cod_venditoreField = value;
+                    this.RaisePropertyChanged("Cod_venditore");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string descrizione {
+        public string Descrizione {
             get {
-                return this.descrizioneField;
+                return this.DescrizioneField;
             }
             set {
-                if ((object.ReferenceEquals(this.descrizioneField, value) != true)) {
-                    this.descrizioneField = value;
-                    this.RaisePropertyChanged("descrizione");
+                if ((object.ReferenceEquals(this.DescrizioneField, value) != true)) {
+                    this.DescrizioneField = value;
+                    this.RaisePropertyChanged("Descrizione");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string marca {
+        public string Marca {
             get {
-                return this.marcaField;
+                return this.MarcaField;
             }
             set {
-                if ((object.ReferenceEquals(this.marcaField, value) != true)) {
-                    this.marcaField = value;
-                    this.RaisePropertyChanged("marca");
+                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
+                    this.MarcaField = value;
+                    this.RaisePropertyChanged("Marca");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string nome {
+        public string Nome {
             get {
-                return this.nomeField;
+                return this.NomeField;
             }
             set {
-                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
-                    this.nomeField = value;
-                    this.RaisePropertyChanged("nome");
+                if ((object.ReferenceEquals(this.NomeField, value) != true)) {
+                    this.NomeField = value;
+                    this.RaisePropertyChanged("Nome");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal prezzo {
+        public decimal Prezzo {
             get {
-                return this.prezzoField;
+                return this.PrezzoField;
             }
             set {
-                if ((this.prezzoField.Equals(value) != true)) {
-                    this.prezzoField = value;
-                    this.RaisePropertyChanged("prezzo");
+                if ((this.PrezzoField.Equals(value) != true)) {
+                    this.PrezzoField = value;
+                    this.RaisePropertyChanged("Prezzo");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int quantita {
+        public int Quantita {
             get {
-                return this.quantitaField;
+                return this.QuantitaField;
             }
             set {
-                if ((this.quantitaField.Equals(value) != true)) {
-                    this.quantitaField = value;
-                    this.RaisePropertyChanged("quantita");
+                if ((this.QuantitaField.Equals(value) != true)) {
+                    this.QuantitaField = value;
+                    this.RaisePropertyChanged("Quantita");
                 }
             }
         }

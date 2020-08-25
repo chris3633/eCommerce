@@ -31,17 +31,31 @@ namespace Manager
         List<ProdottoManager> VisualizzaProdotti();
 
     }
-    public class UtenteManager//utente-manager
+    public class Persona
     {
-        public string codice { get; set; }
-        public string nome { get; set; }
-        public string cognome { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public string indirizzo { get; set; }
-        public string citta { get; set; }
-        public decimal credito { get; set; }
-        public int tipologia { get; set; }
+        private string codice;
+        private string nome;
+        private string cognome;
+        private string indirizzo;
+        private string citta;
+
+        public string Codice { get => codice; set => codice = value; }
+        public string Nome { get => nome; set => nome = value; }
+        public string Cognome { get => cognome; set => cognome = value; }
+        public string Indirizzo { get => indirizzo; set => indirizzo = value; }
+        public string Citta { get => citta; set => citta = value; }
+    }
+    public class UtenteManager : Persona//utente-manager
+    {
+        private string email;
+        private string password;
+        private decimal credito;
+        private int tipologia;
+
+        public string Email { get => email; set => email = value; }
+        public string Password { get => password; set => password = value; }
+        public decimal Credito { get => credito; set => credito = value; }
+        public int Tipologia { get => tipologia; set => tipologia = value; }
 
         /*public UtenteManager(string cf, string n, string c, string e, string p, string i, string ct)//costruttore
         {
@@ -56,14 +70,23 @@ namespace Manager
     }
     public class ProdottoManager
     {
-        public int cod_prodotto { get; set; }
-        public string categoria { get; set; }
-        public string marca { get; set; }
-        public string nome { get; set; }
-        public decimal prezzo { get; set; }
-        public int quantita { get; set; }
-        public string descrizione { get; set; }
-        public string cod_venditore { get; set; }
+        private int cod_prodotto;
+        private string categoria;
+        private string marca;
+        private string nome;
+        private decimal prezzo;
+        private int quantita;
+        private string descrizione;
+        private string cod_venditore;
+
+        public int Cod_prodotto { get => cod_prodotto; set => cod_prodotto = value; }
+        public string Categoria { get => categoria; set => categoria = value; }
+        public string Marca { get => marca; set => marca = value; }
+        public string Nome { get => nome; set => nome = value; }
+        public decimal Prezzo { get => prezzo; set => prezzo = value; }
+        public int Quantita { get => quantita; set => quantita = value; }
+        public string Descrizione { get => descrizione; set => descrizione = value; }
+        public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
     }
 
 
