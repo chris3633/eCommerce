@@ -88,6 +88,12 @@ namespace Manager
         public string Descrizione { get => descrizione; set => descrizione = value; }
         public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
     }
+    public class OrdineManager
+    {
+        private int codice_utente;
+        private List<(ProdottoManager, int)> carrello;
+
+    }
 
 
 }

@@ -173,5 +173,12 @@ namespace Server
             }
             return prodotti;
         }
+        bool Stato_Ordine()
+        {
+            bool completato = false;
+
+
+            return completato;
+        }
     }
 }
