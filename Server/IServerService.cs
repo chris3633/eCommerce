@@ -93,10 +93,5 @@ namespace Server
         public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
 
     }
-    public class OrdineServer
-    {
-        private int codice_utente;
-        private List<(ProdottoServer,int)> carrello;
-
-    }
+    
 }

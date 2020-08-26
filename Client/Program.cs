@@ -453,7 +453,7 @@ namespace Client
             }
             void Area_riservata_cliente(UtenteManager um)
             {
-                Console.WriteLine("Benvenuto " + u.Nome.Trim() + " " + u.Cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+                Console.WriteLine("Benvenuto " + um.Nome.Trim() + " " + um.Cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
                 int attivita = 0;
                 do
                 {

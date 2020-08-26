@@ -112,7 +112,7 @@ namespace Server
                         {
                             while (reader.Read())
                             {
-                                
+
                                 u.Codice = reader.GetString(0);
                                 u.Nome = reader.GetString(1);
                                 u.Cognome = reader.GetString(2);
@@ -176,12 +176,58 @@ namespace Server
         public bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente)
         {
             bool completato = false;
-            foreach (var i in carrello)
+            decimal totale = 0;
+            int id_ordine = 0;
+            try
             {
-                Console.WriteLine(i.Item1.Cod_prodotto);
-                Console.WriteLine(i.Item2);
-                Console.WriteLine(cod_utente);
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
 
+                foreach (var i in carrello)
+                {
+                    Console.WriteLine(i.Item1.Cod_prodotto);
+                    Console.WriteLine(i.Item2);
+                    Console.WriteLine(cod_utente);
+                    totale += i.Item1.Prezzo * i.Item2;
+                }
+
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Insert into Ordine(Totale,CodiceUtente) VALUES ('" + totale + "', '" + cod_utente + "')";
+                        command.ExecuteNonQuery();//viene inserito un nuovo Ordine, ma dobbiamo recuperare l'id dell'ordine generato dal db
+
+                        command.CommandText = "Select Top 1 Id,Data,Totale,CodiceUtente From Ordine Where Totale ='" + totale + "' AND CodiceUtente ='" + cod_utente + "' ORDER BY Data DESC";
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                id_ordine = reader.GetInt16(0);
+                            }
+                        }
+                        foreach (var i in carrello)
+                        {
+                            Console.WriteLine(i.Item1.Cod_prodotto);
+                            Console.WriteLine(i.Item2);
+                            Console.WriteLine(cod_utente);
+                            command.CommandText = "Insert into DettagliOrdine (IdOrdine,IdArticolo,Quantita,Prezzo) VALUES ('" + id_ordine + "', '" + i.Item1.Cod_prodotto + "', '" + i.Item2 + "', '" + i.Item1.Prezzo + "')";
+                            command.ExecuteNonQuery();
+                            command.CommandText = "Update Prodotto Set Quantita=Quantita-'" +i.Item2 + "' Where CodiceProdotto ='" + i.Item1.Cod_prodotto + "'";
+                            command.ExecuteNonQuery();//la quantità del prodotto presente nel catalogo viene diminuita della quantità che è stata acquistata dal cliente
+                            command.CommandText= "Update Utente Set Credito=Credito+'" + i.Item1.Prezzo*i.Item2 + "' Where  CodiceUtente='" + i.Item1.Cod_venditore + "'";
+                            command.ExecuteNonQuery();//il credito del venditore viene aumentato del prezzo dell'articolo venduto moltiplicato per la quantità acquistata
+                        }
+                        command.CommandText = "Update Utente Set Credito=Credito-'" + totale + "' Where CodiceUtente ='" + cod_utente + "'";
+                        command.ExecuteNonQuery();//il credito del cliente viene diminuito del prezzo totale dell'ordine
+                    }
+                }
+                completato = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
             }
             return completato;
         }
