@@ -173,7 +173,7 @@ namespace Server
             }
             return prodotti;
         }
-        public bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente)
+        public bool Stato_ordine(Dictionary<int, ProdottoServer> carrello, string cod_utente)
         {
             bool completato = false;
             decimal totale = 0;
@@ -184,21 +184,22 @@ namespace Server
 
                 foreach (var i in carrello)
                 {
-                    Console.WriteLine(i.Item1.Cod_prodotto);
-                    Console.WriteLine(i.Item2);
-                    Console.WriteLine(cod_utente);
-                    totale += i.Item1.Prezzo * i.Item2;
+                    //Console.WriteLine(i.Item1.Cod_prodotto);//
+                    //Console.WriteLine(i.Item2);//
+                    //Console.WriteLine(cod_utente);//
+                    totale += i.Value.Prezzo * i.Key;
                 }
+                Console.WriteLine(totale);
 
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
                     conn.Open();
                     using (SqlCommand command = conn.CreateCommand())
                     {
-                        command.CommandText = "Insert into Ordine(Totale,CodiceUtente) VALUES ('" + totale + "', '" + cod_utente + "')";
+                        command.CommandText = "Insert into Ordine(Totale,CodiceUtente) VALUES ('" + totale + "', '" + cod_utente.ToCharArray() + "')";
                         command.ExecuteNonQuery();//viene inserito un nuovo Ordine, ma dobbiamo recuperare l'id dell'ordine generato dal db
 
-                        command.CommandText = "Select Top 1 Id,Data,Totale,CodiceUtente From Ordine Where Totale ='" + totale + "' AND CodiceUtente ='" + cod_utente + "' ORDER BY Data DESC";
+                        command.CommandText = "Select Top 1 Id,Data,Totale,CodiceUtente From Ordine Where Totale ='" + totale + "' AND CodiceUtente ='" + cod_utente.ToCharArray() + "' ORDER BY Data DESC";
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -206,7 +207,7 @@ namespace Server
                                 id_ordine = reader.GetInt16(0);
                             }
                         }
-                        foreach (var i in carrello)
+                        /*foreach (var i in carrello)
                         {
                             Console.WriteLine(i.Item1.Cod_prodotto);
                             Console.WriteLine(i.Item2);
@@ -217,7 +218,7 @@ namespace Server
                             command.ExecuteNonQuery();//la quantità del prodotto presente nel catalogo viene diminuita della quantità che è stata acquistata dal cliente
                             command.CommandText= "Update Utente Set Credito=Credito+'" + i.Item1.Prezzo*i.Item2 + "' Where  CodiceUtente='" + i.Item1.Cod_venditore + "'";
                             command.ExecuteNonQuery();//il credito del venditore viene aumentato del prezzo dell'articolo venduto moltiplicato per la quantità acquistata
-                        }
+                        }*/
                         command.CommandText = "Update Utente Set Credito=Credito-'" + totale + "' Where CodiceUtente ='" + cod_utente + "'";
                         command.ExecuteNonQuery();//il credito del cliente viene diminuito del prezzo totale dell'ordine
                     }

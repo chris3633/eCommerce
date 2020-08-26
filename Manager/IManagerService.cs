@@ -31,11 +31,15 @@ namespace Manager
         List<ProdottoManager> VisualizzaProdotti();
 
         [OperationContract]
-        bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente);
+        bool Stato_ordine(Dictionary<int,ProdottoManager> carrello, string cod_utente);
 
+        //int Stato_ordine(List<UtenteManager> carrello);
     }
+
+    
     public class Persona
     {
+        
         private string codice;
         private string nome;
         private string cognome;
@@ -48,6 +52,7 @@ namespace Manager
         public string Indirizzo { get => indirizzo; set => indirizzo = value; }
         public string Citta { get => citta; set => citta = value; }
     }
+    
     public class UtenteManager : Persona//utente-manager
     {
         private string email;
@@ -71,8 +76,11 @@ namespace Manager
             citta = ct;
         }*/
     }
+
+    
     public class ProdottoManager
     {
+       
         private int cod_prodotto;
         private string categoria;
         private string marca;
@@ -82,13 +90,21 @@ namespace Manager
         private string descrizione;
         private string cod_venditore;
 
+        
         public int Cod_prodotto { get => cod_prodotto; set => cod_prodotto = value; }
+        
         public string Categoria { get => categoria; set => categoria = value; }
+        
         public string Marca { get => marca; set => marca = value; }
+        
         public string Nome { get => nome; set => nome = value; }
+        
         public decimal Prezzo { get => prezzo; set => prezzo = value; }
+        
         public int Quantita { get => quantita; set => quantita = value; }
+        
         public string Descrizione { get => descrizione; set => descrizione = value; }
+        
         public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
     }
     public class OrdineManager

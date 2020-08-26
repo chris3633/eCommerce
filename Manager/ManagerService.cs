@@ -90,17 +90,41 @@ namespace Manager
             return prodotti;
         }
 
-        public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente) 
+        public bool Stato_ordine(Dictionary<int, ProdottoManager> carrello, string cod_utente) 
         {
-            List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
-            foreach(var i in carrello)
+            ProdottoServer p = new ProdottoServer();
+            int chiave=0;
+            Dictionary<int, ProdottoServer> carrello_convertito = new Dictionary<int, ProdottoServer>();
+            foreach (var i in carrello)
             {
-                var p1 = (ProdottoServer)Convert.ChangeType(i.Item1,typeof(ProdottoServer));
-                carrello_convertito.Add((p1,i.Item2));
+                chiave = i.Key;
+                p.Cod_prodotto = i.Value.Cod_prodotto;
+                p.Categoria = i.Value.Categoria;
+                p.Marca = i.Value.Marca;
+                p.Nome = i.Value.Nome;
+                p.Prezzo = i.Value.Prezzo;
+                p.Quantita = i.Value.Quantita;
+                p.Descrizione = i.Value.Descrizione;
+                p.Cod_venditore = i.Value.Cod_venditore;
+                carrello_convertito.Add(chiave, p);
             }
-         
             var servizio = new Server.ServerServiceClient();
-            return servizio.Stato_ordine(carrello_convertito,cod_utente);
+
+            /* //List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
+             Dictionary<int, ProdottoServer> carrello_convertito = new Dictionary<int, ProdottoServer>();
+             foreach (var i in carrello)
+             {
+                 var p1 = (ProdottoServer)Convert.ChangeType(i.Value,typeof(ProdottoServer));
+                 carrello_convertito.Add(i.Key,p1);
+             }
+
+             var servizio = new Server.ServerServiceClient();*/
+            //return servizio.Stato_ordine(carrello_convertito,cod_utente);
+            return servizio.Stato_ordine(carrello_convertito, cod_utente);
         }
+        /*public int Stato_ordine(List<UtenteManager> carrello)
+        {
+            return 1;
+        }*/
     }
 }

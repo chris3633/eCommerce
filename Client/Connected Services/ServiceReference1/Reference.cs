@@ -386,10 +386,10 @@ namespace Client.ServiceReference1 {
         System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.ProdottoManager>> VisualizzaProdottiAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Stato_ordine", ReplyAction="http://tempuri.org/IManagerService/Stato_ordineResponse")]
-        bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente);
+        bool Stato_ordine(System.Collections.Generic.Dictionary<int, Client.ServiceReference1.ProdottoManager> carrello, string cod_utente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Stato_ordine", ReplyAction="http://tempuri.org/IManagerService/Stato_ordineResponse")]
-        System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente);
+        System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.Dictionary<int, Client.ServiceReference1.ProdottoManager> carrello, string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -459,11 +459,11 @@ namespace Client.ServiceReference1 {
             return base.Channel.VisualizzaProdottiAsync();
         }
         
-        public bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente) {
+        public bool Stato_ordine(System.Collections.Generic.Dictionary<int, Client.ServiceReference1.ProdottoManager> carrello, string cod_utente) {
             return base.Channel.Stato_ordine(carrello, cod_utente);
         }
         
-        public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente) {
+        public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.Dictionary<int, Client.ServiceReference1.ProdottoManager> carrello, string cod_utente) {
             return base.Channel.Stato_ordineAsync(carrello, cod_utente);
         }
     }

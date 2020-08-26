@@ -392,7 +392,8 @@ namespace Client
                     int codice = 0, quantita=0;
                     decimal totale_carrello=0;
                     char risposta = 'Y';
-                    List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();
+                    //List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();
+                    Dictionary<int, ProdottoManager> carrello = new Dictionary<int, ProdottoManager>();
                     Console.WriteLine("Effettua ordine");
                     Console.WriteLine("Aggiungi prodotti al carrello");
                     do {
@@ -407,10 +408,11 @@ namespace Client
                             {
                                 ProdottoManager p = new ProdottoManager();
                                 p = i;//
-                                carrello.Add((p, quantita));
+                                //carrello.Add((p, quantita));
+                                carrello.Add(quantita,p);
                                 totale_carrello += i.Prezzo * quantita;
                                 Console.WriteLine("Prodotto aggiunto al carrello");
-                                Console.WriteLine("Totale parziale"+ totale_carrello);
+                                Console.WriteLine("Totale parziale "+ totale_carrello);
                             }
                             
                         }
@@ -420,8 +422,8 @@ namespace Client
 
                     foreach(var i in carrello)
                     {
-                        Console.WriteLine(i.Item1.Cod_prodotto);
-                        Console.WriteLine(i.Item2);
+                        //Console.WriteLine(i.Item1.Cod_prodotto);
+                        //Console.WriteLine(i.Item2);
 
                     }
 
@@ -430,13 +432,15 @@ namespace Client
                         risposta = Convert.ToChar(Console.ReadLine());
                     } while (risposta != 'N' &&  risposta!='Y');
 
+                    
                     if (risposta == 'Y')
                     {
                         if (u.Credito >= totale_carrello)
                         {
 
                             Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
-                            completato = wcfclient.Stato_ordine(carrello,u.Codice);
+                            completato = wcfclient.Stato_ordine(carrello, u.Codice);
+                            //Console.WriteLine(wcfclient.Stato_ordine(l));
 
                         }
                         else { Console.WriteLine("Credito non sufficiente!"); }
@@ -448,7 +452,8 @@ namespace Client
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.InnerException);
+                    Console.WriteLine(ex.ToString());
                 }
             }
             void Area_riservata_cliente(UtenteManager um)

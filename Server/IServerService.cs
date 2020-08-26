@@ -30,7 +30,8 @@ namespace Server
         List<ProdottoServer> VisualizzaProdotti();
 
         [OperationContract]
-        bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
+        //bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
+        bool Stato_ordine(Dictionary<int, ProdottoServer> carrello, string cod_utente);
     }
 
     public class Persona
@@ -72,8 +73,10 @@ namespace Server
         }*/
 
     }
+    [DataContract]
     public class ProdottoServer
     {
+        
         private int cod_prodotto;
         private string categoria;
         private string marca;
@@ -83,13 +86,21 @@ namespace Server
         private string descrizione;
         private string cod_venditore;
 
+        [DataMember]
         public int Cod_prodotto { get => cod_prodotto; set => cod_prodotto = value; }
+        [DataMember]
         public string Categoria { get => categoria; set => categoria = value; }
+        [DataMember]
         public string Marca { get => marca; set => marca = value; }
+        [DataMember]
         public string Nome { get => nome; set => nome = value; }
+        [DataMember]
         public decimal Prezzo { get => prezzo; set => prezzo = value; }
+        [DataMember]
         public int Quantita { get => quantita; set => quantita = value; }
+        [DataMember]
         public string Descrizione { get => descrizione; set => descrizione = value; }
+        [DataMember]
         public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
 
     }
