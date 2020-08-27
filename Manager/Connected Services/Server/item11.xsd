@@ -42,4 +42,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProdottoServer" nillable="true" type="tns:ProdottoServer" />
+  <xs:complexType name="ArrayOfOrdineServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrdineServer" nillable="true" type="tns:OrdineServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrdineServer" nillable="true" type="tns:ArrayOfOrdineServer" />
+  <xs:complexType name="OrdineServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codice_utente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id_ordine" type="xs:int" />
+      <xs:element minOccurs="0" name="Totale" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrdineServer" nillable="true" type="tns:OrdineServer" />
 </xs:schema>

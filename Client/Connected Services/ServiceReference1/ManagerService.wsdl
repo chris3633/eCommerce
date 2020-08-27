@@ -50,6 +50,12 @@
   <wsdl:message name="IManagerService_Aggiungi_credito_OutputMessage">
     <wsdl:part name="parameters" element="tns:Aggiungi_creditoResponse" />
   </wsdl:message>
+  <wsdl:message name="IManagerService_Storico_ordini_InputMessage">
+    <wsdl:part name="parameters" element="tns:Storico_ordini" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Storico_ordini_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Storico_ordiniResponse" />
+  </wsdl:message>
   <wsdl:portType name="IManagerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/DoWork" message="tns:IManagerService_DoWork_InputMessage" />
@@ -78,6 +84,10 @@
     <wsdl:operation name="Aggiungi_credito">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_credito" message="tns:IManagerService_Aggiungi_credito_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_creditoResponse" message="tns:IManagerService_Aggiungi_credito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Storico_ordini">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Storico_ordini" message="tns:IManagerService_Storico_ordini_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Storico_ordiniResponse" message="tns:IManagerService_Storico_ordini_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IManagerService" type="tns:IManagerService">
@@ -138,6 +148,15 @@
     </wsdl:operation>
     <wsdl:operation name="Aggiungi_credito">
       <soap:operation soapAction="http://tempuri.org/IManagerService/Aggiungi_credito" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Storico_ordini">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Storico_ordini" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

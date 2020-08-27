@@ -34,6 +34,8 @@ namespace Manager
         bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente);
         [OperationContract]
         bool Aggiungi_credito(double importo,string cod_utente);
+        [OperationContract]
+        List<OrdineManager> Storico_ordini(string cod_utente);
 
     }
 
@@ -110,9 +112,15 @@ namespace Manager
     }
     public class OrdineManager
     {
-        private int codice_utente;
-        private List<(ProdottoManager, int)> carrello;
+        private int id_ordine;
+        private string codice_utente;
+        private DateTime data;
+        private decimal totale;
 
+        public int Id_ordine { get => id_ordine; set => id_ordine = value; }
+        public string Codice_utente { get => codice_utente; set => codice_utente = value; }
+        public DateTime Data { get => data; set => data = value; }
+        public decimal Totale { get => totale; set => totale = value; }
     }
 
 

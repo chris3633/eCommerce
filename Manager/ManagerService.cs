@@ -85,11 +85,22 @@ namespace Manager
 
         public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente)
         {
-            ProdottoServer p = new ProdottoServer();
+            
             List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
             foreach (var i in carrello)
             {
-                p.Cod_prodotto = i.Item1.Cod_prodotto;
+                carrello_convertito.Add((new ProdottoServer //aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
+                {
+                    Cod_prodotto = i.Item1.Cod_prodotto,
+                    Categoria = i.Item1.Categoria,
+                    Marca = i.Item1.Marca,
+                    Nome = i.Item1.Nome,
+                    Prezzo = i.Item1.Prezzo,
+                    Quantita = i.Item1.Quantita,
+                    Descrizione = i.Item1.Descrizione,
+                    Cod_venditore = i.Item1.Cod_venditore
+                },i.Item2));
+                /*p.Cod_prodotto = i.Item1.Cod_prodotto;
                 p.Categoria = i.Item1.Categoria;
                 p.Marca = i.Item1.Marca;
                 p.Nome = i.Item1.Nome;
@@ -97,7 +108,8 @@ namespace Manager
                 p.Quantita = i.Item1.Quantita;
                 p.Descrizione = i.Item1.Descrizione;
                 p.Cod_venditore = i.Item1.Cod_venditore;
-                carrello_convertito.Add((p,i.Item2));
+                carrello_convertito.Add((p,i.Item2));*/
+
             }
             var servizio = new Server.ServerServiceClient();
 
@@ -111,7 +123,26 @@ namespace Manager
 
             return servizio.Aggiungi_credito(importo,cod_utente);
         }
+        public List<OrdineManager> Storico_ordini(string cod_utente)
+        {
+            var servizio = new Server.ServerServiceClient();
+            List<OrdineManager> ordini_manager = new List<OrdineManager>();
 
+            List<OrdineServer> ordini_server = servizio.Storico_ordini(cod_utente);
+            
+            var ord = ordini_server.ToList();
+            foreach (var i in ord) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
+            {
+                ordini_manager.Add(new OrdineManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
+                {
+                    Id_ordine = i.Id_ordine,
+                    Codice_utente =i.Codice_utente,
+                    Data =i.Data,
+                    Totale =i.Totale
+                }); 
+            }
+            return ordini_manager;
+        }
 
     }
 }

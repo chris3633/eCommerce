@@ -172,7 +172,7 @@ namespace Server
         public bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente)
         {
             bool completato;
-            double totale = 0;
+            double totale = 0.0;
             int id_ordine = 0;
 
             try
@@ -184,9 +184,10 @@ namespace Server
                     Console.WriteLine(i.Item1.Cod_prodotto);//
                     Console.WriteLine(i.Item2);//
                     Console.WriteLine(cod_utente);//
-                    totale += (Convert.ToDouble(i.Item1.Prezzo) * i.Item2);
+                    totale += (double)i.Item1.Prezzo * i.Item2;
                 }
                 Console.WriteLine(totale);
+                float tot = (float)totale;
 
    
 
@@ -195,10 +196,11 @@ namespace Server
                     conn.Open();
                     using (SqlCommand command = conn.CreateCommand())
                     {
-                        command.CommandText = "Insert into Ordine(Totale,CodiceUtente) VALUES ('" + totale + "', '" + cod_utente + "')";
+                        command.CommandText = "Insert into Ordine(Totale,CodiceUtente) VALUES ('" + tot + "', '" + cod_utente + "')";
                         command.ExecuteNonQuery();//viene inserito un nuovo Ordine, ma dobbiamo recuperare l'id dell'ordine generato dal db
+                        Console.WriteLine("Test");
                         command.CommandText = "Select Top 1 Id,Data,Totale,CodiceUtente From Ordine Where Totale ='" + totale + "' AND CodiceUtente ='" + cod_utente + "' ORDER BY Data DESC";
-
+                        
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -258,6 +260,42 @@ namespace Server
             return completato;
 
 
+        }
+        public List<OrdineServer> Storico_ordini(string cod_utente)
+        {
+            List<OrdineServer> ordini = new List<OrdineServer>();
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='"+cod_utente+"'";
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ordini.Add(new OrdineServer
+                                {
+                                    Id_ordine = reader.GetInt32(0),
+                                    Data = reader.GetDateTime(1),
+                                    Totale = reader.GetDecimal(2),
+                                    Codice_utente = reader.GetString(3),
+                                    
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ordini;
         }
     }
 }

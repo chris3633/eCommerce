@@ -33,6 +33,8 @@ namespace Server
         bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
         [OperationContract]
         bool Aggiungi_credito(double importo, string cod_utente);
+        [OperationContract]
+        List<OrdineServer> Storico_ordini(string cod_utente);
 
     }
 
@@ -106,5 +108,22 @@ namespace Server
         public string Cod_venditore { get => cod_venditore; set => cod_venditore = value; }
 
     }
-    
+    [DataContract]
+    public class OrdineServer
+    {
+        private int id_ordine;
+        private string codice_utente;
+        private DateTime data;
+        private decimal totale;
+
+        [DataMember]
+        public int Id_ordine { get => id_ordine; set => id_ordine = value; }
+        [DataMember]
+        public string Codice_utente { get => codice_utente; set => codice_utente = value; }
+        [DataMember]
+        public DateTime Data { get => data; set => data = value; }
+        [DataMember]
+        public decimal Totale { get => totale; set => totale = value; }
+    }
+
 }

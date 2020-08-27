@@ -455,6 +455,11 @@ namespace Client
                             {
 
                                 Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
+                                foreach(var i in carrello)
+                                {
+                                    Console.WriteLine(i.Item1.Nome);
+                                    Console.WriteLine(i.Item2);
+                                }
                                 completato = wcfclient.Stato_ordine(carrello, u.Codice);
 
                             }
@@ -471,9 +476,18 @@ namespace Client
                     Console.WriteLine(ex.Message);
                 }
             }
-            void Storico_ordini(UtenteManager um)
+            void Storico_ordini(string cod_utente)
             {
-
+                List<OrdineManager> ordini_manager = new List<OrdineManager>();
+                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                ordini_manager=wcfclient.Storico_ordini(cod_utente);
+                foreach(var i in ordini_manager)
+                {
+                    Console.WriteLine("Numero dell'ordine: "+i.Id_ordine);
+                    Console.WriteLine("Data: "+i.Data);
+                    Console.WriteLine("Prezzo totale: "+i.Totale);
+                    Console.WriteLine("------------------------");
+                }
             }
             void Area_riservata_cliente(UtenteManager um)
             {
@@ -532,7 +546,7 @@ namespace Client
 
                             break;
                         case 4:
-                            Storico_ordini(um);
+                            Storico_ordini(um.Codice);
                             break;
                         case 5:
                             Console.WriteLine("Logout effettuato correttamente");

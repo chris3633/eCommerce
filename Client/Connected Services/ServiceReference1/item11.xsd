@@ -42,4 +42,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProdottoManager" nillable="true" type="tns:ProdottoManager" />
+  <xs:complexType name="ArrayOfOrdineManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrdineManager" nillable="true" type="tns:OrdineManager" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrdineManager" nillable="true" type="tns:ArrayOfOrdineManager" />
+  <xs:complexType name="OrdineManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codice_utente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id_ordine" type="xs:int" />
+      <xs:element minOccurs="0" name="Totale" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrdineManager" nillable="true" type="tns:OrdineManager" />
 </xs:schema>

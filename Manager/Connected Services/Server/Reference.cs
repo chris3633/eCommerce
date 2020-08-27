@@ -351,6 +351,99 @@ namespace Manager.Server {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrdineServer", Namespace="http://schemas.datacontract.org/2004/07/Server")]
+    [System.SerializableAttribute()]
+    public partial class OrdineServer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Codice_utenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Id_ordineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal TotaleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codice_utente {
+            get {
+                return this.Codice_utenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Codice_utenteField, value) != true)) {
+                    this.Codice_utenteField = value;
+                    this.RaisePropertyChanged("Codice_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Data {
+            get {
+                return this.DataField;
+            }
+            set {
+                if ((this.DataField.Equals(value) != true)) {
+                    this.DataField = value;
+                    this.RaisePropertyChanged("Data");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id_ordine {
+            get {
+                return this.Id_ordineField;
+            }
+            set {
+                if ((this.Id_ordineField.Equals(value) != true)) {
+                    this.Id_ordineField = value;
+                    this.RaisePropertyChanged("Id_ordine");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Totale {
+            get {
+                return this.TotaleField;
+            }
+            set {
+                if ((this.TotaleField.Equals(value) != true)) {
+                    this.TotaleField = value;
+                    this.RaisePropertyChanged("Totale");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IServerService")]
     public interface IServerService {
@@ -396,6 +489,12 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Aggiungi_credito", ReplyAction="http://tempuri.org/IServerService/Aggiungi_creditoResponse")]
         System.Threading.Tasks.Task<bool> Aggiungi_creditoAsync(double importo, string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Storico_ordini", ReplyAction="http://tempuri.org/IServerService/Storico_ordiniResponse")]
+        System.Collections.Generic.List<Manager.Server.OrdineServer> Storico_ordini(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Storico_ordini", ReplyAction="http://tempuri.org/IServerService/Storico_ordiniResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -479,6 +578,14 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task<bool> Aggiungi_creditoAsync(double importo, string cod_utente) {
             return base.Channel.Aggiungi_creditoAsync(importo, cod_utente);
+        }
+        
+        public System.Collections.Generic.List<Manager.Server.OrdineServer> Storico_ordini(string cod_utente) {
+            return base.Channel.Storico_ordini(cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente) {
+            return base.Channel.Storico_ordiniAsync(cod_utente);
         }
     }
 }
