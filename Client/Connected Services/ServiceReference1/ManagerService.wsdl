@@ -44,6 +44,12 @@
   <wsdl:message name="IManagerService_Stato_ordine_OutputMessage">
     <wsdl:part name="parameters" element="tns:Stato_ordineResponse" />
   </wsdl:message>
+  <wsdl:message name="IManagerService_Aggiungi_credito_InputMessage">
+    <wsdl:part name="parameters" element="tns:Aggiungi_credito" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Aggiungi_credito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Aggiungi_creditoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IManagerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/DoWork" message="tns:IManagerService_DoWork_InputMessage" />
@@ -68,6 +74,10 @@
     <wsdl:operation name="Stato_ordine">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Stato_ordine" message="tns:IManagerService_Stato_ordine_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Stato_ordineResponse" message="tns:IManagerService_Stato_ordine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Aggiungi_credito">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_credito" message="tns:IManagerService_Aggiungi_credito_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_creditoResponse" message="tns:IManagerService_Aggiungi_credito_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IManagerService" type="tns:IManagerService">
@@ -119,6 +129,15 @@
     </wsdl:operation>
     <wsdl:operation name="Stato_ordine">
       <soap:operation soapAction="http://tempuri.org/IManagerService/Stato_ordine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Aggiungi_credito">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Aggiungi_credito" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

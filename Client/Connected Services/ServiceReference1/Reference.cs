@@ -390,6 +390,12 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Stato_ordine", ReplyAction="http://tempuri.org/IManagerService/Stato_ordineResponse")]
         System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_credito", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_creditoResponse")]
+        bool Aggiungi_credito(double importo, string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_credito", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_creditoResponse")]
+        System.Threading.Tasks.Task<bool> Aggiungi_creditoAsync(double importo, string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -465,6 +471,14 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Client.ServiceReference1.ProdottoManager, int>> carrello, string cod_utente) {
             return base.Channel.Stato_ordineAsync(carrello, cod_utente);
+        }
+        
+        public bool Aggiungi_credito(double importo, string cod_utente) {
+            return base.Channel.Aggiungi_credito(importo, cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Aggiungi_creditoAsync(double importo, string cod_utente) {
+            return base.Channel.Aggiungi_creditoAsync(importo, cod_utente);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Client
         static void Main(string[] args)
         {
             UtenteManager u = new UtenteManager();
-            
+
             u = null;
             try
             {
@@ -26,7 +26,6 @@ namespace Client
 
                 //wcfclient.DoWork();
 
-                //Console.WriteLine(wcfclient.Raddoppia(5));
 
                 int attivita = 0;
                 Console.WriteLine("----------------------------------------");
@@ -385,15 +384,15 @@ namespace Client
                     Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
                     Console.WriteLine("-----------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
-                    {                       
+                    {
                         Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
                         Console.WriteLine("-----------------------------------------------------------------------------------");
                     }
-                    int codice = 0, quantita=0;
-                    decimal totale_carrello=0;
+                    int codice = 0, quantita = 0;
+                    decimal totale_carrello = 0;
                     char risposta = 'Y';
-                    List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();
-
+                    List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();//carrello formato da coppie (prodotto,quantità)
+                    ProdottoManager p = new ProdottoManager();
 
                     if (lista_filtrata.Count() == 0)
                         Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
@@ -407,24 +406,37 @@ namespace Client
                             codice = int.Parse(Console.ReadLine());
                             Console.WriteLine("Inserisci quantità prodotto");
                             quantita = int.Parse(Console.ReadLine());
-                            foreach (var i in lista_filtrata.ToList())
+                            if (quantita > 0)
                             {
+                                foreach (var i in lista_filtrata.ToList())
+                                {
+                                    if (codice == i.Cod_prodotto)
+                                    {
+                                        Console.WriteLine(i.Cod_prodotto);
+                                        if (quantita <= i.Quantita)
+                                        {
 
-                                if (codice == i.Cod_prodotto && quantita <= i.Quantita && quantita > 0)
-                                {
-                                    ProdottoManager p = new ProdottoManager();
-                                    p = i;//
-                                    carrello.Add((p, quantita));
-                                    totale_carrello += i.Prezzo * quantita;
-                                    Console.WriteLine("Prodotto aggiunto al carrello");
-                                    Console.WriteLine("Totale parziale " + totale_carrello);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Quantita' non sufficiente o quantità inserita uguale a zero");
-                                    break;
+                                            carrello.Add((new ProdottoManager
+                                            {
+                                                Cod_prodotto = i.Cod_prodotto,
+                                                Categoria = i.Categoria,
+                                                Marca = i.Marca,
+                                                Nome = i.Nome,
+                                                Prezzo = i.Prezzo,
+                                                Quantita = i.Quantita,
+                                                Descrizione = i.Descrizione,
+                                                Cod_venditore = i.Cod_venditore
+                                            }, quantita));
+                                            totale_carrello += i.Prezzo * quantita;
+                                            Console.WriteLine("Prodotto aggiunto al carrello");
+                                            Console.WriteLine("Totale parziale " + totale_carrello);
+                                        }
+                                        else Console.WriteLine("Quantita' non disponibile, sono rimasti " + i.Quantita + " prodotti");
+                                    }
+
                                 }
                             }
+                            else Console.WriteLine("Quantità inserita uguale a zero");
                             Console.WriteLine("Vuoi aggiungere un altro prodotto? Y/N");
                             risposta = Convert.ToChar(Console.ReadLine());
                         } while (risposta != 'N' && risposta != 'n');
@@ -456,9 +468,12 @@ namespace Client
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.InnerException);
-                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(ex.Message);
                 }
+            }
+            void Storico_ordini(UtenteManager um)
+            {
+
             }
             void Area_riservata_cliente(UtenteManager um)
             {
@@ -487,13 +502,37 @@ namespace Client
                             Visualizza_Acquista_prodotti();
                             break;
                         case 2:
-
+                            Console.WriteLine("Codice Utente: " + um.Codice);
+                            Console.WriteLine("Nome: " + um.Nome);
+                            Console.WriteLine("Cognome: " + um.Cognome);
+                            Console.WriteLine("E-mail: " + um.Email);
+                            Console.WriteLine("Credito residuo: " + um.Credito);
+                            Console.WriteLine("Città: " + um.Citta);
+                            Console.WriteLine("Indirizzo: " + um.Indirizzo);
                             break;
                         case 3:
+                            try
+                            {
+                                double importo;
+                                bool completato;
+                                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                                Console.WriteLine("Inserisci importo da aggiungere");
+                                importo = double.Parse(Console.ReadLine());
+                                completato = wcfclient.Aggiungi_credito(importo, um.Codice);
+                                if (completato)
+                                {
+                                    Console.WriteLine("Credito aggiornato con successo!");
+                                }
+                                else { Console.WriteLine("Credito non aggiornato"); }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
 
                             break;
                         case 4:
-
+                            Storico_ordini(um);
                             break;
                         case 5:
                             Console.WriteLine("Logout effettuato correttamente");

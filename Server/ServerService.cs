@@ -171,7 +171,7 @@ namespace Server
         }
         public bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente)
         {
-            bool completato = false;
+            bool completato;
             double totale = 0;
             int id_ordine = 0;
 
@@ -181,10 +181,10 @@ namespace Server
 
                 foreach (var i in carrello) //ciclo di test
                 {
-                    //Console.WriteLine(i.Item1.Cod_prodotto);//
-                    //Console.WriteLine(i.Item2);//
-                    //Console.WriteLine(cod_utente);//
-                    totale += Convert.ToDouble(i.Item1.Prezzo) * i.Item2;
+                    Console.WriteLine(i.Item1.Cod_prodotto);//
+                    Console.WriteLine(i.Item2);//
+                    Console.WriteLine(cod_utente);//
+                    totale += (Convert.ToDouble(i.Item1.Prezzo) * i.Item2);
                 }
                 Console.WriteLine(totale);
 
@@ -209,6 +209,7 @@ namespace Server
 
                         foreach (var i in carrello)
                         {
+                            Console.WriteLine(i.Item1.Nome);
                             Console.WriteLine(i.Item1.Cod_prodotto);
                             Console.WriteLine(i.Item2);
                             Console.WriteLine(cod_utente);
@@ -231,6 +232,32 @@ namespace Server
                 completato = false;
             }
             return completato;
+        }
+        public bool Aggiungi_credito(double importo, string cod_utente)
+        {
+            bool completato;
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Update Utente Set Credito=Credito+'" + importo + "' Where  CodiceUtente='" + cod_utente + "'";
+                        command.ExecuteNonQuery();
+                    }
+                }
+                completato = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
+            }
+            return completato;
+
+
         }
     }
 }

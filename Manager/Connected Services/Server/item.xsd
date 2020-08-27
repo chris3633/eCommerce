@@ -83,4 +83,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Aggiungi_credito">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="importo" type="xs:double" />
+        <xs:element minOccurs="0" name="cod_utente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Aggiungi_creditoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Aggiungi_creditoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

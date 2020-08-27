@@ -105,6 +105,12 @@ namespace Manager
 
 
         }
+        public bool Aggiungi_credito(double importo,string cod_utente)
+        {
+            var servizio = new Server.ServerServiceClient();
+
+            return servizio.Aggiungi_credito(importo,cod_utente);
+        }
 
 
     }

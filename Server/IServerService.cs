@@ -31,7 +31,9 @@ namespace Server
 
         [OperationContract]
         bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
-        
+        [OperationContract]
+        bool Aggiungi_credito(double importo, string cod_utente);
+
     }
 
     public class Persona
