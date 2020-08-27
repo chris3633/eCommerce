@@ -30,8 +30,8 @@ namespace Server
         List<ProdottoServer> VisualizzaProdotti();
 
         [OperationContract]
-        //bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
-        bool Stato_ordine(Dictionary<int, ProdottoServer> carrello, string cod_utente);
+        bool Stato_ordine(List<(ProdottoServer, int)> carrello, string cod_utente);
+        
     }
 
     public class Persona

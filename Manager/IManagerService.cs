@@ -31,9 +31,8 @@ namespace Manager
         List<ProdottoManager> VisualizzaProdotti();
 
         [OperationContract]
-        bool Stato_ordine(Dictionary<int,ProdottoManager> carrello, string cod_utente);
+        bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente);
 
-        //int Stato_ordine(List<UtenteManager> carrello);
     }
 
     

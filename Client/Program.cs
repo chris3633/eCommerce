@@ -385,69 +385,73 @@ namespace Client
                     Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
                     Console.WriteLine("-----------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
-                    {
+                    {                       
                         Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
                         Console.WriteLine("-----------------------------------------------------------------------------------");
                     }
                     int codice = 0, quantita=0;
                     decimal totale_carrello=0;
                     char risposta = 'Y';
-                    //List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();
-                    Dictionary<int, ProdottoManager> carrello = new Dictionary<int, ProdottoManager>();
-                    Console.WriteLine("Effettua ordine");
-                    Console.WriteLine("Aggiungi prodotti al carrello");
-                    do {
-                        Console.WriteLine("Inserisci codice prodotto");
-                        codice = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Inserisci quantità prodotto");
-                        quantita = int.Parse(Console.ReadLine());
-                        foreach (var i in lista_filtrata.ToList())
+                    List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();
+
+
+                    if (lista_filtrata.Count() == 0)
+                        Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
+                    else
+                    {
+                        Console.WriteLine("Effettua ordine");
+                        Console.WriteLine("Aggiungi prodotti al carrello");
+                        do
                         {
-                            
-                            if (codice == i.Cod_prodotto && quantita <= i.Quantita)
+                            Console.WriteLine("Inserisci codice prodotto");
+                            codice = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Inserisci quantità prodotto");
+                            quantita = int.Parse(Console.ReadLine());
+                            foreach (var i in lista_filtrata.ToList())
                             {
-                                ProdottoManager p = new ProdottoManager();
-                                p = i;//
-                                //carrello.Add((p, quantita));
-                                carrello.Add(quantita,p);
-                                totale_carrello += i.Prezzo * quantita;
-                                Console.WriteLine("Prodotto aggiunto al carrello");
-                                Console.WriteLine("Totale parziale "+ totale_carrello);
+
+                                if (codice == i.Cod_prodotto && quantita <= i.Quantita && quantita > 0)
+                                {
+                                    ProdottoManager p = new ProdottoManager();
+                                    p = i;//
+                                    carrello.Add((p, quantita));
+                                    totale_carrello += i.Prezzo * quantita;
+                                    Console.WriteLine("Prodotto aggiunto al carrello");
+                                    Console.WriteLine("Totale parziale " + totale_carrello);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Quantita' non sufficiente o quantità inserita uguale a zero");
+                                    break;
+                                }
                             }
-                            
-                        }
-                        Console.WriteLine("Vuoi aggiungere un altro prodotto? Y/N");
-                        risposta = Convert.ToChar(Console.ReadLine());
-                    } while (risposta!='N' && risposta!='n');
+                            Console.WriteLine("Vuoi aggiungere un altro prodotto? Y/N");
+                            risposta = Convert.ToChar(Console.ReadLine());
+                        } while (risposta != 'N' && risposta != 'n');
 
-                    foreach(var i in carrello)
-                    {
-                        //Console.WriteLine(i.Item1.Cod_prodotto);
-                        //Console.WriteLine(i.Item2);
 
-                    }
-
-                    do { 
-                        Console.WriteLine("Procedere con l'ordine? Y/N");
-                        risposta = Convert.ToChar(Console.ReadLine());
-                    } while (risposta != 'N' &&  risposta!='Y');
-
-                    
-                    if (risposta == 'Y')
-                    {
-                        if (u.Credito >= totale_carrello)
+                        do
                         {
+                            Console.WriteLine("Procedere con l'ordine? Y/N");
+                            risposta = Convert.ToChar(Console.ReadLine());
+                        } while (risposta != 'N' && risposta != 'Y');
 
-                            Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
-                            completato = wcfclient.Stato_ordine(carrello, u.Codice);
-                            //Console.WriteLine(wcfclient.Stato_ordine(l));
+
+                        if (risposta == 'Y' && totale_carrello != 0)
+                        {
+                            if (u.Credito >= totale_carrello)
+                            {
+
+                                Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
+                                completato = wcfclient.Stato_ordine(carrello, u.Codice);
+
+                            }
+                            else { Console.WriteLine("Credito non sufficiente!"); }
 
                         }
-                        else { Console.WriteLine("Credito non sufficiente!"); }
+                        else Console.WriteLine("Il tuo carrello è vuoto, non è quindi possibile procedere con l'ordine!");
 
                     }
-                            
-                    
 
                 }
                 catch (Exception ex)

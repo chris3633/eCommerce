@@ -21,12 +21,6 @@ namespace Manager
 
         }
 
-        /*public int Raddoppia(int n) riceve intero dal client
-        {
-            var servizio = new Server.ServerServiceClient(); crea servizio
-            
-            return servizio.Raddoppia(n); servizio passa al server valore, server lo raddoppia, il valore viene ritornato al manager che lo ritorna al client
-        }*/
 
         public bool Registra(UtenteManager u1)
         {
@@ -68,7 +62,6 @@ namespace Manager
         public List<ProdottoManager> VisualizzaProdotti()
         {
             var servizio = new Server.ServerServiceClient();
-            //ProdottoManager p = new ProdottoManager();
             List<ProdottoManager> prodotti = new List<ProdottoManager>();
 
             List<ProdottoServer> lista = servizio.VisualizzaProdotti();
@@ -90,41 +83,29 @@ namespace Manager
             return prodotti;
         }
 
-        public bool Stato_ordine(Dictionary<int, ProdottoManager> carrello, string cod_utente) 
+        public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente)
         {
             ProdottoServer p = new ProdottoServer();
-            int chiave=0;
-            Dictionary<int, ProdottoServer> carrello_convertito = new Dictionary<int, ProdottoServer>();
+            List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
             foreach (var i in carrello)
             {
-                chiave = i.Key;
-                p.Cod_prodotto = i.Value.Cod_prodotto;
-                p.Categoria = i.Value.Categoria;
-                p.Marca = i.Value.Marca;
-                p.Nome = i.Value.Nome;
-                p.Prezzo = i.Value.Prezzo;
-                p.Quantita = i.Value.Quantita;
-                p.Descrizione = i.Value.Descrizione;
-                p.Cod_venditore = i.Value.Cod_venditore;
-                carrello_convertito.Add(chiave, p);
+                p.Cod_prodotto = i.Item1.Cod_prodotto;
+                p.Categoria = i.Item1.Categoria;
+                p.Marca = i.Item1.Marca;
+                p.Nome = i.Item1.Nome;
+                p.Prezzo = i.Item1.Prezzo;
+                p.Quantita = i.Item1.Quantita;
+                p.Descrizione = i.Item1.Descrizione;
+                p.Cod_venditore = i.Item1.Cod_venditore;
+                carrello_convertito.Add((p,i.Item2));
             }
             var servizio = new Server.ServerServiceClient();
 
-            /* //List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
-             Dictionary<int, ProdottoServer> carrello_convertito = new Dictionary<int, ProdottoServer>();
-             foreach (var i in carrello)
-             {
-                 var p1 = (ProdottoServer)Convert.ChangeType(i.Value,typeof(ProdottoServer));
-                 carrello_convertito.Add(i.Key,p1);
-             }
-
-             var servizio = new Server.ServerServiceClient();*/
-            //return servizio.Stato_ordine(carrello_convertito,cod_utente);
             return servizio.Stato_ordine(carrello_convertito, cod_utente);
+
+
         }
-        /*public int Stato_ordine(List<UtenteManager> carrello)
-        {
-            return 1;
-        }*/
+
+
     }
 }

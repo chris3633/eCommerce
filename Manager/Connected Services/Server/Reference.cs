@@ -386,10 +386,10 @@ namespace Manager.Server {
         System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.ProdottoServer>> VisualizzaProdottiAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Stato_ordine", ReplyAction="http://tempuri.org/IServerService/Stato_ordineResponse")]
-        bool Stato_ordine(System.Collections.Generic.Dictionary<int, Manager.Server.ProdottoServer> carrello, string cod_utente);
+        bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Manager.Server.ProdottoServer, int>> carrello, string cod_utente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Stato_ordine", ReplyAction="http://tempuri.org/IServerService/Stato_ordineResponse")]
-        System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.Dictionary<int, Manager.Server.ProdottoServer> carrello, string cod_utente);
+        System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Manager.Server.ProdottoServer, int>> carrello, string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -459,11 +459,11 @@ namespace Manager.Server {
             return base.Channel.VisualizzaProdottiAsync();
         }
         
-        public bool Stato_ordine(System.Collections.Generic.Dictionary<int, Manager.Server.ProdottoServer> carrello, string cod_utente) {
+        public bool Stato_ordine(System.Collections.Generic.List<System.ValueTuple<Manager.Server.ProdottoServer, int>> carrello, string cod_utente) {
             return base.Channel.Stato_ordine(carrello, cod_utente);
         }
         
-        public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.Dictionary<int, Manager.Server.ProdottoServer> carrello, string cod_utente) {
+        public System.Threading.Tasks.Task<bool> Stato_ordineAsync(System.Collections.Generic.List<System.ValueTuple<Manager.Server.ProdottoServer, int>> carrello, string cod_utente) {
             return base.Channel.Stato_ordineAsync(carrello, cod_utente);
         }
     }
