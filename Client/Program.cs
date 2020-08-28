@@ -1,6 +1,7 @@
 ﻿using Client.ServiceReference1;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -489,6 +490,48 @@ namespace Client
                     Console.WriteLine("------------------------");
                 }
             }
+            bool Aggiungi_prodotto()
+            {
+                int cat, quantita;
+                string categoria, marca, nome, descr;
+                Decimal prezzo;
+                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                do
+                {
+                    Console.WriteLine("Inserisci la categoria dell'oggetto /  1-Smartphone, 2-PC, 3-Elettrodomestici ");
+                    cat = int.Parse(Console.ReadLine());
+                } while (cat != 1 && cat != 2 && cat != 3);
+                if (cat == 1)
+                    categoria = "Smartphone";
+                else if (cat == 2)
+                    categoria = "PC";
+                else categoria = "Elettrodomestici";
+
+                Console.WriteLine("Inserisci la marca ");
+                marca = Console.ReadLine();
+                Console.WriteLine("Inserisci nome prodotto ");
+                nome = Console.ReadLine();
+                Console.WriteLine("Inserisci prezzo prodotto (, come separatore Decimale!) ");
+                prezzo = Decimal.Parse(Console.ReadLine());
+                Console.WriteLine("Inserisci quantità prodotto ");
+                quantita = int.Parse(Console.ReadLine());
+                Console.WriteLine("Inserisci descrizione prodotto ");
+                descr = Console.ReadLine();
+
+                ProdottoManager p = new ProdottoManager();
+
+                p.Categoria = categoria;
+                p.Marca = marca;
+                p.Nome = nome;
+                p.Prezzo = prezzo;
+                p.Quantita = quantita;
+                p.Descrizione = descr;
+                p.Cod_venditore = u.Codice;
+
+
+                return wcfclient.Aggiungi_prodotto(p);
+            }
+
             void Area_riservata_cliente(UtenteManager um)
             {
                 Console.WriteLine("Benvenuto " + um.Nome.Trim() + " " + um.Cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
@@ -559,9 +602,80 @@ namespace Client
 
                 } while (attivita != 5);
             }
+
+
             void Area_riservata_venditore(UtenteManager um)
             {
+                Console.WriteLine("Benvenuto " + um.Nome.Trim() + " " + um.Cognome.Trim());//trim rimuove tutti gli spazi iniziali e finali dell'oggetto string (nel db essendoci più caratteri nei vari campi si visualizzerebbero degli spazi vuoti)
+                int attivita = 0;
+                do
+                {
+                    Console.WriteLine("\nScegli una attività:");
+                    Console.WriteLine("1-Aggiungi nuovo prodotto");
+                    Console.WriteLine("2-Rimuovi un prodotto");
+                    Console.WriteLine("3-Aggiorna quantità");
+                    Console.WriteLine("4-Visualizza storico ordini");
+                    Console.WriteLine("5-Visualizza dati account");
+                    Console.WriteLine("6-Esci\n");
+                    try
+                    {
+                        attivita = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
+                    switch (attivita)
+                    {
+                        case 1://navigazione e ricerca dei prodotti presenti nel negozio
+                            Aggiungi_prodotto();
+                            break;
+                        case 2:
+                            rimuovi_prodotto();
+                        case 3:
+                            try
+                            {
+                                double importo;
+                                bool completato;
+                                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                                Console.WriteLine("Inserisci importo da aggiungere");
+                                importo = double.Parse(Console.ReadLine());
+                                completato = wcfclient.Aggiungi_credito(importo, um.Codice);
+                                if (completato)
+                                {
+                                    Console.WriteLine("Credito aggiornato con successo!");
+                                }
+                                else { Console.WriteLine("Credito non aggiornato"); }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+
+                            break;
+                        case 4:
+                            Storico_ordini(um.Codice);
+                            break;
+                        case 5:
+                            Console.WriteLine("Codice Utente: " + um.Codice);
+                            Console.WriteLine("Nome: " + um.Nome);
+                            Console.WriteLine("Cognome: " + um.Cognome);
+                            Console.WriteLine("E-mail: " + um.Email);
+                            Console.WriteLine("Credito residuo: " + um.Credito);
+                            Console.WriteLine("Città: " + um.Citta);
+                            Console.WriteLine("Indirizzo: " + um.Indirizzo);
+                            break;
+                        case 6:
+                            Console.WriteLine("Logout effettuato correttamente");
+                            Console.ReadLine();
+                            break;
+                        default:
+                            Console.WriteLine("Valore non consentito!\n");
+                            break;
+                    }
+
+                } while (attivita != 6);
             }
             void Area_riservata_admin(UtenteManager um)
             {
