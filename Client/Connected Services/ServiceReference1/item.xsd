@@ -140,4 +140,47 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Storico_vendite">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cod_utente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Storico_venditeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Manager" minOccurs="0" name="Storico_venditeResult" nillable="true" type="q8:ArrayOfVenditeManager" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Aggiungi_quantita">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="quantita" type="xs:int" />
+        <xs:element minOccurs="0" name="codice" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Aggiungi_quantitaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Aggiungi_quantitaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Visualizza_dati">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cod_utente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Visualizza_datiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Manager" minOccurs="0" name="Visualizza_datiResult" nillable="true" type="q9:UtenteManager" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -21,7 +21,6 @@ namespace Manager
 
         }
 
-
         public bool Registra(UtenteManager u1)
         {
             var servizio = new Server.ServerServiceClient(); //servizio per comunicare con il server
@@ -82,7 +81,6 @@ namespace Manager
             }
             return prodotti;
         }
-
         public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente)
         {
             
@@ -143,6 +141,31 @@ namespace Manager
             }
             return ordini_manager;
         }
+        public List<VenditeManager> Storico_vendite(string cod_utente)
+        {
+            var servizio = new Server.ServerServiceClient();
+            List<VenditeManager> vendite_manager = new List<VenditeManager>();
+
+            List<VenditeServer> vendite_server = servizio.Storico_vendite(cod_utente);
+
+            var ord = vendite_server.ToList();
+            foreach(var i in ord)
+            {
+                vendite_manager.Add(new VenditeManager
+                {
+                    Id_ordine = i.Id_ordine,
+                    Data = i.Data,
+                    Totale = i.Totale,
+                    Codice_utente = i.Codice_utente,
+                    Nome_utente = i.Nome_utente,
+                    Cognome_utente = i.Cognome_utente,
+                    Id_articolo = i.Id_articolo,
+                    Nome_articolo = i.Nome_articolo,
+                    Quantita = i.Quantita
+                });
+            }
+            return vendite_manager;
+        }
         public bool Aggiungi_prodotto(ProdottoManager p)
         {
             var servizio = new Server.ServerServiceClient();
@@ -169,6 +192,28 @@ namespace Manager
             prod_server.Prezzo = p.Prezzo;
             prod_server.Quantita = p.Quantita;
             return servizio.Rimozione_prodotto(prod_server);
+        }
+        public bool Aggiungi_quantita(int quantita, int codice)
+        {
+            var servizio = new Server.ServerServiceClient();
+            return servizio.Aggiungi_quantita(quantita, codice);
+        }
+        public UtenteManager Visualizza_dati(string cod_utente)
+        {
+            var servizio = new Server.ServerServiceClient();
+            UtenteManager u1 = new UtenteManager();
+            UtenteServer u2 = new UtenteServer();
+            u2 = servizio.Visualizza_dati(cod_utente);
+            u1.Codice = u2.Codice;
+            u1.Nome = u2.Nome;
+            u1.Cognome = u2.Cognome;
+            u1.Email = u2.Email;
+            u1.Password = u2.Password;
+            u1.Indirizzo = u2.Indirizzo;
+            u1.Citta = u2.Citta;
+            u1.Credito = u2.Credito;
+            u1.Tipologia = u2.Tipologia;
+            return u1;
         }
 
     }

@@ -355,6 +355,7 @@ namespace Client.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrdineManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ServiceReference1.VenditeManager))]
     public partial class OrdineManager : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -444,6 +445,93 @@ namespace Client.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VenditeManager", Namespace="http://schemas.datacontract.org/2004/07/Manager")]
+    [System.SerializableAttribute()]
+    public partial class VenditeManager : Client.ServiceReference1.OrdineManager {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Cognome_utenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Id_articoloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Nome_articoloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Nome_utenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantitaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Cognome_utente {
+            get {
+                return this.Cognome_utenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Cognome_utenteField, value) != true)) {
+                    this.Cognome_utenteField = value;
+                    this.RaisePropertyChanged("Cognome_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id_articolo {
+            get {
+                return this.Id_articoloField;
+            }
+            set {
+                if ((this.Id_articoloField.Equals(value) != true)) {
+                    this.Id_articoloField = value;
+                    this.RaisePropertyChanged("Id_articolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nome_articolo {
+            get {
+                return this.Nome_articoloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Nome_articoloField, value) != true)) {
+                    this.Nome_articoloField = value;
+                    this.RaisePropertyChanged("Nome_articolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nome_utente {
+            get {
+                return this.Nome_utenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Nome_utenteField, value) != true)) {
+                    this.Nome_utenteField = value;
+                    this.RaisePropertyChanged("Nome_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantita {
+            get {
+                return this.QuantitaField;
+            }
+            set {
+                if ((this.QuantitaField.Equals(value) != true)) {
+                    this.QuantitaField = value;
+                    this.RaisePropertyChanged("Quantita");
+                }
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IManagerService")]
     public interface IManagerService {
@@ -507,6 +595,24 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Rimozione_prodotto", ReplyAction="http://tempuri.org/IManagerService/Rimozione_prodottoResponse")]
         System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Client.ServiceReference1.ProdottoManager p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Storico_vendite", ReplyAction="http://tempuri.org/IManagerService/Storico_venditeResponse")]
+        System.Collections.Generic.List<Client.ServiceReference1.VenditeManager> Storico_vendite(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Storico_vendite", ReplyAction="http://tempuri.org/IManagerService/Storico_venditeResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.VenditeManager>> Storico_venditeAsync(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_quantita", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_quantitaResponse")]
+        bool Aggiungi_quantita(int quantita, int codice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_quantita", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_quantitaResponse")]
+        System.Threading.Tasks.Task<bool> Aggiungi_quantitaAsync(int quantita, int codice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Visualizza_dati", ReplyAction="http://tempuri.org/IManagerService/Visualizza_datiResponse")]
+        Client.ServiceReference1.UtenteManager Visualizza_dati(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Visualizza_dati", ReplyAction="http://tempuri.org/IManagerService/Visualizza_datiResponse")]
+        System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> Visualizza_datiAsync(string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -614,6 +720,30 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Client.ServiceReference1.ProdottoManager p) {
             return base.Channel.Rimozione_prodottoAsync(p);
+        }
+        
+        public System.Collections.Generic.List<Client.ServiceReference1.VenditeManager> Storico_vendite(string cod_utente) {
+            return base.Channel.Storico_vendite(cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.VenditeManager>> Storico_venditeAsync(string cod_utente) {
+            return base.Channel.Storico_venditeAsync(cod_utente);
+        }
+        
+        public bool Aggiungi_quantita(int quantita, int codice) {
+            return base.Channel.Aggiungi_quantita(quantita, codice);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Aggiungi_quantitaAsync(int quantita, int codice) {
+            return base.Channel.Aggiungi_quantitaAsync(quantita, codice);
+        }
+        
+        public Client.ServiceReference1.UtenteManager Visualizza_dati(string cod_utente) {
+            return base.Channel.Visualizza_dati(cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<Client.ServiceReference1.UtenteManager> Visualizza_datiAsync(string cod_utente) {
+            return base.Channel.Visualizza_datiAsync(cod_utente);
         }
     }
 }

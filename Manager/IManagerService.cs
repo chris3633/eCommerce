@@ -14,10 +14,6 @@ namespace Manager
         [OperationContract]
         void DoWork();
 
-        //[OperationContract]
-
-        //int Raddoppia(int n);
-
         [OperationContract]
         bool Registra(UtenteManager u1);
 
@@ -32,16 +28,27 @@ namespace Manager
 
         [OperationContract]
         bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente);
+
         [OperationContract]
         bool Aggiungi_credito(double importo,string cod_utente);
+
         [OperationContract]
         List<OrdineManager> Storico_ordini(string cod_utente);
+
         [OperationContract]
         bool Aggiungi_prodotto(ProdottoManager p);
+
         [OperationContract]
         bool Rimozione_prodotto(ProdottoManager p);
+
         [OperationContract]
         List<VenditeManager> Storico_vendite(string cod_utente);
+
+        [OperationContract]
+        bool Aggiungi_quantita(int quantita, int codice);
+
+        [OperationContract]
+        UtenteManager Visualizza_dati(string cod_utente);
 
     }
 
@@ -73,20 +80,7 @@ namespace Manager
         public string Password { get => password; set => password = value; }
         public decimal Credito { get => credito; set => credito = value; }
         public int Tipologia { get => tipologia; set => tipologia = value; }
-
-        /*public UtenteManager(string cf, string n, string c, string e, string p, string i, string ct)//costruttore
-        {
-            codice_fiscale = cf;
-            nome = n;
-            cognome = c;
-            email = e;
-            password = p;
-            indirizzo = i;
-            citta = ct;
-        }*/
     }
-
-    
     public class ProdottoManager
     {
        

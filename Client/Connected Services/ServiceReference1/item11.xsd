@@ -57,4 +57,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="OrdineManager" nillable="true" type="tns:OrdineManager" />
+  <xs:complexType name="ArrayOfVenditeManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="VenditeManager" nillable="true" type="tns:VenditeManager" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVenditeManager" nillable="true" type="tns:ArrayOfVenditeManager" />
+  <xs:complexType name="VenditeManager">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:OrdineManager">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Cognome_utente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id_articolo" type="xs:int" />
+          <xs:element minOccurs="0" name="Nome_articolo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Nome_utente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Quantita" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="VenditeManager" nillable="true" type="tns:VenditeManager" />
 </xs:schema>
