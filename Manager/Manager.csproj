@@ -79,6 +79,9 @@
     <None Include="Connected Services\Server\Manager.Server.UtenteServer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Server\Manager.Server.VenditeServer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Server\ServerService.wsdl" />
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@ namespace Server
             Console.WriteLine("Metodo dowork chiamato");
         }
 
-
         public bool Registra(UtenteServer u2)
         {
             bool completato = false;
@@ -179,17 +178,15 @@ namespace Server
             {
                 string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
 
-                foreach (var i in carrello) //ciclo di test
+                foreach (var i in carrello)
                 {
-                    Console.WriteLine(i.Item1.Cod_prodotto);//
-                    Console.WriteLine(i.Item2);//
-                    Console.WriteLine(cod_utente);//
+                    //Console.WriteLine(i.Item1.Cod_prodotto);
+                    //Console.WriteLine(i.Item2);
+                    //Console.WriteLine(cod_utente);
                     totale += (double)i.Item1.Prezzo * i.Item2;
                 }
                 Console.WriteLine(totale);
                 float tot = (float)totale;
-
-
 
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
@@ -312,10 +309,7 @@ namespace Server
                     using (SqlCommand command = conn.CreateCommand())
                     {
 
-                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,Ut.Nome,Ut.Cognome,Dt.IdArticolo,P.Nome,Dt.Quantita,P.CodiceVenditore " +
-                            "from Ordine as O Join Utente as Ut on O.CodiceUtente = Ut.CodiceUtente" +
-                            "join DettagliOrdine as Dt on O.Id = Dt.IdOrdinejoin Prodotto as P on P.CodiceProdotto = Dt.IdArticolo " +
-                            "Where CodiceVenditore = '" + cod_utente + "'";
+                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,Ut.Nome,Ut.Cognome,Dt.IdArticolo,P.Nome,Dt.Quantita,P.CodiceVenditore from Ordine as O JOIN Utente as Ut on O.CodiceUtente = Ut.CodiceUtente JOIN DettagliOrdine as Dt on O.Id = Dt.IdOrdine JOIN Prodotto as P on P.CodiceProdotto = Dt.IdArticolo Where CodiceVenditore = '" + cod_utente + "'";
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -345,7 +339,7 @@ namespace Server
             {
                 Console.WriteLine(ex.Message);
             }
-            return ordini;
+            return articoli_venduti;
         }
         public bool Aggiungi_prodotto(ProdottoServer p)
         {
@@ -415,6 +409,69 @@ namespace Server
                 completato = false;
             }
             return completato;
+        }
+        public bool Aggiungi_quantita(int quantita, int codice)
+        {
+            bool completato = false;
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand insert = conn.CreateCommand())
+                    {
+                        insert.CommandText = "Update Prodotto Set Quantita=Quantita+'" + quantita + "' Where CodiceProdotto ='" + codice + "'";
+                        insert.ExecuteNonQuery();
+                        completato = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
+            }
+            return completato;
+        }
+        public UtenteServer Visualizza_dati(string cod_utente)
+        {
+            UtenteServer u = new UtenteServer();
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select CodiceUtente,Nome,Cognome,Email,Password,Indirizzo,Citta,Credito,Venditore from Utente where CodiceUtente='" +cod_utente+"'";
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                u.Codice = reader.GetString(0);
+                                u.Nome = reader.GetString(1);
+                                u.Cognome = reader.GetString(2);
+                                u.Email = reader.GetString(3);
+                                u.Password = reader.GetString(4);
+                                u.Indirizzo = reader.GetString(5);
+                                u.Citta = reader.GetString(6);
+                                u.Credito = reader.GetDecimal(7);
+                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));//reader.GetInt32(8); sollevava eccezione di invalid cast
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return u;
+
         }
     }
 }

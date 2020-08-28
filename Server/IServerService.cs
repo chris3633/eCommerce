@@ -43,6 +43,14 @@ namespace Server
         [OperationContract]
         List<VenditeServer> Storico_vendite(string cod_utente);
 
+        [OperationContract]
+        bool Aggiungi_quantita(int quantita, int codice);
+
+        [OperationContract]
+        UtenteServer Visualizza_dati(string cod_utente);
+
+
+
     }
 
     public class Persona

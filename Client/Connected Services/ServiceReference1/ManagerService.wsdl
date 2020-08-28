@@ -68,6 +68,24 @@
   <wsdl:message name="IManagerService_Rimozione_prodotto_OutputMessage">
     <wsdl:part name="parameters" element="tns:Rimozione_prodottoResponse" />
   </wsdl:message>
+  <wsdl:message name="IManagerService_Storico_vendite_InputMessage">
+    <wsdl:part name="parameters" element="tns:Storico_vendite" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Storico_vendite_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Storico_venditeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Aggiungi_quantita_InputMessage">
+    <wsdl:part name="parameters" element="tns:Aggiungi_quantita" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Aggiungi_quantita_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Aggiungi_quantitaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Visualizza_dati_InputMessage">
+    <wsdl:part name="parameters" element="tns:Visualizza_dati" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_Visualizza_dati_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Visualizza_datiResponse" />
+  </wsdl:message>
   <wsdl:portType name="IManagerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/DoWork" message="tns:IManagerService_DoWork_InputMessage" />
@@ -108,6 +126,18 @@
     <wsdl:operation name="Rimozione_prodotto">
       <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Rimozione_prodotto" message="tns:IManagerService_Rimozione_prodotto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Rimozione_prodottoResponse" message="tns:IManagerService_Rimozione_prodotto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Storico_vendite">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Storico_vendite" message="tns:IManagerService_Storico_vendite_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Storico_venditeResponse" message="tns:IManagerService_Storico_vendite_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Aggiungi_quantita">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_quantita" message="tns:IManagerService_Aggiungi_quantita_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Aggiungi_quantitaResponse" message="tns:IManagerService_Aggiungi_quantita_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Visualizza_dati">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/Visualizza_dati" message="tns:IManagerService_Visualizza_dati_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/Visualizza_datiResponse" message="tns:IManagerService_Visualizza_dati_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IManagerService" type="tns:IManagerService">
@@ -195,6 +225,33 @@
     </wsdl:operation>
     <wsdl:operation name="Rimozione_prodotto">
       <soap:operation soapAction="http://tempuri.org/IManagerService/Rimozione_prodotto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Storico_vendite">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Storico_vendite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Aggiungi_quantita">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Aggiungi_quantita" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Visualizza_dati">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/Visualizza_dati" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

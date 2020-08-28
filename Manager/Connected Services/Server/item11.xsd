@@ -57,4 +57,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="OrdineServer" nillable="true" type="tns:OrdineServer" />
+  <xs:complexType name="ArrayOfVenditeServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="VenditeServer" nillable="true" type="tns:VenditeServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVenditeServer" nillable="true" type="tns:ArrayOfVenditeServer" />
+  <xs:complexType name="VenditeServer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:OrdineServer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Cognome_utente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id_articolo" type="xs:int" />
+          <xs:element minOccurs="0" name="Nome_articolo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Nome_utente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Quantita" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="VenditeServer" nillable="true" type="tns:VenditeServer" />
 </xs:schema>
