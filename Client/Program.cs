@@ -56,9 +56,9 @@ namespace Client
                             break;
                         case 2://accesso all'area riservata
                             u = Login();
-                            if (u.Codice.Length == 11)
+                            if (u.Codice.Trim().Length == 11)
                                 Area_riservata_venditore(u);
-                            else if (u.Codice.Length == 16)
+                            else if (u.Codice.Trim().Length == 16)
                                 Area_riservata_cliente(u);
                             else
                                 Area_riservata_admin(u);
@@ -456,7 +456,7 @@ namespace Client
                             {
 
                                 Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
-                                foreach(var i in carrello)
+                                foreach (var i in carrello)
                                 {
                                     Console.WriteLine(i.Item1.Nome);
                                     Console.WriteLine(i.Item2);
@@ -481,12 +481,12 @@ namespace Client
             {
                 List<OrdineManager> ordini_manager = new List<OrdineManager>();
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
-                ordini_manager=wcfclient.Storico_ordini(cod_utente);
-                foreach(var i in ordini_manager)
+                ordini_manager = wcfclient.Storico_ordini(cod_utente);
+                foreach (var i in ordini_manager)
                 {
-                    Console.WriteLine("Numero dell'ordine: "+i.Id_ordine);
-                    Console.WriteLine("Data: "+i.Data);
-                    Console.WriteLine("Prezzo totale: "+i.Totale);
+                    Console.WriteLine("Numero dell'ordine: " + i.Id_ordine);
+                    Console.WriteLine("Data: " + i.Data);
+                    Console.WriteLine("Prezzo totale: " + i.Totale);
                     Console.WriteLine("------------------------");
                 }
             }
@@ -530,6 +530,150 @@ namespace Client
 
 
                 return wcfclient.Aggiungi_prodotto(p);
+            }
+            bool Rimuovi_prodotto(string cod_venditore)
+            {
+                bool completato=false;
+                Console.WriteLine(cod_venditore);
+                try
+                {
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
+
+                    int cat = 0;
+                    string categoria = "";
+                    bool errore = false;
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("----Impostazione filtri di ricerca----");
+                            do
+                            {
+                                errore = false;
+                                Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
+                                cat = int.Parse(Console.ReadLine());
+                                if (cat < 0 || cat > 3)
+                                {
+                                    errore = true;
+                                    Console.WriteLine("Valore categoria errato!");
+                                }
+                            } while (errore == true);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            errore = true;
+                        }
+                    } while (errore == true);
+
+                    if (cat == 1)
+                    {
+                        categoria = "Smartphone";
+                    }
+                    else if (cat == 2)
+                    {
+                        categoria = "PC";
+                    }
+                    else //cat==3
+                    {
+                        categoria = "Elettrodomestici";
+                    }
+
+                    var lista_filtrata = lista.Select(prod => prod);
+                    if (cat == 1 || cat == 2 || cat == 3)
+                    {
+                        lista_filtrata = lista_filtrata.Select(prod => prod)//lista filtrata per categoria
+                        .Where(prod => prod.Categoria.Trim() == categoria && prod.Cod_venditore == cod_venditore);
+                    }
+                    else
+                    {
+                        lista_filtrata = lista_filtrata.Select(prod => prod)
+                         .Where(prod => prod.Cod_venditore == cod_venditore);
+                    }
+
+                    Console.WriteLine("___________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    foreach (var i in lista_filtrata.ToList())
+                    {
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                    }
+                    int codice = 0;
+                    char risposta = 'Y';
+                    ProdottoManager p = new ProdottoManager();
+                    
+
+                    if (lista_filtrata.Count() == 0)
+                        Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
+                    else
+                    {
+                        Console.WriteLine("Procedura di rimozione di un prodotto");
+
+                        Console.WriteLine("Inserisci codice prodotto");
+                        codice = int.Parse(Console.ReadLine());
+
+
+                        foreach (var i in lista_filtrata.ToList())
+                        {
+                            if (codice == i.Cod_prodotto)
+                            {
+                                Console.WriteLine(i.Cod_prodotto);
+
+                                p.Cod_prodotto = i.Cod_prodotto;
+                                p.Categoria = i.Categoria;
+                                p.Marca = i.Marca;
+                                p.Nome = i.Nome;
+                                p.Prezzo = i.Prezzo;
+                                p.Quantita = i.Quantita;
+                                p.Descrizione = i.Descrizione;
+                                p.Cod_venditore = i.Cod_venditore;
+
+                            }
+                        }
+
+                        do
+                        {
+                            Console.WriteLine("Procedere con la rimozione? Y/N");
+                            risposta = Convert.ToChar(Console.ReadLine());
+                        } while (risposta != 'N' && risposta != 'Y');
+
+
+                        if (risposta == 'Y' && p.Cod_prodotto!=0)
+                        {
+                            Console.WriteLine("risposta Y");
+                            completato = wcfclient.Rimozione_prodotto(p);
+                            
+                        }
+                        else completato = false;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    completato = false;
+                }
+                return completato;
+            }
+            void Storico_ordini_venditore(string cod_utente)
+            {
+                List<OrdineManager> ordini_manager = new List<OrdineManager>();
+                var wcfclient = new ServiceReference1.ManagerServiceClient();
+                ordini_manager = wcfclient.Storico_ordini(cod_utente);
+                foreach (var i in ordini_manager)
+                {
+                    
+                    Console.WriteLine("Numero dell'ordine: " + i.Id_ordine);
+                    Console.WriteLine("Data: " + i.Data);
+                    Console.WriteLine("Prezzo totale: " + i.Totale);
+                    Console.WriteLine("------------------------");
+                }
             }
 
             void Area_riservata_cliente(UtenteManager um)
@@ -628,11 +772,17 @@ namespace Client
 
                     switch (attivita)
                     {
-                        case 1://navigazione e ricerca dei prodotti presenti nel negozio
-                            Aggiungi_prodotto();
+                        case 1:
+                            if (Aggiungi_prodotto())
+                                Console.WriteLine("Prodotto aggiunto correttamente");
+                            else Console.WriteLine("Errore: prodotto non inserito!");
+
                             break;
                         case 2:
-                            rimuovi_prodotto();
+                            if (Rimuovi_prodotto(um.Codice))
+                                Console.WriteLine("Prodotto rimosso correttamente");
+                            else Console.WriteLine("Errore: prodotto non rimosso!");
+                            break;
                         case 3:
                             try
                             {
@@ -655,14 +805,14 @@ namespace Client
 
                             break;
                         case 4:
-                            Storico_ordini(um.Codice);
+                            Storico_ordini_venditore(um.Codice);
                             break;
                         case 5:
                             Console.WriteLine("Codice Utente: " + um.Codice);
                             Console.WriteLine("Nome: " + um.Nome);
                             Console.WriteLine("Cognome: " + um.Cognome);
                             Console.WriteLine("E-mail: " + um.Email);
-                            Console.WriteLine("Credito residuo: " + um.Credito);
+                            Console.WriteLine("Saldo vendite: " + um.Credito);
                             Console.WriteLine("Città: " + um.Citta);
                             Console.WriteLine("Indirizzo: " + um.Indirizzo);
                             break;

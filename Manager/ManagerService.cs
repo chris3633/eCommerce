@@ -143,6 +143,33 @@ namespace Manager
             }
             return ordini_manager;
         }
+        public bool Aggiungi_prodotto(ProdottoManager p)
+        {
+            var servizio = new Server.ServerServiceClient();
+            ProdottoServer prod_server = new ProdottoServer();
+            prod_server.Categoria = p.Categoria;
+            prod_server.Cod_venditore = p.Cod_venditore;
+            prod_server.Descrizione = p.Descrizione;
+            prod_server.Nome = p.Nome;
+            prod_server.Marca = p.Marca;
+            prod_server.Prezzo = p.Prezzo;
+            prod_server.Quantita = p.Quantita;
+            return servizio.Aggiungi_prodotto(prod_server);
+        }
+        public bool Rimozione_prodotto(ProdottoManager p)
+        {
+            var servizio = new Server.ServerServiceClient();
+            ProdottoServer prod_server = new ProdottoServer();
+            prod_server.Cod_prodotto = p.Cod_prodotto;
+            prod_server.Categoria = p.Categoria;
+            prod_server.Cod_venditore = p.Cod_venditore;
+            prod_server.Descrizione = p.Descrizione;
+            prod_server.Nome = p.Nome;
+            prod_server.Marca = p.Marca;
+            prod_server.Prezzo = p.Prezzo;
+            prod_server.Quantita = p.Quantita;
+            return servizio.Rimozione_prodotto(prod_server);
+        }
 
     }
 }

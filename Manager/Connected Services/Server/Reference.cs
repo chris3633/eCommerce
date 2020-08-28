@@ -495,6 +495,18 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Storico_ordini", ReplyAction="http://tempuri.org/IServerService/Storico_ordiniResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Aggiungi_prodotto", ReplyAction="http://tempuri.org/IServerService/Aggiungi_prodottoResponse")]
+        bool Aggiungi_prodotto(Manager.Server.ProdottoServer p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Aggiungi_prodotto", ReplyAction="http://tempuri.org/IServerService/Aggiungi_prodottoResponse")]
+        System.Threading.Tasks.Task<bool> Aggiungi_prodottoAsync(Manager.Server.ProdottoServer p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Rimozione_prodotto", ReplyAction="http://tempuri.org/IServerService/Rimozione_prodottoResponse")]
+        bool Rimozione_prodotto(Manager.Server.ProdottoServer p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Rimozione_prodotto", ReplyAction="http://tempuri.org/IServerService/Rimozione_prodottoResponse")]
+        System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Manager.Server.ProdottoServer p);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -586,6 +598,22 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente) {
             return base.Channel.Storico_ordiniAsync(cod_utente);
+        }
+        
+        public bool Aggiungi_prodotto(Manager.Server.ProdottoServer p) {
+            return base.Channel.Aggiungi_prodotto(p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Aggiungi_prodottoAsync(Manager.Server.ProdottoServer p) {
+            return base.Channel.Aggiungi_prodottoAsync(p);
+        }
+        
+        public bool Rimozione_prodotto(Manager.Server.ProdottoServer p) {
+            return base.Channel.Rimozione_prodotto(p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Manager.Server.ProdottoServer p) {
+            return base.Channel.Rimozione_prodottoAsync(p);
         }
     }
 }

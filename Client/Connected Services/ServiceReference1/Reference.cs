@@ -495,6 +495,18 @@ namespace Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Storico_ordini", ReplyAction="http://tempuri.org/IManagerService/Storico_ordiniResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.OrdineManager>> Storico_ordiniAsync(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_prodotto", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_prodottoResponse")]
+        bool Aggiungi_prodotto(Client.ServiceReference1.ProdottoManager p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Aggiungi_prodotto", ReplyAction="http://tempuri.org/IManagerService/Aggiungi_prodottoResponse")]
+        System.Threading.Tasks.Task<bool> Aggiungi_prodottoAsync(Client.ServiceReference1.ProdottoManager p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Rimozione_prodotto", ReplyAction="http://tempuri.org/IManagerService/Rimozione_prodottoResponse")]
+        bool Rimozione_prodotto(Client.ServiceReference1.ProdottoManager p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerService/Rimozione_prodotto", ReplyAction="http://tempuri.org/IManagerService/Rimozione_prodottoResponse")]
+        System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Client.ServiceReference1.ProdottoManager p);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -586,6 +598,22 @@ namespace Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Client.ServiceReference1.OrdineManager>> Storico_ordiniAsync(string cod_utente) {
             return base.Channel.Storico_ordiniAsync(cod_utente);
+        }
+        
+        public bool Aggiungi_prodotto(Client.ServiceReference1.ProdottoManager p) {
+            return base.Channel.Aggiungi_prodotto(p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Aggiungi_prodottoAsync(Client.ServiceReference1.ProdottoManager p) {
+            return base.Channel.Aggiungi_prodottoAsync(p);
+        }
+        
+        public bool Rimozione_prodotto(Client.ServiceReference1.ProdottoManager p) {
+            return base.Channel.Rimozione_prodotto(p);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Rimozione_prodottoAsync(Client.ServiceReference1.ProdottoManager p) {
+            return base.Channel.Rimozione_prodottoAsync(p);
         }
     }
 }

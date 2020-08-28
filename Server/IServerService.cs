@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -35,6 +36,12 @@ namespace Server
         bool Aggiungi_credito(double importo, string cod_utente);
         [OperationContract]
         List<OrdineServer> Storico_ordini(string cod_utente);
+        [OperationContract]
+        bool Aggiungi_prodotto(ProdottoServer p);
+        [OperationContract]
+        bool Rimozione_prodotto(ProdottoServer p);
+        [OperationContract]
+        List<VenditeServer> Storico_vendite(string cod_utente);
 
     }
 
@@ -124,6 +131,20 @@ namespace Server
         public DateTime Data { get => data; set => data = value; }
         [DataMember]
         public decimal Totale { get => totale; set => totale = value; }
+    }
+    public class VenditeServer : OrdineServer
+    {
+        private string nome_utente;
+        private string cognome_utente;
+        private int id_articolo;
+        private int quantita;
+        private string nome_articolo;
+
+        public string Nome_utente { get => nome_utente; set => nome_utente = value; }
+        public string Cognome_utente { get => cognome_utente; set => cognome_utente = value; }
+        public int Id_articolo { get => id_articolo; set => id_articolo = value; }
+        public int Quantita { get => quantita; set => quantita = value; }
+        public string Nome_articolo { get => nome_articolo; set => nome_articolo = value; }
     }
 
 }

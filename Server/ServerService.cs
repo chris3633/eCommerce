@@ -189,7 +189,7 @@ namespace Server
                 Console.WriteLine(totale);
                 float tot = (float)totale;
 
-   
+
 
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
@@ -200,7 +200,7 @@ namespace Server
                         command.ExecuteNonQuery();//viene inserito un nuovo Ordine, ma dobbiamo recuperare l'id dell'ordine generato dal db
                         Console.WriteLine("Test");
                         command.CommandText = "Select Top 1 Id,Data,Totale,CodiceUtente From Ordine Where Totale ='" + totale + "' AND CodiceUtente ='" + cod_utente + "' ORDER BY Data DESC";
-                        
+
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -217,9 +217,9 @@ namespace Server
                             Console.WriteLine(cod_utente);
                             command.CommandText = "Insert into DettagliOrdine (IdOrdine,IdArticolo,Quantita,Prezzo) VALUES ('" + id_ordine + "', '" + i.Item1.Cod_prodotto + "', '" + i.Item2 + "', '" + Convert.ToDouble(i.Item1.Prezzo) + "')";
                             command.ExecuteNonQuery();
-                            command.CommandText = "Update Prodotto Set Quantita=Quantita-'" +i.Item2 + "' Where CodiceProdotto ='" + i.Item1.Cod_prodotto + "'";
+                            command.CommandText = "Update Prodotto Set Quantita=Quantita-'" + i.Item2 + "' Where CodiceProdotto ='" + i.Item1.Cod_prodotto + "'";
                             command.ExecuteNonQuery();//la quantità del prodotto presente nel catalogo viene diminuita della quantità che è stata acquistata dal cliente
-                            command.CommandText= "Update Utente Set Credito=Credito+'" + Convert.ToDouble(i.Item1.Prezzo)*i.Item2 + "' Where  CodiceUtente='" + i.Item1.Cod_venditore + "'";
+                            command.CommandText = "Update Utente Set Credito=Credito+'" + Convert.ToDouble(i.Item1.Prezzo) * i.Item2 + "' Where  CodiceUtente='" + i.Item1.Cod_venditore + "'";
                             command.ExecuteNonQuery();//il credito del venditore viene aumentato del prezzo dell'articolo venduto moltiplicato per la quantità acquistata
                         }
                         command.CommandText = "Update Utente Set Credito=Credito-'" + totale + "' Where CodiceUtente ='" + cod_utente + "'";
@@ -272,7 +272,8 @@ namespace Server
                     conn.Open();
                     using (SqlCommand command = conn.CreateCommand())
                     {
-                        command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='"+cod_utente+"'";
+
+                        command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='" + cod_utente + "'";
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -284,10 +285,12 @@ namespace Server
                                     Data = reader.GetDateTime(1),
                                     Totale = reader.GetDecimal(2),
                                     Codice_utente = reader.GetString(3),
-                                    
+
                                 });
                             }
                         }
+
+
                     }
                 }
             }
@@ -296,6 +299,122 @@ namespace Server
                 Console.WriteLine(ex.Message);
             }
             return ordini;
+        }
+        public List<VenditeServer> Storico_vendite(string cod_utente)
+        {
+            List<VenditeServer> articoli_venduti = new List<VenditeServer>();
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+
+                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,Ut.Nome,Ut.Cognome,Dt.IdArticolo,P.Nome,Dt.Quantita,P.CodiceVenditore " +
+                            "from Ordine as O Join Utente as Ut on O.CodiceUtente = Ut.CodiceUtente" +
+                            "join DettagliOrdine as Dt on O.Id = Dt.IdOrdinejoin Prodotto as P on P.CodiceProdotto = Dt.IdArticolo " +
+                            "Where CodiceVenditore = '" + cod_utente + "'";
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                articoli_venduti.Add(new VenditeServer
+                                {
+                                    Id_ordine = reader.GetInt32(0),
+                                    Data = reader.GetDateTime(1),
+                                    Totale = reader.GetDecimal(2),
+                                    Codice_utente = reader.GetString(3),
+                                    Nome_utente=reader.GetString(4),
+                                    Cognome_utente=reader.GetString(5),
+                                    Id_articolo=reader.GetInt32(6),
+                                    Nome_articolo=reader.GetString(7),
+                                    Quantita=reader.GetInt32(8)
+        
+
+                                });
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ordini;
+        }
+        public bool Aggiungi_prodotto(ProdottoServer p)
+        {
+            bool completato = false;
+            try
+            {
+                string categoria = p.Categoria;
+                string marca = p.Marca;
+                string nome = p.Nome;
+                Decimal prezzo = p.Prezzo;
+                int quantita = p.Quantita;
+                string descrizione = p.Descrizione;
+                string codice_venditore = p.Cod_venditore;
+
+
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand insert = conn.CreateCommand())
+                    {
+                        insert.CommandText = "Insert into Prodotto (Categoria,Marca,Nome,Prezzo,Quantita,Descrizione,CodiceVenditore) VALUES ('" + categoria + "','" + marca + "', '" + nome + "', '" + prezzo + "', '" + quantita + "', '" + descrizione + "', '" + codice_venditore + "')";
+                        insert.ExecuteNonQuery();
+                        completato = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
+            }
+            return completato;
+        }
+        public bool Rimozione_prodotto(ProdottoServer p)
+        {
+            bool completato = false;
+            try
+            {
+                int cod_prodotto = p.Cod_prodotto;
+                /*string categoria = p.Categoria;
+                string marca = p.Marca;
+                string nome = p.Nome;
+                Decimal prezzo = p.Prezzo;
+                int quantita = p.Quantita;
+                string descrizione = p.Descrizione;
+                string codice_venditore = p.Cod_venditore;*/
+
+
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand delete = conn.CreateCommand())
+                    {
+                        delete.CommandText = "Delete From Prodotto Where CodiceProdotto='" + cod_prodotto + "'";
+                        delete.ExecuteNonQuery();
+                        completato = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
+            }
+            return completato;
         }
     }
 }
