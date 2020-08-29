@@ -1,6 +1,7 @@
 ﻿using Client.ServiceReference1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.IO;
@@ -50,13 +51,18 @@ namespace Client
                             Visualizza_prodotti();
                             break;
                         case 2://accesso all'area riservata
-                            u = Login();
-                            if (u.Codice.Trim().Length == 11)
-                                Area_riservata_venditore(u);
-                            else if (u.Codice.Trim().Length == 16)
-                                Area_riservata_cliente(u);
-                            else
-                                Area_riservata_admin(u);
+                            try {
+                                u = Login();
+                                if (u == null) throw new NullReferenceException();//viene lanciata una eccezione quando l'oggetto è nullo
+                                if (u.Codice.Trim().Length == 11)
+                                    Area_riservata_venditore(u);
+                                else if (u.Codice.Trim().Length == 16)
+                                    Area_riservata_cliente(u);
+                                else
+                                    Area_riservata_admin(u);
+                            }
+                            catch(Exception ex) { Console.WriteLine(ex.Message); }
+                           
 
                             break;
                         case 3://Registrazione utente (cliente/venditore)
@@ -230,7 +236,7 @@ namespace Client
                                 errore = false;
                                 Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
                                 cat = int.Parse(Console.ReadLine());
-                                if (cat < 0 || cat > 3)
+                                if (cat!=0 && cat!=1 && cat!=2 && cat!=3)
                                 {
                                     errore = true;
                                     Console.WriteLine("Valore categoria errato!");
@@ -260,13 +266,7 @@ namespace Client
                     {
                         categoria = "Elettrodomestici";
                     }
-                    //non piace al prof
-                    /*var lista_filtrata=from prod in lista
-                                       where prod.categoria.Trim()==categoria && prod.prezzo<=prezzoMax
-                                       select prod;*/
-                    //piace al prof
-                    /*var lista_filtrata = lista.Select(prod => prod)
-                        .Where(prod => prod.categoria.Trim() == categoria && prod.prezzo <= prezzoMax);*/
+
                     var lista_filtrata = lista.Select(prod => prod);
                     if (cat == 1 || cat == 2 || cat == 3)
                     {
@@ -283,13 +283,13 @@ namespace Client
                         lista_filtrata = lista_filtrata.Select(prod => prod);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
 
 
@@ -369,13 +369,13 @@ namespace Client
                         lista_filtrata = lista_filtrata.Select(prod => prod);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
                     int codice = 0, quantita = 0;
                     decimal totale_carrello = 0;
@@ -583,13 +583,13 @@ namespace Client
                          .Where(prod => prod.Cod_venditore == cod_venditore);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
                     int codice = 0;
                     char risposta = 'Y';
@@ -704,13 +704,13 @@ namespace Client
                         .Where(prod => prod.Categoria.Trim() == categoria);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
                     int codice = 0;
                     char risposta = 'Y';
@@ -849,13 +849,13 @@ namespace Client
                          .Where(prod => prod.Cod_venditore == cod_utente);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
                     int codice;
                     if (lista_filtrata.Count() == 0)
@@ -869,7 +869,7 @@ namespace Client
                         {
                             if(i.Cod_prodotto == codice)
                             {
-                                Console.WriteLine("Inserire la quantita' da aggiungere alla presente ");
+                                Console.WriteLine("Inserire la quantita' da aggiungere a quella gia' presente ");
                                 quantita = int.Parse(Console.ReadLine());
                                 completato = wcfclient.Aggiungi_quantita(quantita, codice);
                             }
@@ -947,13 +947,13 @@ namespace Client
                          .Where(prod => prod.Cod_venditore == cod_utente);
                     }
 
-                    Console.WriteLine("___________________________________________________________________________________");
-                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
-                    Console.WriteLine("-----------------------------------------------------------------------------------");
+                    Console.WriteLine("__________________________________________________________________________________________");
+                    Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,-8} {6,-50}", "Codice", "Categoria", "Marca", "Nome", "Prezzo", "Quantità", "Descrizione");//formattazione composita con allineamento es {0,6} posiziona l'elemento 0 in uno spazio di 6 caratteri, il - posiziona a sinistra
+                    Console.WriteLine("------------------------------------------------------------------------------------------");
                     foreach (var i in lista_filtrata.ToList())
                     {
-                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-18} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
-                        Console.WriteLine("-----------------------------------------------------------------------------------");
+                        Console.WriteLine("{0,6} {1,-16} {2,-10} {3,-25} {4,8} {5,8} {6,-50}", i.Cod_prodotto, i.Categoria.Trim(), i.Marca.Trim(), i.Nome.Trim(), i.Prezzo, i.Quantita, i.Descrizione.Trim());
+                        Console.WriteLine("------------------------------------------------------------------------------------------");
                     }
                     if (lista_filtrata.Count() == 0)
                         Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
@@ -1092,7 +1092,7 @@ namespace Client
                             break;
                         case 3:
                             if (Aggiorna_quantita(um.Codice))
-                                Console.WriteLine("Quantita' aggiornata correttamente");
+                                Console.WriteLine("Quantità aggiornata correttamente");
                             else Console.WriteLine("Quantità non aggiornata!");
                             break;
                         case 4:
@@ -1117,7 +1117,7 @@ namespace Client
             }
             void Area_riservata_admin(UtenteManager um)
             {
-                Console.WriteLine("Benvenuto utemte ADMIN");
+                Console.WriteLine("Benvenuto utente ADMIN");
                 int attivita = 0;
                 do
                 {
