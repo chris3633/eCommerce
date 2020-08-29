@@ -613,6 +613,18 @@ namespace Manager.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Visualizza_dati", ReplyAction="http://tempuri.org/IServerService/Visualizza_datiResponse")]
         System.Threading.Tasks.Task<Manager.Server.UtenteServer> Visualizza_datiAsync(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/VisualizzaUtenti", ReplyAction="http://tempuri.org/IServerService/VisualizzaUtentiResponse")]
+        System.Collections.Generic.List<Manager.Server.UtenteServer> VisualizzaUtenti();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/VisualizzaUtenti", ReplyAction="http://tempuri.org/IServerService/VisualizzaUtentiResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.UtenteServer>> VisualizzaUtentiAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Rimozione_utente", ReplyAction="http://tempuri.org/IServerService/Rimozione_utenteResponse")]
+        bool Rimozione_utente(string cod_utente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Rimozione_utente", ReplyAction="http://tempuri.org/IServerService/Rimozione_utenteResponse")]
+        System.Threading.Tasks.Task<bool> Rimozione_utenteAsync(string cod_utente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -744,6 +756,22 @@ namespace Manager.Server {
         
         public System.Threading.Tasks.Task<Manager.Server.UtenteServer> Visualizza_datiAsync(string cod_utente) {
             return base.Channel.Visualizza_datiAsync(cod_utente);
+        }
+        
+        public System.Collections.Generic.List<Manager.Server.UtenteServer> VisualizzaUtenti() {
+            return base.Channel.VisualizzaUtenti();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.UtenteServer>> VisualizzaUtentiAsync() {
+            return base.Channel.VisualizzaUtentiAsync();
+        }
+        
+        public bool Rimozione_utente(string cod_utente) {
+            return base.Channel.Rimozione_utente(cod_utente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> Rimozione_utenteAsync(string cod_utente) {
+            return base.Channel.Rimozione_utenteAsync(cod_utente);
         }
     }
 }

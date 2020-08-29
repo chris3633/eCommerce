@@ -26,27 +26,27 @@ namespace Manager
             var servizio = new Server.ServerServiceClient(); //servizio per comunicare con il server
             UtenteServer u2 = new UtenteServer();//creazione utente server da passare al server
             u2.Codice = u1.Codice;//assegno i dati all'utente del server
-            u2.Nome=u1.Nome;
-            u2.Cognome=u1.Cognome;
-            u2.Email=u1.Email;
-            u2.Password=u1.Password;
-            u2.Indirizzo=u1.Indirizzo;
-            u2.Citta=u1.Citta;
+            u2.Nome = u1.Nome;
+            u2.Cognome = u1.Cognome;
+            u2.Email = u1.Email;
+            u2.Password = u1.Password;
+            u2.Indirizzo = u1.Indirizzo;
+            u2.Citta = u1.Citta;
             u2.Tipologia = u1.Tipologia;
             return servizio.Registra(u2);
         }
 
-        public bool Controlla_credenziali(string e,string p)
+        public bool Controlla_credenziali(string e, string p)
         {
             var servizio = new Server.ServerServiceClient();
-            return servizio.Controlla_credenziali(e,p);
+            return servizio.Controlla_credenziali(e, p);
         }
-        public UtenteManager Accedi(string e,string p)
+        public UtenteManager Accedi(string e, string p)
         {
             var servizio = new Server.ServerServiceClient();
             UtenteManager u1 = new UtenteManager();
             UtenteServer u2 = new UtenteServer();
-            u2=servizio.Accedi(e, p);
+            u2 = servizio.Accedi(e, p);
             u1.Codice = u2.Codice;
             u1.Nome = u2.Nome;
             u1.Cognome = u2.Cognome;
@@ -83,7 +83,7 @@ namespace Manager
         }
         public bool Stato_ordine(List<(ProdottoManager, int)> carrello, string cod_utente)
         {
-            
+
             List<(ProdottoServer, int)> carrello_convertito = new List<(ProdottoServer, int)>();
             foreach (var i in carrello)
             {
@@ -97,7 +97,7 @@ namespace Manager
                     Quantita = i.Item1.Quantita,
                     Descrizione = i.Item1.Descrizione,
                     Cod_venditore = i.Item1.Cod_venditore
-                },i.Item2));
+                }, i.Item2));
                 /*p.Cod_prodotto = i.Item1.Cod_prodotto;
                 p.Categoria = i.Item1.Categoria;
                 p.Marca = i.Item1.Marca;
@@ -115,11 +115,11 @@ namespace Manager
 
 
         }
-        public bool Aggiungi_credito(double importo,string cod_utente)
+        public bool Aggiungi_credito(double importo, string cod_utente)
         {
             var servizio = new Server.ServerServiceClient();
 
-            return servizio.Aggiungi_credito(importo,cod_utente);
+            return servizio.Aggiungi_credito(importo, cod_utente);
         }
         public List<OrdineManager> Storico_ordini(string cod_utente)
         {
@@ -127,17 +127,17 @@ namespace Manager
             List<OrdineManager> ordini_manager = new List<OrdineManager>();
 
             List<OrdineServer> ordini_server = servizio.Storico_ordini(cod_utente);
-            
+
             var ord = ordini_server.ToList();
             foreach (var i in ord) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
             {
                 ordini_manager.Add(new OrdineManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
                 {
                     Id_ordine = i.Id_ordine,
-                    Codice_utente =i.Codice_utente,
-                    Data =i.Data,
-                    Totale =i.Totale
-                }); 
+                    Codice_utente = i.Codice_utente,
+                    Data = i.Data,
+                    Totale = i.Totale
+                });
             }
             return ordini_manager;
         }
@@ -149,7 +149,7 @@ namespace Manager
             List<VenditeServer> vendite_server = servizio.Storico_vendite(cod_utente);
 
             var ord = vendite_server.ToList();
-            foreach(var i in ord)
+            foreach (var i in ord)
             {
                 vendite_manager.Add(new VenditeManager
                 {
@@ -214,6 +214,35 @@ namespace Manager
             u1.Credito = u2.Credito;
             u1.Tipologia = u2.Tipologia;
             return u1;
+        }
+        public List<UtenteManager> VisualizzaUtenti()
+        {
+            var servizio = new Server.ServerServiceClient();
+            List<UtenteManager> lista_um = new List<UtenteManager>();
+
+            List<UtenteServer> lista_us = servizio.VisualizzaUtenti();
+            var utenti = lista_us.ToList();
+            foreach (var i in utenti) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
+            {
+                lista_um.Add(new UtenteManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
+                {
+                    Codice = i.Codice,
+                    Nome = i.Nome,
+                    Cognome = i.Cognome,
+                    Email = i.Email,
+                    Password = i.Password,
+                    Indirizzo = i.Indirizzo,
+                    Citta = i.Citta,
+                    Credito = i.Credito,
+                    Tipologia = i.Tipologia
+                });
+            }
+            return lista_um;
+        }
+        public bool Rimozione_utente(string cod_utente)
+        {
+            var servizio = new Server.ServerServiceClient();
+            return servizio.Rimozione_utente(cod_utente);
         }
 
     }

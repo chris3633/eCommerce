@@ -46,9 +46,12 @@ namespace Manager
 
         [OperationContract]
         bool Aggiungi_quantita(int quantita, int codice);
-
         [OperationContract]
         UtenteManager Visualizza_dati(string cod_utente);
+        [OperationContract]
+        List<UtenteManager> VisualizzaUtenti();
+        [OperationContract]
+        bool Rimozione_utente(string cod_utente);
 
     }
 

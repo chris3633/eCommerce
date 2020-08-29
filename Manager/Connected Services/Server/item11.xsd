@@ -77,4 +77,10 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="VenditeServer" nillable="true" type="tns:VenditeServer" />
+  <xs:complexType name="ArrayOfUtenteServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UtenteServer" nillable="true" type="tns:UtenteServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtenteServer" nillable="true" type="tns:ArrayOfUtenteServer" />
 </xs:schema>

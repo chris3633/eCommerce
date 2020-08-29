@@ -77,4 +77,10 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="VenditeManager" nillable="true" type="tns:VenditeManager" />
+  <xs:complexType name="ArrayOfUtenteManager">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UtenteManager" nillable="true" type="tns:UtenteManager" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtenteManager" nillable="true" type="tns:ArrayOfUtenteManager" />
 </xs:schema>

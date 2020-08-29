@@ -421,9 +421,22 @@ namespace Server
                     conn.Open();
                     using (SqlCommand insert = conn.CreateCommand())
                     {
-                        insert.CommandText = "Update Prodotto Set Quantita=Quantita+'" + quantita + "' Where CodiceProdotto ='" + codice + "'";
+                        insert.CommandText= "Select Quantita From Prodotto Where CodiceProdotto ='" + codice + "'";
                         insert.ExecuteNonQuery();
-                        completato = true;
+                        using (SqlDataReader reader = insert.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetInt32(0) + quantita >= 0)
+                                {
+                                    insert.CommandText = "Update Prodotto Set Quantita=Quantita+'" + quantita + "' Where CodiceProdotto ='" + codice + "'";
+                                    insert.ExecuteNonQuery();
+                                    completato = true;
+                                }
+                                else { completato = false; }
+                            }
+
+                        }
                     }
                 }
 
@@ -472,6 +485,71 @@ namespace Server
             }
             return u;
 
+        }
+        public List<UtenteServer> VisualizzaUtenti()
+        {
+            List<UtenteServer> utenti_server = new List<UtenteServer>();
+            try
+            {
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand command = conn.CreateCommand())
+                    {
+                        command.CommandText = "Select CodiceUtente, Nome, Cognome, Email, Indirizzo, Citta, Credito from Utente";
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                utenti_server.Add(new UtenteServer
+                                {
+                                    Codice = reader.GetString(0).Trim(),
+                                    Nome = reader.GetString(1).Trim(),
+                                    Cognome = reader.GetString(2).Trim(),
+                                    Email = reader.GetString(3).Trim(),
+                                    Indirizzo = reader.GetString(4).Trim(),
+                                    Citta = reader.GetString(5).Trim(),
+                                    Credito = reader.GetDecimal(6),
+                                    
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return utenti_server;
+        }
+        public bool Rimozione_utente(string cod_utente)
+        {
+            bool completato = false;
+            try
+            {
+                
+                string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(stringa))
+                {
+                    conn.Open();
+                    using (SqlCommand delete = conn.CreateCommand())
+                    {
+                        delete.CommandText = "Delete From Utente Where CodiceUtente='" + cod_utente + "'";
+                        delete.ExecuteNonQuery();
+                        completato = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                completato = false;
+            }
+            return completato;
         }
     }
 }

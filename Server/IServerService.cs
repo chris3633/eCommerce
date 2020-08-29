@@ -48,6 +48,10 @@ namespace Server
 
         [OperationContract]
         UtenteServer Visualizza_dati(string cod_utente);
+        [OperationContract]
+        List<UtenteServer> VisualizzaUtenti();
+        [OperationContract]
+        bool Rimozione_utente(string cod_utente);
 
 
 

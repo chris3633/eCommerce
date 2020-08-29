@@ -51,7 +51,8 @@ namespace Client
                             Visualizza_prodotti();
                             break;
                         case 2://accesso all'area riservata
-                            try {
+                            try
+                            {
                                 u = Login();
                                 if (u == null) throw new NullReferenceException();//viene lanciata una eccezione quando l'oggetto è nullo
                                 if (u.Codice.Trim().Length == 11)
@@ -61,8 +62,8 @@ namespace Client
                                 else
                                     Area_riservata_admin(u);
                             }
-                            catch(Exception ex) { Console.WriteLine(ex.Message); }
-                           
+                            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
 
                             break;
                         case 3://Registrazione utente (cliente/venditore)
@@ -100,7 +101,7 @@ namespace Client
                 Console.WriteLine(ex.Message);
                 Console.ReadLine();
             }
-            finally {}
+            finally { }
 
             bool Registrazione()
             {
@@ -236,7 +237,7 @@ namespace Client
                                 errore = false;
                                 Console.WriteLine("Categoria: 0-Tutte, 1-Smartphone, 2-PC, 3-Elettrodomestici, ...");
                                 cat = int.Parse(Console.ReadLine());
-                                if (cat!=0 && cat!=1 && cat!=2 && cat!=3)
+                                if (cat != 0 && cat != 1 && cat != 2 && cat != 3)
                                 {
                                     errore = true;
                                     Console.WriteLine("Valore categoria errato!");
@@ -521,7 +522,7 @@ namespace Client
             }
             bool Rimuovi_prodotto(string cod_venditore)
             {
-                bool completato=false;
+                bool completato = false;
                 //Console.WriteLine(cod_venditore);
                 try
                 {
@@ -594,7 +595,7 @@ namespace Client
                     int codice = 0;
                     char risposta = 'Y';
                     ProdottoManager p = new ProdottoManager();
-                    
+
 
                     if (lista_filtrata.Count() == 0)
                         Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
@@ -629,11 +630,11 @@ namespace Client
                         } while (risposta != 'N' && risposta != 'Y');
 
 
-                        if (risposta == 'Y' && p.Cod_prodotto!=0)
+                        if (risposta == 'Y' && p.Cod_prodotto != 0)
                         {
                             Console.WriteLine("risposta Y");
                             completato = wcfclient.Rimozione_prodotto(p);
-                            
+
                         }
                         else completato = false;
 
@@ -773,7 +774,7 @@ namespace Client
                 vendite_manager = wcfclient.Storico_vendite(cod_utente);
                 foreach (var i in vendite_manager)
                 {
-                    
+
                     Console.WriteLine("Numero dell'ordine: " + i.Id_ordine);
                     Console.WriteLine("Data dell'ordine: " + i.Data);
                     Console.WriteLine("Totale dell'ordine: " + i.Totale);
@@ -865,17 +866,17 @@ namespace Client
                         Console.WriteLine("Inserire il codice del prodotto interessato ");
                         codice = int.Parse(Console.ReadLine());
                         //var matches = lista_filtrata.Where(p => p.Cod_prodotto == codice);
-                        foreach(var i in lista_filtrata)
+                        foreach (var i in lista_filtrata)
                         {
-                            if(i.Cod_prodotto == codice)
+                            if (i.Cod_prodotto == codice)
                             {
-                                Console.WriteLine("Inserire la quantita' da aggiungere a quella gia' presente ");
+                                Console.WriteLine("Inserire la quantita' da aggiungere/togliere (negativa) a quella gia' presente");
                                 quantita = int.Parse(Console.ReadLine());
                                 completato = wcfclient.Aggiungi_quantita(quantita, codice);
                             }
 
                         }
-                            
+
                     }
 
                 }
@@ -963,7 +964,7 @@ namespace Client
                 {
                     Console.WriteLine(ex.Message);
                 }
-            }    
+            }
             bool Aggiorna_credito(string cod_utente)
             {
                 bool completato = false;
@@ -1002,8 +1003,188 @@ namespace Client
                     Console.WriteLine(ex.Message);
                 }
             }
+            bool Rimuovi_utente(string cod_admin)
+            {
+                bool completato = false;
+                //Console.WriteLine(cod_venditore);
+                try
+                {
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
 
-            
+                    int tip = 0;
+                    bool errore = true;
+                    List<UtenteManager> lista = wcfclient.VisualizzaUtenti();//ottengo dal manager una lista di utenti manager
+
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("----Impostazione filtri di ricerca----");
+                            do
+                            {
+                                errore = false;
+                                Console.WriteLine("Tipologia: 0-Tutti, 1-Clienti, 2-Venditori");
+                                tip = int.Parse(Console.ReadLine());
+                                if (tip != 0 && tip != 1 && tip != 2)
+                                {
+                                    errore = true;
+                                    Console.WriteLine("Valore tipologia errato!");
+                                }
+                            } while (errore == true);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            errore = true;
+                        }
+                    } while (errore == true);
+
+                    var lista_filtrata = lista.Select(prod => prod);
+                    if (tip == 1)
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        .Where(utente => utente.Codice.Trim().Length == 16);
+                    }
+                    else if (tip == 2)
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        .Where(utente => utente.Codice.Trim().Length == 11);
+                    }
+                    else
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente);
+                    }
+                    Console.WriteLine("_____________________________________");
+
+                    foreach (var i in lista_filtrata.ToList())
+                    {
+                        Console.WriteLine("Codice Utente: " + i.Codice);
+                        Console.WriteLine("Nome: " + i.Nome);
+                        Console.WriteLine("Cognome: " + i.Cognome);
+                        Console.WriteLine("E-mail: " + i.Email);
+                        Console.WriteLine("Indirizzo: " + i.Indirizzo);
+                        Console.WriteLine("Città: " + i.Citta);
+                        Console.WriteLine("Credito : " + i.Credito);
+                        Console.WriteLine("-------------------------------------");
+                    }
+                    string codice_utente;
+                    char risposta = 'Y';
+
+                    if (lista_filtrata.Count() == 0)
+                        Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
+                    else
+                    {
+                        Console.WriteLine("Procedura di rimozione di un utente");
+
+                        Console.WriteLine("Inserisci codice utente");
+                        codice_utente = Console.ReadLine();
+
+
+                        foreach (var i in lista_filtrata.ToList())
+                        {
+                            if (codice_utente == i.Codice)
+                            {
+                                do
+                                {
+                                    Console.WriteLine("Procedere con la rimozione? Y/N");
+                                    risposta = Convert.ToChar(Console.ReadLine());
+                                } while (risposta != 'N' && risposta != 'Y');
+
+
+                                if (risposta == 'Y' && codice_utente != "" && codice_utente != cod_admin)
+                                {
+                                    Console.WriteLine("risposta Y");
+                                    completato = wcfclient.Rimozione_utente(codice_utente);
+
+                                }
+                                else completato = false;
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    completato = false;
+                }
+                return completato;
+            }
+            void Visualizza_utenti()
+            {
+                try
+                {
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
+                    int tip = 0;
+                    bool errore = true;
+                    List<UtenteManager> lista = wcfclient.VisualizzaUtenti();//ottengo dal manager una lista di utenti manager
+
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("----Impostazione filtri di ricerca----");
+                            do
+                            {
+                                errore = false;
+                                Console.WriteLine("Tipologia: 0-Tutti, 1-Clienti, 2-Venditori");
+                                tip = int.Parse(Console.ReadLine());
+                                if (tip != 0 && tip != 1 && tip != 2 && tip != 3)
+                                {
+                                    errore = true;
+                                    Console.WriteLine("Valore tipologia errato!");
+                                }
+                            } while (errore == true);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            errore = true;
+                        }
+                    } while (errore == true);
+
+                    var lista_filtrata = lista.Select(prod => prod);
+                    if (tip == 1)
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        .Where(utente => utente.Codice.Trim().Length == 16);
+                    }
+                    else if (tip == 2)
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        .Where(utente => utente.Codice.Trim().Length == 11);
+                    }
+                    else
+                    {
+                        lista_filtrata = lista_filtrata.Select(utente => utente);
+                    }
+
+                    Console.WriteLine("_____________________________________");
+
+                    foreach (var i in lista_filtrata.ToList())
+                    {
+                        Console.WriteLine("Codice Utente: " + i.Codice);
+                        Console.WriteLine("Nome: " + i.Nome);
+                        Console.WriteLine("Cognome: " + i.Cognome);
+                        Console.WriteLine("E-mail: " + i.Email);
+                        Console.WriteLine("Indirizzo: " + i.Indirizzo);
+                        Console.WriteLine("Città: " + i.Citta);
+                        Console.WriteLine("Credito : " + i.Credito);
+                        Console.WriteLine("-------------------------------------");
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
 
             //AREE RISERVATE
             void Area_riservata_cliente(UtenteManager um)
@@ -1017,7 +1198,7 @@ namespace Client
                     Console.WriteLine("2-Visualizza dati account");
                     Console.WriteLine("3-Aggiungi credito");
                     Console.WriteLine("4-Visualizza storico ordini");
-                    Console.WriteLine("5-Esci\n");
+                    Console.WriteLine("5-Logout\n");
                     try
                     {
                         attivita = int.Parse(Console.ReadLine());
@@ -1036,16 +1217,16 @@ namespace Client
                             Visualizza_dati(um.Codice);
                             break;
                         case 3:
-                                if (Aggiorna_credito(um.Codice))
-                                    Console.WriteLine("Credito aggiunto correttamente");
-                                else Console.WriteLine("Impossibile aggiungere credito!");                          
+                            if (Aggiorna_credito(um.Codice))
+                                Console.WriteLine("Credito aggiunto correttamente");
+                            else Console.WriteLine("Impossibile aggiungere credito!");
                             break;
                         case 4:
                             Storico_ordini(um.Codice);
                             break;
                         case 5:
                             Console.WriteLine("Logout effettuato correttamente");
-                            Console.ReadLine();
+
                             break;
                         default:
                             Console.WriteLine("Valore non consentito!\n");
@@ -1067,7 +1248,7 @@ namespace Client
                     Console.WriteLine("4-Visualizza storico ordini");
                     Console.WriteLine("5-Visualizza dati account");
                     Console.WriteLine("6-Il mio negozio");
-                    Console.WriteLine("7-Esci\n");
+                    Console.WriteLine("7-Logout\n");
                     try
                     {
                         attivita = int.Parse(Console.ReadLine());
@@ -1106,7 +1287,7 @@ namespace Client
                             break;
                         case 7:
                             Console.WriteLine("Logout effettuato correttamente");
-                            Console.ReadLine();
+
                             break;
                         default:
                             Console.WriteLine("Valore non consentito!\n");
@@ -1125,7 +1306,8 @@ namespace Client
                     Console.WriteLine("1-Aggiungi utente");
                     Console.WriteLine("2-Rimuovi utente");
                     Console.WriteLine("3-Rimuovi prodotto");
-                    Console.WriteLine("4-Esci\n");
+                    Console.WriteLine("4-Visualizza utenti");
+                    Console.WriteLine("5-Logout\n");
                     try
                     {
                         attivita = int.Parse(Console.ReadLine());
@@ -1141,21 +1323,28 @@ namespace Client
                             Registrazione();
                             break;
                         case 2: //rimuovi utente
-                            
+                            if (Rimuovi_utente(um.Codice))
+                                Console.WriteLine("Utente rimosso correttamente");
+                            else Console.WriteLine("Errore: utente non rimosso!");
                             break;
                         case 3: //rimuovi prodotto
-                            Rimuovi_prodotto_admin();
-                            break;             
+                            if (Rimuovi_prodotto_admin())
+                                Console.WriteLine("Prodotto rimosso correttamente");
+                            else Console.WriteLine("Errore: prodotto non rimosso!");
+                            break;
                         case 4:
+                            Visualizza_utenti();
+                            break;
+                        case 5:
                             Console.WriteLine("Logout effettuato correttamente");
-                            Console.ReadLine();
+
                             break;
                         default:
                             Console.WriteLine("Valore non consentito!\n");
                             break;
                     }
 
-                } while (attivita != 4);
+                } while (attivita != 5);
             }
         }
 

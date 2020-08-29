@@ -86,6 +86,18 @@
   <wsdl:message name="IServerService_Visualizza_dati_OutputMessage">
     <wsdl:part name="parameters" element="tns:Visualizza_datiResponse" />
   </wsdl:message>
+  <wsdl:message name="IServerService_VisualizzaUtenti_InputMessage">
+    <wsdl:part name="parameters" element="tns:VisualizzaUtenti" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_VisualizzaUtenti_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VisualizzaUtentiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Rimozione_utente_InputMessage">
+    <wsdl:part name="parameters" element="tns:Rimozione_utente" />
+  </wsdl:message>
+  <wsdl:message name="IServerService_Rimozione_utente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Rimozione_utenteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServerService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/DoWork" message="tns:IServerService_DoWork_InputMessage" />
@@ -138,6 +150,14 @@
     <wsdl:operation name="Visualizza_dati">
       <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Visualizza_dati" message="tns:IServerService_Visualizza_dati_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServerService/Visualizza_datiResponse" message="tns:IServerService_Visualizza_dati_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VisualizzaUtenti">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/VisualizzaUtenti" message="tns:IServerService_VisualizzaUtenti_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/VisualizzaUtentiResponse" message="tns:IServerService_VisualizzaUtenti_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Rimozione_utente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServerService/Rimozione_utente" message="tns:IServerService_Rimozione_utente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServerService/Rimozione_utenteResponse" message="tns:IServerService_Rimozione_utente_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServerService" type="tns:IServerService">
@@ -252,6 +272,24 @@
     </wsdl:operation>
     <wsdl:operation name="Visualizza_dati">
       <soap:operation soapAction="http://tempuri.org/IServerService/Visualizza_dati" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VisualizzaUtenti">
+      <soap:operation soapAction="http://tempuri.org/IServerService/VisualizzaUtenti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Rimozione_utente">
+      <soap:operation soapAction="http://tempuri.org/IServerService/Rimozione_utente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

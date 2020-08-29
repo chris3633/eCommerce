@@ -183,4 +183,30 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="VisualizzaUtenti">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VisualizzaUtentiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Server" minOccurs="0" name="VisualizzaUtentiResult" nillable="true" type="q10:ArrayOfUtenteServer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Rimozione_utente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cod_utente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Rimozione_utenteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Rimozione_utenteResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
