@@ -108,7 +108,7 @@
   <xs:element name="Storico_ordiniResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Manager" minOccurs="0" name="Storico_ordiniResult" nillable="true" type="q5:ArrayOfOrdineManager" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Manager" minOccurs="0" name="Storico_ordiniResult" nillable="true" type="q5:ArrayOfVenditeManager" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

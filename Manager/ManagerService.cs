@@ -98,15 +98,6 @@ namespace Manager
                     Descrizione = i.Item1.Descrizione,
                     Cod_venditore = i.Item1.Cod_venditore
                 }, i.Item2));
-                /*p.Cod_prodotto = i.Item1.Cod_prodotto;
-                p.Categoria = i.Item1.Categoria;
-                p.Marca = i.Item1.Marca;
-                p.Nome = i.Item1.Nome;
-                p.Prezzo = i.Item1.Prezzo;
-                p.Quantita = i.Item1.Quantita;
-                p.Descrizione = i.Item1.Descrizione;
-                p.Cod_venditore = i.Item1.Cod_venditore;
-                carrello_convertito.Add((p,i.Item2));*/
 
             }
             var servizio = new Server.ServerServiceClient();
@@ -121,22 +112,25 @@ namespace Manager
 
             return servizio.Aggiungi_credito(importo, cod_utente);
         }
-        public List<OrdineManager> Storico_ordini(string cod_utente)
+        public List<VenditeManager> Storico_ordini(string cod_utente)
         {
             var servizio = new Server.ServerServiceClient();
-            List<OrdineManager> ordini_manager = new List<OrdineManager>();
+            List<VenditeManager> ordini_manager = new List<VenditeManager>();
 
-            List<OrdineServer> ordini_server = servizio.Storico_ordini(cod_utente);
+            List<VenditeServer> ordini_server = servizio.Storico_ordini(cod_utente);
 
             var ord = ordini_server.ToList();
             foreach (var i in ord) //servizio.VisualizzaProdotti() restituisce una lista di oggetti di tipo ProdottoServer
             {
-                ordini_manager.Add(new OrdineManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
+                ordini_manager.Add(new VenditeManager//aggiungo alla lista di prodotti-manager un nuovo prodotto con valori presi dai prodotti-server
                 {
                     Id_ordine = i.Id_ordine,
                     Codice_utente = i.Codice_utente,
                     Data = i.Data,
-                    Totale = i.Totale
+                    Totale = i.Totale,
+                    Id_articolo = i.Id_articolo,
+                    Nome_articolo = i.Nome_articolo,
+                    Quantita = i.Quantita
                 });
             }
             return ordini_manager;

@@ -70,9 +70,6 @@
     <None Include="Connected Services\Server\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Server\Manager.Server.OrdineServer.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\Server\Manager.Server.ProdottoServer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

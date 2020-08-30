@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -172,6 +173,7 @@ namespace Server
         {
             bool completato;
             double totale = 0.0;
+            //var totale = 0.0;
             int id_ordine = 0;
 
             try
@@ -183,10 +185,12 @@ namespace Server
                     //Console.WriteLine(i.Item1.Cod_prodotto);
                     //Console.WriteLine(i.Item2);
                     //Console.WriteLine(cod_utente);
+                    //totale += (double)i.Item1.Prezzo * i.Item2;
                     totale += (double)i.Item1.Prezzo * i.Item2;
                 }
                 Console.WriteLine(totale);
                 float tot = (float)totale;
+                //SqlMoney tot = (SqlMoney)totale;
 
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
@@ -258,9 +262,9 @@ namespace Server
 
 
         }
-        public List<OrdineServer> Storico_ordini(string cod_utente)
+        public List<VenditeServer> Storico_ordini(string cod_utente)
         {
-            List<OrdineServer> ordini = new List<OrdineServer>();
+            List<VenditeServer> ordini = new List<VenditeServer>();
             try
             {
                 string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
@@ -270,18 +274,22 @@ namespace Server
                     using (SqlCommand command = conn.CreateCommand())
                     {
 
-                        command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='" + cod_utente + "'";
+                        //command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='" + cod_utente + "'";
+                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,dt.IdArticolo,p.Nome, dt.Quantita from Ordine as O join DettagliOrdine as DT on o.Id = dt.IdOrdine join Prodotto as P on dt.IdArticolo = p.CodiceProdotto where CodiceUtente='" + cod_utente + "'";
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                ordini.Add(new OrdineServer
+                                ordini.Add(new VenditeServer
                                 {
                                     Id_ordine = reader.GetInt32(0),
                                     Data = reader.GetDateTime(1),
                                     Totale = reader.GetDecimal(2),
                                     Codice_utente = reader.GetString(3),
+                                    Id_articolo = reader.GetInt32(4),
+                                    Nome_articolo = reader.GetString(5),
+                                    Quantita = reader.GetInt32(6)
 
                                 });
                             }
@@ -349,7 +357,8 @@ namespace Server
                 string categoria = p.Categoria;
                 string marca = p.Marca;
                 string nome = p.Nome;
-                Decimal prezzo = p.Prezzo;
+                //Decimal prezzo = p.Prezzo;
+                var prezzo = p.Prezzo;
                 int quantita = p.Quantita;
                 string descrizione = p.Descrizione;
                 string codice_venditore = p.Cod_venditore;

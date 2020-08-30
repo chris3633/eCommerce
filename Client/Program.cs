@@ -380,7 +380,7 @@ namespace Client
                     }
                     int codice = 0, quantita = 0;
                     decimal totale_carrello = 0;
-                    char risposta = 'Y';
+                    ConsoleKeyInfo risposta;
                     List<(ProdottoManager, int)> carrello = new List<(ProdottoManager, int)>();//carrello formato da coppie (prodotto,quantità)
                     ProdottoManager p = new ProdottoManager();
 
@@ -428,18 +428,33 @@ namespace Client
                             }
                             else Console.WriteLine("Quantità inserita uguale a zero");
                             Console.WriteLine("Vuoi aggiungere un altro prodotto? Y/N");
-                            risposta = Convert.ToChar(Console.ReadLine());
-                        } while (risposta != 'N' && risposta != 'n');
+                            risposta = Console.ReadKey();
+                            Console.WriteLine();
+                            while (risposta.Key != ConsoleKey.Y && risposta.Key != ConsoleKey.N)
+                            {
+                                Console.WriteLine("Tasto non corretto. Inserire Y/N");
+                                risposta = Console.ReadKey();
+                                Console.WriteLine();
+                            }
+                        } while (risposta.Key == ConsoleKey.Y);
+
+                        
+                        
 
 
-                        do
-                        {
+                       
                             Console.WriteLine("Procedere con l'ordine? Y/N");
-                            risposta = Convert.ToChar(Console.ReadLine());
-                        } while (risposta != 'N' && risposta != 'Y');
+                            risposta = Console.ReadKey();
+                            Console.WriteLine();
+                            while (risposta.Key != ConsoleKey.Y && risposta.Key != ConsoleKey.N)
+                            {
+                                Console.WriteLine("Tasto non corretto. Inserire Y/N ");
+                                risposta = Console.ReadKey();
+                                Console.WriteLine();
+                            }
 
 
-                        if (risposta == 'Y' && totale_carrello != 0)
+                        if (risposta.Key == ConsoleKey.Y && totale_carrello != 0)
                         {
                             if (u.Credito >= totale_carrello)
                             {
@@ -447,8 +462,7 @@ namespace Client
                                 Console.WriteLine("Ordine effettuato per un totale di " + totale_carrello);
                                 foreach (var i in carrello)
                                 {
-                                    Console.WriteLine(i.Item1.Nome);
-                                    Console.WriteLine(i.Item2);
+                                    Console.WriteLine(i.Item1.Nome+" Quantita' "+i.Item2);
                                 }
                                 completato = wcfclient.Stato_ordine(carrello, u.Codice);
 
@@ -468,7 +482,7 @@ namespace Client
             }
             void Storico_ordini(string cod_utente)
             {
-                List<OrdineManager> ordini_manager = new List<OrdineManager>();
+                List<VenditeManager> ordini_manager = new List<VenditeManager>();
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
                 ordini_manager = wcfclient.Storico_ordini(cod_utente);
                 foreach (var i in ordini_manager)
@@ -476,6 +490,9 @@ namespace Client
                     Console.WriteLine("Numero dell'ordine: " + i.Id_ordine);
                     Console.WriteLine("Data: " + i.Data);
                     Console.WriteLine("Prezzo totale: " + i.Totale);
+                    Console.WriteLine("Id articolo: " + i.Id_articolo);
+                    Console.WriteLine("Nome articolo: " + i.Nome_articolo);
+                    Console.WriteLine("Quantita': " + i.Quantita);
                     Console.WriteLine("------------------------");
                 }
             }
@@ -484,6 +501,7 @@ namespace Client
                 int cat, quantita;
                 string categoria, marca, nome, descr;
                 Decimal prezzo;
+                //SqlMoney prezzo;
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
                 do
                 {
@@ -502,6 +520,7 @@ namespace Client
                 nome = Console.ReadLine();
                 Console.WriteLine("Inserisci prezzo prodotto (, come separatore Decimale!) ");
                 prezzo = Decimal.Parse(Console.ReadLine());
+                //prezzo = SqlMoney.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci quantità prodotto ");
                 quantita = int.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci descrizione prodotto ");
@@ -523,7 +542,6 @@ namespace Client
             bool Rimuovi_prodotto(string cod_venditore)
             {
                 bool completato = false;
-                //Console.WriteLine(cod_venditore);
                 try
                 {
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
@@ -623,14 +641,17 @@ namespace Client
                             }
                         }
 
-                        do
+                        Console.WriteLine("Procedere con la rimozione? Y/N");
+                        risposta = Convert.ToChar(Console.ReadLine());
+
+                        while(risposta != 'N' && risposta != 'Y' && risposta != 'n' && risposta != 'y')
                         {
-                            Console.WriteLine("Procedere con la rimozione? Y/N");
+                            Console.WriteLine("Tasto non corretto! Procedere con la rimozione? Y/N");
                             risposta = Convert.ToChar(Console.ReadLine());
-                        } while (risposta != 'N' && risposta != 'Y');
+                        } 
 
 
-                        if (risposta == 'Y' && p.Cod_prodotto != 0)
+                        if ((risposta == 'Y' || risposta == 'y') && p.Cod_prodotto != 0)
                         {
                             Console.WriteLine("risposta Y");
                             completato = wcfclient.Rimozione_prodotto(p);
@@ -743,14 +764,17 @@ namespace Client
                             }
                         }
 
-                        do
+                        Console.WriteLine("Procedere con la rimozione? Y/N");
+                        risposta = Convert.ToChar(Console.ReadLine());
+
+                        while (risposta != 'N' && risposta != 'Y' && risposta != 'n' && risposta != 'y')
                         {
-                            Console.WriteLine("Procedere con la rimozione? Y/N");
+                            Console.WriteLine("Tasto non corretto! Procedere con la rimozione? Y/N");
                             risposta = Convert.ToChar(Console.ReadLine());
-                        } while (risposta != 'N' && risposta != 'Y');
+                        }
 
 
-                        if (risposta == 'Y' && p.Cod_prodotto != 0)
+                        if ((risposta == 'Y' || risposta == 'y') && p.Cod_prodotto != 0)
                         {
                             Console.WriteLine("risposta Y");
                             completato = wcfclient.Rimozione_prodotto(p);
@@ -865,7 +889,6 @@ namespace Client
                     {
                         Console.WriteLine("Inserire il codice del prodotto interessato ");
                         codice = int.Parse(Console.ReadLine());
-                        //var matches = lista_filtrata.Where(p => p.Cod_prodotto == codice);
                         foreach (var i in lista_filtrata)
                         {
                             if (i.Cod_prodotto == codice)
@@ -1006,7 +1029,6 @@ namespace Client
             bool Rimuovi_utente(string cod_admin)
             {
                 bool completato = false;
-                //Console.WriteLine(cod_venditore);
                 try
                 {
                     var wcfclient = new ServiceReference1.ManagerServiceClient();
@@ -1086,18 +1108,18 @@ namespace Client
                         {
                             if (codice_utente == i.Codice)
                             {
-                                do
+                                Console.WriteLine("Procedere con la rimozione? Y/N");
+                                risposta = Convert.ToChar(Console.ReadLine());
+                                while(risposta != 'N' && risposta !='n' && risposta != 'Y' && risposta !='y')
                                 {
-                                    Console.WriteLine("Procedere con la rimozione? Y/N");
+                                    Console.WriteLine("Tasto non corretto! Procedere con la rimozione? Y/N");
                                     risposta = Convert.ToChar(Console.ReadLine());
-                                } while (risposta != 'N' && risposta != 'Y');
+                                }
 
 
-                                if (risposta == 'Y' && codice_utente != "" && codice_utente != cod_admin)
+                                if ((risposta == 'Y' || risposta =='y') && codice_utente != "" && codice_utente != cod_admin)
                                 {
-                                    Console.WriteLine("risposta Y");
                                     completato = wcfclient.Rimozione_utente(codice_utente);
-
                                 }
                                 else completato = false;
                             }

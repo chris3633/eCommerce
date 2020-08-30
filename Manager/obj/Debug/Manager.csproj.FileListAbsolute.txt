@@ -1,10 +1,3 @@
-C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.exe.config
-C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.exe
-C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.pdb
-C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.csprojAssemblyReference.cache
-C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.csproj.CoreCompileInputs.cache
-C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.exe
-C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.pdb
 C:\Users\Samuele\Desktop\eCommerce\Manager\bin\Debug\Manager.exe.config
 C:\Users\Samuele\Desktop\eCommerce\Manager\bin\Debug\Manager.exe
 C:\Users\Samuele\Desktop\eCommerce\Manager\bin\Debug\Manager.pdb
@@ -12,3 +5,10 @@ C:\Users\Samuele\Desktop\eCommerce\Manager\obj\Debug\Manager.csproj.CoreCompileI
 C:\Users\Samuele\Desktop\eCommerce\Manager\obj\Debug\Manager.exe
 C:\Users\Samuele\Desktop\eCommerce\Manager\obj\Debug\Manager.pdb
 C:\Users\Samuele\Desktop\eCommerce\Manager\obj\Debug\Manager.csprojAssemblyReference.cache
+C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.csprojAssemblyReference.cache
+C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.csproj.CoreCompileInputs.cache
+C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.exe.config
+C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.exe
+C:\Users\chris\Desktop\eCommerce\Manager\bin\Debug\Manager.pdb
+C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.exe
+C:\Users\chris\Desktop\eCommerce\Manager\obj\Debug\Manager.pdb

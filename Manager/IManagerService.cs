@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -33,7 +34,7 @@ namespace Manager
         bool Aggiungi_credito(double importo,string cod_utente);
 
         [OperationContract]
-        List<OrdineManager> Storico_ordini(string cod_utente);
+        List<VenditeManager> Storico_ordini(string cod_utente);
 
         [OperationContract]
         bool Aggiungi_prodotto(ProdottoManager p);
@@ -106,7 +107,7 @@ namespace Manager
         public string Nome { get => nome; set => nome = value; }
         
         public decimal Prezzo { get => prezzo; set => prezzo = value; }
-        
+
         public int Quantita { get => quantita; set => quantita = value; }
         
         public string Descrizione { get => descrizione; set => descrizione = value; }
@@ -119,6 +120,7 @@ namespace Manager
         private string codice_utente;
         private DateTime data;
         private decimal totale;
+
 
         public int Id_ordine { get => id_ordine; set => id_ordine = value; }
         public string Codice_utente { get => codice_utente; set => codice_utente = value; }

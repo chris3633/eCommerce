@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -35,7 +36,7 @@ namespace Server
         [OperationContract]
         bool Aggiungi_credito(double importo, string cod_utente);
         [OperationContract]
-        List<OrdineServer> Storico_ordini(string cod_utente);
+        List<VenditeServer> Storico_ordini(string cod_utente);
         [OperationContract]
         bool Aggiungi_prodotto(ProdottoServer p);
         [OperationContract]

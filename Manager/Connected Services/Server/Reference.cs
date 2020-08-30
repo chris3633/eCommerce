@@ -353,6 +353,93 @@ namespace Manager.Server {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="VenditeServer", Namespace="http://schemas.datacontract.org/2004/07/Server")]
+    [System.SerializableAttribute()]
+    public partial class VenditeServer : Manager.Server.OrdineServer {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Cognome_utenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Id_articoloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Nome_articoloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Nome_utenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int QuantitaField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Cognome_utente {
+            get {
+                return this.Cognome_utenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Cognome_utenteField, value) != true)) {
+                    this.Cognome_utenteField = value;
+                    this.RaisePropertyChanged("Cognome_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id_articolo {
+            get {
+                return this.Id_articoloField;
+            }
+            set {
+                if ((this.Id_articoloField.Equals(value) != true)) {
+                    this.Id_articoloField = value;
+                    this.RaisePropertyChanged("Id_articolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nome_articolo {
+            get {
+                return this.Nome_articoloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Nome_articoloField, value) != true)) {
+                    this.Nome_articoloField = value;
+                    this.RaisePropertyChanged("Nome_articolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nome_utente {
+            get {
+                return this.Nome_utenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Nome_utenteField, value) != true)) {
+                    this.Nome_utenteField = value;
+                    this.RaisePropertyChanged("Nome_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantita {
+            get {
+                return this.QuantitaField;
+            }
+            set {
+                if ((this.QuantitaField.Equals(value) != true)) {
+                    this.QuantitaField = value;
+                    this.RaisePropertyChanged("Quantita");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrdineServer", Namespace="http://schemas.datacontract.org/2004/07/Server")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Manager.Server.VenditeServer))]
@@ -445,93 +532,6 @@ namespace Manager.Server {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="VenditeServer", Namespace="http://schemas.datacontract.org/2004/07/Server")]
-    [System.SerializableAttribute()]
-    public partial class VenditeServer : Manager.Server.OrdineServer {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Cognome_utenteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int Id_articoloField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Nome_articoloField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Nome_utenteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int QuantitaField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Cognome_utente {
-            get {
-                return this.Cognome_utenteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Cognome_utenteField, value) != true)) {
-                    this.Cognome_utenteField = value;
-                    this.RaisePropertyChanged("Cognome_utente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id_articolo {
-            get {
-                return this.Id_articoloField;
-            }
-            set {
-                if ((this.Id_articoloField.Equals(value) != true)) {
-                    this.Id_articoloField = value;
-                    this.RaisePropertyChanged("Id_articolo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nome_articolo {
-            get {
-                return this.Nome_articoloField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Nome_articoloField, value) != true)) {
-                    this.Nome_articoloField = value;
-                    this.RaisePropertyChanged("Nome_articolo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nome_utente {
-            get {
-                return this.Nome_utenteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Nome_utenteField, value) != true)) {
-                    this.Nome_utenteField = value;
-                    this.RaisePropertyChanged("Nome_utente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Quantita {
-            get {
-                return this.QuantitaField;
-            }
-            set {
-                if ((this.QuantitaField.Equals(value) != true)) {
-                    this.QuantitaField = value;
-                    this.RaisePropertyChanged("Quantita");
-                }
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IServerService")]
     public interface IServerService {
@@ -579,10 +579,10 @@ namespace Manager.Server {
         System.Threading.Tasks.Task<bool> Aggiungi_creditoAsync(double importo, string cod_utente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Storico_ordini", ReplyAction="http://tempuri.org/IServerService/Storico_ordiniResponse")]
-        System.Collections.Generic.List<Manager.Server.OrdineServer> Storico_ordini(string cod_utente);
+        System.Collections.Generic.List<Manager.Server.VenditeServer> Storico_ordini(string cod_utente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Storico_ordini", ReplyAction="http://tempuri.org/IServerService/Storico_ordiniResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.VenditeServer>> Storico_ordiniAsync(string cod_utente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServerService/Aggiungi_prodotto", ReplyAction="http://tempuri.org/IServerService/Aggiungi_prodottoResponse")]
         bool Aggiungi_prodotto(Manager.Server.ProdottoServer p);
@@ -710,11 +710,11 @@ namespace Manager.Server {
             return base.Channel.Aggiungi_creditoAsync(importo, cod_utente);
         }
         
-        public System.Collections.Generic.List<Manager.Server.OrdineServer> Storico_ordini(string cod_utente) {
+        public System.Collections.Generic.List<Manager.Server.VenditeServer> Storico_ordini(string cod_utente) {
             return base.Channel.Storico_ordini(cod_utente);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.OrdineServer>> Storico_ordiniAsync(string cod_utente) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Manager.Server.VenditeServer>> Storico_ordiniAsync(string cod_utente) {
             return base.Channel.Storico_ordiniAsync(cod_utente);
         }
         
