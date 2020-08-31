@@ -275,7 +275,7 @@ namespace Server
                     {
 
                         //command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='" + cod_utente + "'";
-                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,dt.IdArticolo,p.Nome, dt.Quantita from Ordine as O join DettagliOrdine as DT on o.Id = dt.IdOrdine join Prodotto as P on dt.IdArticolo = p.CodiceProdotto where CodiceUtente='" + cod_utente + "'";
+                        command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,dt.IdArticolo,p.Nome, dt.Quantita,p.Prezzo from Ordine as O join DettagliOrdine as DT on o.Id = dt.IdOrdine join Prodotto as P on dt.IdArticolo = p.CodiceProdotto where CodiceUtente='" + cod_utente + "'";
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -289,7 +289,8 @@ namespace Server
                                     Codice_utente = reader.GetString(3),
                                     Id_articolo = reader.GetInt32(4),
                                     Nome_articolo = reader.GetString(5),
-                                    Quantita = reader.GetInt32(6)
+                                    Quantita = reader.GetInt32(6),
+                                    Prezzo=reader.GetDecimal(7)
 
                                 });
                             }

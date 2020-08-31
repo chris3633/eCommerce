@@ -134,12 +134,14 @@ namespace Manager
         private int id_articolo;
         private int quantita;
         private string nome_articolo;
+        private decimal prezzo;
 
         public string Nome_utente { get => nome_utente; set => nome_utente = value; }
         public string Cognome_utente { get => cognome_utente; set => cognome_utente = value; }
         public int Id_articolo { get => id_articolo; set => id_articolo = value; }
         public int Quantita { get => quantita; set => quantita = value; }
         public string Nome_articolo { get => nome_articolo; set => nome_articolo = value; }
+        public decimal Prezzo { get => prezzo; set => prezzo = value; }
     }
 
 }

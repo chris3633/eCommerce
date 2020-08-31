@@ -130,7 +130,8 @@ namespace Manager
                     Totale = i.Totale,
                     Id_articolo = i.Id_articolo,
                     Nome_articolo = i.Nome_articolo,
-                    Quantita = i.Quantita
+                    Quantita = i.Quantita,
+                    Prezzo=i.Prezzo
                 });
             }
             return ordini_manager;

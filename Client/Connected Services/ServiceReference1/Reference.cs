@@ -370,6 +370,9 @@ namespace Client.ServiceReference1 {
         private string Nome_utenteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrezzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int QuantitaField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -420,6 +423,19 @@ namespace Client.ServiceReference1 {
                 if ((object.ReferenceEquals(this.Nome_utenteField, value) != true)) {
                     this.Nome_utenteField = value;
                     this.RaisePropertyChanged("Nome_utente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Prezzo {
+            get {
+                return this.PrezzoField;
+            }
+            set {
+                if ((this.PrezzoField.Equals(value) != true)) {
+                    this.PrezzoField = value;
+                    this.RaisePropertyChanged("Prezzo");
                 }
             }
         }

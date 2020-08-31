@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Client
 {
@@ -402,7 +403,6 @@ namespace Client
                                 {
                                     if (codice == i.Cod_prodotto)
                                     {
-                                        Console.WriteLine(i.Cod_prodotto);
                                         if (quantita <= i.Quantita)
                                         {
 
@@ -439,10 +439,6 @@ namespace Client
                         } while (risposta.Key == ConsoleKey.Y);
 
                         
-                        
-
-
-                       
                             Console.WriteLine("Procedere con l'ordine? Y/N");
                             risposta = Console.ReadKey();
                             Console.WriteLine();
@@ -466,6 +462,18 @@ namespace Client
                                 }
                                 completato = wcfclient.Stato_ordine(carrello, u.Codice);
 
+                                Console.WriteLine("Salvare il riepilogo dell'ordine? Y/N");
+                                risposta = Console.ReadKey();
+                                Console.WriteLine();
+                                while (risposta.Key != ConsoleKey.Y && risposta.Key != ConsoleKey.N)
+                                {
+                                    Console.WriteLine("Tasto non corretto. Inserire Y/N ");
+                                    risposta = Console.ReadKey();
+                                    Console.WriteLine();
+                                }
+                                if(risposta.Key == ConsoleKey.Y) { Salva_riepilogo_ordine(u.Codice,u.Nome,u.Cognome); }
+                                
+
                             }
                             else { Console.WriteLine("Credito non sufficiente!"); }
 
@@ -480,6 +488,69 @@ namespace Client
                     Console.WriteLine(ex.Message);
                 }
             }
+            void Salva_riepilogo_ordine(string cod_utente,string nome_utente,string cognome_utente)
+            {
+                try
+                {
+                    string documenti = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);//percorso della cartella Documenti
+                    string docPath = Path.Combine(documenti, "RiepilogoOrdini_eCommerce");//percorso della cartella Documenti a cui viene aggiunta la cartella RiepilogoOrdini
+                    if (!Directory.Exists(docPath))
+                    {
+                        DirectoryInfo di = Directory.CreateDirectory(docPath);//se la cartella non esiste, viene creata
+                    }
+                    
+                    List<VenditeManager> ordini_manager = new List<VenditeManager>();
+                    var wcfclient = new ServiceReference1.ManagerServiceClient();
+                    ordini_manager = wcfclient.Storico_ordini(cod_utente);
+                    string nameFile="";
+                    decimal totale=0;
+                    DateTime data=DateTime.Now;
+                    
+                    var idMax=ordini_manager.Select(ord => ord).Max(ord=>ord.Id_ordine);//trovo l'ultimo id ordine inserito ossia il massimo
+
+                    foreach (var i in ordini_manager)
+                    {
+                        if (i.Id_ordine == idMax) { 
+                            nameFile = "RiepilogoOrdine_" + Convert.ToString(i.Id_ordine) + "_" + i.Data.ToString("yyyyMMddHHmmss") + ".txt";
+                            totale = i.Totale;
+                            data = i.Data;
+                        }
+                        
+                    }
+                    using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, nameFile)))
+                    {
+                        outputFile.WriteLine("--------------------------------------------------");
+                        outputFile.WriteLine("\t       Negozio di eCommerce");
+                        outputFile.WriteLine("--------------------------------------------------\n");
+                        outputFile.WriteLine("Riepilogo ordine numero " + idMax.ToString());
+                        outputFile.WriteLine("Data: " + data.ToString());
+                        outputFile.WriteLine("CLIENTE");
+                        outputFile.WriteLine(nome_utente.Trim() + " " + cognome_utente.Trim() + ", C.F.: " + cod_utente);
+                        
+                        foreach (var i in ordini_manager)
+                        {
+                            if (i.Id_ordine == idMax)
+                            {
+                                outputFile.WriteLine("------------------------");
+                                outputFile.WriteLine("Id articolo: " + i.Id_articolo);
+                                outputFile.WriteLine("Nome articolo: " + i.Nome_articolo);
+                                outputFile.WriteLine("Prezzo articolo: " + i.Prezzo);
+                                outputFile.WriteLine("Quantita': " + i.Quantita);
+                            }
+                            
+                        }
+                        outputFile.WriteLine("________________________");
+                        outputFile.WriteLine("Prezzo totale: " + totale.ToString());
+                    }
+                    Console.WriteLine("File salvato in Documenti, nella cartella RiepilogoOrdini_eCommerce");
+                    Console.ReadLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("ERRORE: file non salvato!");
+                }
+            }
             void Storico_ordini(string cod_utente)
             {
                 List<VenditeManager> ordini_manager = new List<VenditeManager>();
@@ -492,6 +563,7 @@ namespace Client
                     Console.WriteLine("Prezzo totale: " + i.Totale);
                     Console.WriteLine("Id articolo: " + i.Id_articolo);
                     Console.WriteLine("Nome articolo: " + i.Nome_articolo);
+                    Console.WriteLine("Prezzo articolo: " + i.Prezzo);
                     Console.WriteLine("Quantita': " + i.Quantita);
                     Console.WriteLine("------------------------");
                 }
