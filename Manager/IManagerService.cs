@@ -12,8 +12,8 @@ namespace Manager
     [ServiceContract]
     public interface IManagerService
     {
-        [OperationContract]
-        void DoWork();
+        /*[OperationContract]
+        void DoWork();*/
 
         [OperationContract]
         bool Registra(UtenteManager u1);
@@ -73,7 +73,7 @@ namespace Manager
         public string Citta { get => citta; set => citta = value; }
     }
     
-    public class UtenteManager : Persona//utente-manager
+    public class UtenteManager : Persona//utente-manager derivato di persona
     {
         private string email;
         private string password;

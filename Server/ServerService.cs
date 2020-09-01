@@ -15,10 +15,10 @@ namespace Server
     public class ServerService : IServerService
     {
 
-        public void DoWork()
+        /*public void DoWork()
         {
             Console.WriteLine("Metodo dowork chiamato");
-        }
+        }*/
 
         public bool Registra(UtenteServer u2)
         {
@@ -117,7 +117,7 @@ namespace Server
                                 u.Indirizzo = reader.GetString(5);
                                 u.Citta = reader.GetString(6);
                                 u.Credito = reader.GetDecimal(7);
-                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));//reader.GetInt32(8); sollevava eccezione di invalid cast
+                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));
                             }
                         }
                     }
@@ -131,7 +131,6 @@ namespace Server
         }
         public List<ProdottoServer> VisualizzaProdotti()
         {
-            //SqlConnection conn = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Samuele\\Desktop\\eCommerce\\Server\\Database_eCommerce.mdf;Integrated Security=True");//("Server=(localdb)\\MSSQLLocalDB; Database=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\"; Integrated Security=SSPI"); //("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\SAMUELE\\DOCUMENTS\\TECNICHE DI SVILPPO SOFTWARE\\WCFTESTSERVER\\DATABASE1.MDF\";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");//
             List<ProdottoServer> prodotti = new List<ProdottoServer>();
             try
             {
@@ -173,7 +172,6 @@ namespace Server
         {
             bool completato;
             double totale = 0.0;
-            //var totale = 0.0;
             int id_ordine = 0;
 
             try
@@ -182,6 +180,7 @@ namespace Server
 
                 foreach (var i in carrello)
                 {
+                    //COMMENTI DI TEST
                     //Console.WriteLine(i.Item1.Cod_prodotto);
                     //Console.WriteLine(i.Item2);
                     //Console.WriteLine(cod_utente);
@@ -190,7 +189,6 @@ namespace Server
                 }
                 Console.WriteLine(totale);
                 float tot = (float)totale;
-                //SqlMoney tot = (SqlMoney)totale;
 
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
@@ -273,8 +271,6 @@ namespace Server
                     conn.Open();
                     using (SqlCommand command = conn.CreateCommand())
                     {
-
-                        //command.CommandText = "Select Id,Data,Totale,CodiceUtente from Ordine Where CodiceUtente='" + cod_utente + "'";
                         command.CommandText = "Select O.Id,O.Data,O.Totale,O.CodiceUtente,dt.IdArticolo,p.Nome, dt.Quantita,p.Prezzo from Ordine as O join DettagliOrdine as DT on o.Id = dt.IdOrdine join Prodotto as P on dt.IdArticolo = p.CodiceProdotto where CodiceUtente='" + cod_utente + "'";
 
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -358,7 +354,6 @@ namespace Server
                 string categoria = p.Categoria;
                 string marca = p.Marca;
                 string nome = p.Nome;
-                //Decimal prezzo = p.Prezzo;
                 var prezzo = p.Prezzo;
                 int quantita = p.Quantita;
                 string descrizione = p.Descrizione;
@@ -391,15 +386,6 @@ namespace Server
             try
             {
                 int cod_prodotto = p.Cod_prodotto;
-                /*string categoria = p.Categoria;
-                string marca = p.Marca;
-                string nome = p.Nome;
-                Decimal prezzo = p.Prezzo;
-                int quantita = p.Quantita;
-                string descrizione = p.Descrizione;
-                string codice_venditore = p.Cod_venditore;*/
-
-
                 string stringa = ConfigurationManager.ConnectionStrings["stringaConnessione"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(stringa))
                 {
@@ -483,7 +469,7 @@ namespace Server
                                 u.Indirizzo = reader.GetString(5);
                                 u.Citta = reader.GetString(6);
                                 u.Credito = reader.GetDecimal(7);
-                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));//reader.GetInt32(8); sollevava eccezione di invalid cast
+                                u.Tipologia = Convert.ToInt32(reader.GetBoolean(8));
                             }
                         }
                     }

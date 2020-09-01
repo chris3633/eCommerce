@@ -101,7 +101,7 @@ namespace Client
                 Console.WriteLine(ex.Message);
                 Console.ReadLine();
             }
-            finally { }
+           
 
             bool Registrazione()
             {
@@ -162,13 +162,12 @@ namespace Client
 
                     } while (errore == true);
 
-                    UtenteManager u1 = new UtenteManager();//creo utente lato manager
-                    u1.Codice = Codice;//assegno dati client a utente manager
+                    UtenteManager u1 = new UtenteManager();//viene creato un utente tipo manager
+                    u1.Codice = Codice;//assegno dati all'utente manager
                     u1.Nome = nome;
                     u1.Cognome = cognome;
                     u1.Email = email;
                     u1.Password = password;
-                    //u1.Credito = credito;
                     u1.Indirizzo = indirizzo;
                     u1.Citta = citta;
                     u1.Tipologia = tipologia;
@@ -198,7 +197,7 @@ namespace Client
                         email = Console.ReadLine();
                         Console.WriteLine("Password:");
                         password = Console.ReadLine();
-                        errore = wcfclient.Controlla_credenziali(email, password);
+                        errore = wcfclient.Controlla_credenziali(email, password);//controlla che le credenziali siano presenti nel db
                         if (errore == false)
                         {
                             u = wcfclient.Accedi(email, password);
@@ -311,7 +310,7 @@ namespace Client
                     decimal prezzoMax = 0;
                     bool pmax = false;
                     bool errore = false;
-                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager una lista di prodotti manager
 
                     do
                     {
@@ -505,18 +504,18 @@ namespace Client
                     decimal totale=0;
                     DateTime data=DateTime.Now;
                     
-                    var idMax=ordini_manager.Select(ord => ord).Max(ord=>ord.Id_ordine);//trovo l'ultimo id ordine inserito ossia il massimo
+                    var idMax=ordini_manager.Select(ord => ord).Max(ord=>ord.Id_ordine);//trovo l'ultimo id dell'ordine inserito ossia il massimo
 
                     foreach (var i in ordini_manager)
                     {
                         if (i.Id_ordine == idMax) { 
-                            nameFile = "RiepilogoOrdine_" + Convert.ToString(i.Id_ordine) + "_" + i.Data.ToString("yyyyMMddHHmmss") + ".txt";
+                            nameFile = "RiepilogoOrdine_" + Convert.ToString(i.Id_ordine) + "_" + i.Data.ToString("yyyyMMddHHmmss") + ".txt";//creazione del nome del file
                             totale = i.Totale;
                             data = i.Data;
                         }
                         
                     }
-                    using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, nameFile)))
+                    using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, nameFile)))//scrive informazioni su file
                     {
                         outputFile.WriteLine("--------------------------------------------------");
                         outputFile.WriteLine("\t       Negozio di eCommerce");
@@ -572,7 +571,6 @@ namespace Client
                 int cat, quantita;
                 string categoria, marca, nome, descr;
                 Decimal prezzo;
-                //SqlMoney prezzo;
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
                 do
                 {
@@ -591,7 +589,6 @@ namespace Client
                 nome = Console.ReadLine();
                 Console.WriteLine("Inserisci prezzo prodotto");
                 prezzo = Decimal.Parse(Console.ReadLine());
-                //prezzo = SqlMoney.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci quantità prodotto ");
                 quantita = int.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci descrizione prodotto ");
@@ -620,7 +617,7 @@ namespace Client
                     int cat = 0;
                     string categoria = "";
                     bool errore = false;
-                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager una lista di prodotti manager
 
                     do
                     {
@@ -700,7 +697,6 @@ namespace Client
                         {
                             if (codice == i.Cod_prodotto)
                             {
-                                //Console.WriteLine(i.Cod_prodotto);
                                 p.Cod_prodotto = i.Cod_prodotto;
                                 p.Categoria = i.Categoria;
                                 p.Marca = i.Marca;
@@ -749,7 +745,7 @@ namespace Client
                     int cat = 0;
                     string categoria = "";
                     bool errore = false;
-                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager una lista di prodotti manager
 
                     do
                     {
@@ -866,7 +862,7 @@ namespace Client
             {
                 List<VenditeManager> vendite_manager = new List<VenditeManager>();
                 var wcfclient = new ServiceReference1.ManagerServiceClient();
-                vendite_manager = wcfclient.Storico_vendite(cod_utente);
+                vendite_manager = wcfclient.Storico_vendite(cod_utente);//lista di ordini
                 foreach (var i in vendite_manager)
                 {
 
@@ -892,7 +888,7 @@ namespace Client
                     int cat = 0;
                     string categoria = "";
                     bool errore = false;
-                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager un array di prodotti manager
+                    List<ProdottoManager> lista = wcfclient.VisualizzaProdotti();//ottengo dal manager una lista di prodotti manager
 
                     do
                     {
@@ -958,7 +954,7 @@ namespace Client
                         Console.WriteLine("La ricerca non ha prodotto alcun risultato.");
                     else
                     {
-                        Console.WriteLine("Inserire il codice del prodotto interessato ");
+                        Console.WriteLine("Inserire il codice del prodotto interessato");
                         codice = int.Parse(Console.ReadLine());
                         foreach (var i in lista_filtrata)
                         {
@@ -1137,12 +1133,12 @@ namespace Client
                     var lista_filtrata = lista.Select(prod => prod);
                     if (tip == 1)
                     {
-                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        lista_filtrata = lista_filtrata.Select(utente => utente)
                         .Where(utente => utente.Codice.Trim().Length == 16);
                     }
                     else if (tip == 2)
                     {
-                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        lista_filtrata = lista_filtrata.Select(utente => utente)
                         .Where(utente => utente.Codice.Trim().Length == 11);
                     }
                     else
@@ -1243,17 +1239,17 @@ namespace Client
                     var lista_filtrata = lista.Select(prod => prod);
                     if (tip == 1)
                     {
-                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//seleziona i clienti
                         .Where(utente => utente.Codice.Trim().Length == 16);
                     }
                     else if (tip == 2)
                     {
-                        lista_filtrata = lista_filtrata.Select(utente => utente)//lista filtrata per categoria
+                        lista_filtrata = lista_filtrata.Select(utente => utente)//seleziona i venditori
                         .Where(utente => utente.Codice.Trim().Length == 11);
                     }
                     else
                     {
-                        lista_filtrata = lista_filtrata.Select(utente => utente);
+                        lista_filtrata = lista_filtrata.Select(utente => utente);//seleziona tutti gli utenti
                     }
 
                     Console.WriteLine("_____________________________________");

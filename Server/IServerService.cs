@@ -13,11 +13,8 @@ namespace Server
     [ServiceContract]
     public interface IServerService
     {
-        [OperationContract]
-        void DoWork();
-
-        //[OperationContract]
-        //int Raddoppia(int n);
+        /*[OperationContract]
+        void DoWork();*/
 
         [OperationContract]
         bool Registra(UtenteServer u2);
@@ -83,18 +80,6 @@ namespace Server
         public string Password { get => password; set => password = value; }
         public decimal Credito { get => credito; set => credito = value; }
         public int Tipologia { get => tipologia; set => tipologia = value; }
-
-
-        /*public UtenteServer(string cf, string n, string c, string e, string p, string i, string ct)//costruttore
-        {
-            codice_fiscale = cf;
-            nome = n;
-            cognome = c;
-            email = e;
-            password = p;
-            indirizzo = i;
-            citta = ct;
-        }*/
 
     }
     [DataContract]
