@@ -22,9 +22,9 @@ namespace Client
             {
                 var wcfclient = new ServiceReference1.ManagerServiceClient();//wcf client creato
 
-                Console.WriteLine("WCF Client creato");
+                //Console.WriteLine("WCF Client creato");
 
-                Console.WriteLine("WCF client - chiamata al servizio...");
+                //Console.WriteLine("WCF client - chiamata al servizio...");
                 int attivita = 0;
                 Console.WriteLine("----------------------------------------");
                 Console.WriteLine("Benvenuto sulla piattaforma di eCommerce");
@@ -65,7 +65,6 @@ namespace Client
                             }
                             catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-
                             break;
                         case 3://Registrazione utente (cliente/venditore)
                             bool esito = Registrazione();
@@ -93,7 +92,7 @@ namespace Client
 
                 } while (attivita != 4);
 
-                Console.WriteLine("WCF client - chiamata al servizio ok");
+                //Console.WriteLine("WCF client - chiamata al servizio ok");
 
                 Console.ReadLine();
             }
@@ -590,7 +589,7 @@ namespace Client
                 marca = Console.ReadLine();
                 Console.WriteLine("Inserisci nome prodotto ");
                 nome = Console.ReadLine();
-                Console.WriteLine("Inserisci prezzo prodotto (, come separatore Decimale!) ");
+                Console.WriteLine("Inserisci prezzo prodotto");
                 prezzo = Decimal.Parse(Console.ReadLine());
                 //prezzo = SqlMoney.Parse(Console.ReadLine());
                 Console.WriteLine("Inserisci quantità prodotto ");

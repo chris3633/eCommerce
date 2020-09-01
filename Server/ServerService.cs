@@ -212,10 +212,10 @@ namespace Server
 
                         foreach (var i in carrello)
                         {
-                            Console.WriteLine(i.Item1.Nome);
-                            Console.WriteLine(i.Item1.Cod_prodotto);
-                            Console.WriteLine(i.Item2);
-                            Console.WriteLine(cod_utente);
+                            //Console.WriteLine(i.Item1.Nome);
+                            //Console.WriteLine(i.Item1.Cod_prodotto);
+                            //Console.WriteLine(i.Item2);
+                            //Console.WriteLine(cod_utente);
                             command.CommandText = "Insert into DettagliOrdine (IdOrdine,IdArticolo,Quantita,Prezzo) VALUES ('" + id_ordine + "', '" + i.Item1.Cod_prodotto + "', '" + i.Item2 + "', '" + Convert.ToDouble(i.Item1.Prezzo) + "')";
                             command.ExecuteNonQuery();
                             command.CommandText = "Update Prodotto Set Quantita=Quantita-'" + i.Item2 + "' Where CodiceProdotto ='" + i.Item1.Cod_prodotto + "'";
